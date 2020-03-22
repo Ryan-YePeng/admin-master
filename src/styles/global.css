@@ -1,0 +1,74 @@
+html, body {
+  overflow: hidden;
+}
+
+html, body, #app, .el-container {
+  height: 100%;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+
+.clearfix:after {
+  clear: both
+}
+
+.box-card {
+  width: 100%;
+}
+
+.el-card__header {
+  padding: 8px 10px;
+}
+
+.el-card__body {
+  padding: 10px;
+}
+
+.el-dialog__header,
+.el-form-item__label {
+  font-weight: 600;
+}
+
+.el-input-number .el-input__inner {
+  text-align: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.ml-5 {
+  margin-left: 5px;
+}
+
+.ml-10 {
+  margin-left: 10px;
+}
+
+.ml-15 {
+  margin-left: 15px;
+}
+
+.ml-20 {
+  margin-left: 20px;
+}
+
+.mb-5 {
+  margin-bottom: 5px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.mb-15 {
+  margin-bottom: 15px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
