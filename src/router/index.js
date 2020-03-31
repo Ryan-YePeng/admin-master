@@ -57,7 +57,7 @@ export function generateRouter() {
       router.addRoutes([layout]);
       router.addRoutes([{path: "*", redirect: "/404"}]);
       resolve()
-    });
+    })
   })
 }
 

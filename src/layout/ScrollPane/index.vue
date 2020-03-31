@@ -109,7 +109,7 @@
       transition: .3s;
       box-shadow: 0 3px 6px rgba(0, 0, 0, .5);
       opacity: .5;
-      z-index: 100;
+      z-index: 3000;
     }
 
     .el-icon-caret-top {

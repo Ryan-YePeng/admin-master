@@ -6,12 +6,9 @@ import router from '@/router'
  * @description 下划线转大驼峰 edit_form => EditForm
  *
  * */
-const transformName = value => {
-  return value.replace(/\_(\w)|\b(\w)/g, name => {
-    name = name.toUpperCase();
-    return name.replace(/\_|\s/g, '');
-  });
-};
+const transformName = value =>
+      value.replace(/[_](\w)|\b(\w)/g, name =>
+          name.toUpperCase().replace(/[_]/g, ''));
 
 const type = {
   SET_CACHE: 'SET_CACHE',

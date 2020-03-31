@@ -1,45 +1,37 @@
 <template>
   <el-dialog
           title="编辑角色"
-          width="580px"
+          width="600px"
           @close="cancel"
           :close-on-click-modal="false"
           :visible.sync="visible">
     <el-form :model="form" :rules="rules" ref="Form" label-width="120px" hide-required-asterisk>
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="角色名称" prop="nameZh">
-            <el-input v-model="form.nameZh"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="角色权限">
-            <el-input v-model="form.roleName"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="角色级别" prop="level">
-            <el-input-number
-                    v-model="form.level"
-                    controls-position="right"
-                    :min="1">
-            </el-input-number>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="数据范围">
-            <el-select v-model="form.dataScope">
-              <el-option label="全部" value="全部"></el-option>
-              <el-option label="本级" value="本级"></el-option>
-              <el-option label="自定义" value="自定义"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-      </el-row>
+      <el-form-item label="角色名称" prop="roleName">
+        <el-input v-model="form.roleName"></el-input>
+      </el-form-item>
+      <el-form-item label="角色级别" prop="level">
+        <el-input-number
+                v-model="form.level"
+                controls-position="right"
+                :min="level">
+        </el-input-number>
+      </el-form-item>
+      <el-form-item label="数据范围">
+        <el-select v-model="form.dataScope">
+          <el-option label="全部" value="全部"></el-option>
+          <el-option label="本级" value="本级"></el-option>
+          <el-option label="自定义" value="自定义"></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="数据权限" v-if="form.dataScope==='自定义'">
-        <tree-select v-model="form.permission" :options="dept" :normalizer="normalizer" placeholder=""/>
+        <tree-select v-model="form.deptIds"
+                     :options="dept"
+                     :normalizer="normalizer"
+                     multiple
+                     :flat="true"
+                     :default-expand-level="1"
+                     sort-value-by="INDEX"
+                     placeholder=""/>
       </el-form-item>
       <el-form-item label="描述">
         <el-input type="textarea" v-model="form.remark"></el-input>
@@ -55,10 +47,9 @@
 <script>
   import TreeSelect from '@riophae/vue-treeselect'
   import {updateRoleApi} from '@/api/role'
-  import {isEmpty} from "@/utils/common";
 
   export default {
-    name: "AddRole",
+    name: "EditRole",
     components: {TreeSelect},
     props: {
       dept: {
@@ -73,8 +64,8 @@
       return {
         normalizer(node) {
           return {
-            id: node.menuId,
-            label: node.title
+            id: node.deptId,
+            label: node.deptName
           }
         },
         visible: false,
@@ -85,10 +76,11 @@
           dataScope: '本级',
           level: 1,
           permission: '',
+          deptIds: [],
           remark: ''
         },
         rules: {
-          nameZh: {required: true, message: '请输入名称', trigger: 'blur'},
+          roleName: {required: true, message: '请输入名称', trigger: 'blur'},
           level: {required: true, message: '请输入角色级别', trigger: 'blur'}
         }
       }

@@ -75,7 +75,12 @@
         </el-col>
       </el-row>
       <el-form-item label="上级类目">
-        <tree-select v-model="form.pid" :options="menu" :normalizer="normalizer" placeholder=""/>
+        <tree-select
+                v-model="form.pid"
+                :options="menu"
+                :normalizer="normalizer"
+                :default-expand-level="1"
+                placeholder=""/>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">

@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card">
     <div slot="header" class="clearfix">
-      <el-input placeholder="全表模糊搜索" v-model="searchText" clearable style="width: 200px"
+      <el-input placeholder="全表模糊搜索" v-model="searchText" clearable class="w-200"
                 @keyup.enter.native="getOnlineUser"/>
       <el-button type="success" class="el-icon-search ml-5" @click="getOnlineUser">搜索</el-button>
     </div>

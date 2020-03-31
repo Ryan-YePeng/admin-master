@@ -1,9 +1,9 @@
 <template>
   <el-card class="box-card">
     <div slot="header" class="clearfix">
-      <el-input placeholder="输入部门名称搜索" v-model="searchName" clearable style="width: 200px"
-                @keyup.enter.native="getDeptTree"/>
-      <el-button type="success" class="el-icon-search ml-5" @click="getDeptTree">搜索</el-button>
+      <el-input placeholder="输入部门名称搜索" v-model="searchName" clearable class="w-200"
+                @keyup.enter.native="searchDept"/>
+      <el-button type="success" class="el-icon-search ml-5" @click="searchDept">搜索</el-button>
       <el-button class="float-right" type="primary" icon="el-icon-plus" @click="add">新增</el-button>
     </div>
     <el-table v-loading="isTableLoading"
@@ -28,8 +28,8 @@
         </template>
       </el-table-column>
     </el-table>
-    <add-dept ref="AddDept" :dept="formData" @update="getDeptTree"/>
-    <edit-dept ref="EditDept" :dept="formData" @update="getDeptTree"/>
+    <add-dept ref="AddDept" :dept="dept" @update="getDeptTree"/>
+    <edit-dept ref="EditDept" :dept="dept" @update="getDeptTree"/>
   </el-card>
 </template>
 
@@ -46,6 +46,7 @@
       return {
         isTableLoading: false,
         formData: [],
+        dept: [],
         searchName: ''
       }
     },
@@ -54,6 +55,14 @@
     },
     methods: {
       getDeptTree() {
+        this.isTableLoading = true;
+        getDeptTreeApi('').then(result => {
+          this.isTableLoading = false;
+          this.formData = result.resultParam.deptTree;
+          this.dept = result.resultParam.deptTree;
+        })
+      },
+      searchDept() {
         this.isTableLoading = true;
         getDeptTreeApi(this.searchName).then(result => {
           this.isTableLoading = false;

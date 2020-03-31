@@ -1,11 +1,11 @@
 import axios from "axios";
-import qs from 'qs'
-import {timeout} from '@/settings'
-import {MessageBox} from 'element-ui'
-import {errorMessage, successMsg, errorMsg} from '@/utils/EUI'
-import router from '@/router'
-import store from '@/store'
-import {isEmpty} from "@/utils/common";
+import qs from "qs";
+import { timeout } from "@/settings";
+import { MessageBox } from "element-ui";
+import { errorMessage, successMsg, errorMsg } from "@/utils/EUI";
+import router from "@/router";
+import store from "@/store";
+import { isEmpty } from "@/utils/common";
 
 let errorStatus = null;
 
@@ -17,83 +17,77 @@ const service = axios.create({
 
 //请求拦截
 service.interceptors.request.use(
-    config => { //成功
-      let token = store.getters.token;
-      let url = config.url;
-      if (isAddToken(url)) {
-        config.headers.Authorization = token
-      }
-      return config
-    },
-    error => { //错误
-      errorMessage('请求错误！');
-      return Promise.reject(error)
-    }
+  config => {
+    //成功
+    let token = store.getters.token;
+    let url = config.url;
+    if (isAddToken(url)) config.headers.Authorization = token;
+    return config;
+  },
+  error => {
+    //错误
+    errorMessage("请求错误！");
+    return Promise.reject(error);
+  }
 );
 
 //响应拦截
 service.interceptors.response.use(
-    response => { //成功
-      const {message, status} = response.data;
-      if (!isEmpty(message) && status === 200) {
-        successMsg(message)
-      }
-      if (!isEmpty(message) && status !== 200) {
-        errorMsg(message)
-      }
-      return response.data
-    },
-    error => { //错误
-      /* 请求超时！*/
-      if (error.toString().includes('timeout')) {
-        errorMessage('网络请求超时！');
-        return Promise.reject(error)
-      }
-      /* 网络错误！ */
-      let statusText = '';
-      try {
-        statusText = error.response.statusText
-      } finally {
-        if (statusText === 'Internal Server Error') {
-          errorMessage('网络错误，请检查您的网络状况！')
-        }
-      }
-      const {status, message} = error.response.data;
-      /* 401 */
-      if (status === 401) {
-        if (errorStatus === status) return;
-        errorStatus = status;
-        MessageBox.confirm(
-            '登录状态已过期，您可以继续留在该页面，或者重新登录',
-            '系统提示',
-            {
-              confirmButtonText: '重新登录',
-              cancelButtonText: '取消',
-              type: 'warning'
-            }
-        ).then(() => {
-          router.push({name: 'login'})
-        }).catch(() => errorStatus = null)
-      }
-      /* 403 */
-      else if (status === 403) {
-        router.push({name: 'error403'})
-      }
-      /* elseStatus */
-      else {
-        if (!isEmpty(message)) errorMsg(message);
-      }
-      return Promise.reject(error)
+  response => {
+    //成功
+    const { message, status } = response.data;
+    if (!isEmpty(message) && status === 200) successMsg(message);
+    if (!isEmpty(message) && status !== 200) errorMsg(message);
+    return response.data;
+  },
+  error => {
+    //错误
+    /* 请求超时！*/
+    if (error.toString().includes("timeout")) {
+      errorMessage("网络请求超时！");
+      return Promise.reject(error);
     }
+    /* 网络错误！ */
+    let statusText = "";
+    try {
+      statusText = error.response.statusText;
+    } finally {
+      if (statusText === "Internal Server Error")
+        errorMessage("网络错误，请检查您的网络状况！");
+    }
+    const { status, message } = error.response.data;
+    /* 401 */
+    if (status === 401) {
+      if (errorStatus === status) return;
+      errorStatus = status;
+      MessageBox.confirm(
+        "登录状态已过期，您可以继续留在该页面，或者重新登录",
+        "系统提示",
+        {
+          confirmButtonText: "重新登录",
+          cancelButtonText: "取消",
+          type: "warning"
+        }
+      )
+        .then(() => {
+          router.push({ name: "login" });
+        })
+        .catch(() => (errorStatus = null));
+    } else if (status === 403) {
+      /* 403 */
+      router.push({ name: "error403" });
+    } else {
+      /* elseStatus */
+      if (!isEmpty(message)) errorMsg(message);
+    }
+    return Promise.reject(error);
+  }
 );
 
 /**
  * @description 白名单，不添加token的接口
  * */
-const ignoreTokenArray = [
-  "admin/login",
-  "admin/getCode"
-];
+const ignoreTokenArray = ["admin/login", "admin/getCode"];
 const isAddToken = url => {
   return ignoreTokenArray.every(item => {
     return url !== item;
@@ -109,11 +103,9 @@ export const axiosG = url => {
     service({
       method: "get",
       url: url
-    }).then(result => {
-      resolve(result);
-    }).catch(error => {
-      reject(error);
-    });
+    })
+      .then(result => resolve(result))
+      .catch(error => reject(error));
   });
 };
 /**
@@ -125,11 +117,9 @@ export const axiosD = url => {
     service({
       method: "delete",
       url: url
-    }).then(result => {
-      resolve(result);
-    }).catch(error => {
-      reject(error);
-    });
+    })
+      .then(result => resolve(result))
+      .catch(error => reject(error));
   });
 };
 /**
@@ -142,11 +132,9 @@ export const axiosDs = (url, param) => {
     service({
       method: "delete",
       url: `${url}/${param.join(",")}`
-    }).then(result => {
-      resolve(result);
-    }).catch(error => {
-      reject(error);
-    });
+    })
+      .then(result => resolve(result))
+      .catch(error => reject(error));
   });
 };
 /**
@@ -163,14 +151,10 @@ export const axiosK = (url, param) => {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      transformRequest: [(data) => {
-        return qs.stringify(data)
-      }]
-    }).then(result => {
-      resolve(result);
-    }).catch(error => {
-      reject(error);
-    });
+      transformRequest: [data => qs.stringify(data)]
+    })
+      .then(result => resolve(result))
+      .catch(error => reject(error));
   });
 };
 /**
@@ -187,14 +171,10 @@ export const axiosP = (url, param) => {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      transformRequest: [(data) => {
-        return qs.stringify(data)
-      }]
-    }).then(result => {
-      resolve(result);
-    }).catch(error => {
-      reject(error);
-    });
+      transformRequest: [data => qs.stringify(data)]
+    })
+      .then(result => resolve(result))
+      .catch(error => reject(error));
   });
 };
 /**
@@ -211,14 +191,14 @@ export const axiosJ = (url, param) => {
       headers: {
         "Content-Type": "application/json"
       },
-      transformRequest: [data => {
-        return JSON.stringify(data);
-      }]
-    }).then(result => {
-      resolve(result);
-    }).catch(error => {
-      reject(error);
-    });
+      transformRequest: [
+        data => {
+          return JSON.stringify(data);
+        }
+      ]
+    })
+      .then(result => resolve(result))
+      .catch(error => reject(error));
   });
 };
 /**
@@ -235,11 +215,9 @@ export const axiosF = (url, param) => {
       headers: {
         "Content-Type": "multipart/form-data"
       }
-    }).then(result => {
-      resolve(result);
-    }).catch(error => {
-      reject(error);
-    });
+    })
+      .then(result => resolve(result))
+      .catch(error => reject(error));
   });
 };
 /**
@@ -256,24 +234,24 @@ export const axiosFs = (url, param) => {
       headers: {
         "Content-Type": "multipart/form-data"
       },
-      transformRequest: [data => {
-        const formData = new FormData();
-        for (let key in data) {
-          if (data[key] instanceof Array) {
-            for (let i = 0; i < data[key].length; i++) {
-              formData.append(key, data[key][i]);
+      transformRequest: [
+        data => {
+          const formData = new FormData();
+          for (let key in data) {
+            if (data[key] instanceof Array) {
+              for (let i = 0; i < data[key].length; i++) {
+                formData.append(key, data[key][i]);
+              }
+            } else {
+              formData.append(key, data[key]);
             }
-          } else {
-            formData.append(key, data[key]);
           }
+          return formData;
         }
-        return formData;
-      }]
-    }).then(result => {
-      resolve(result);
-    }).catch(error => {
-      reject(error);
-    });
+      ]
+    })
+      .then(result => resolve(result))
+      .catch(error => reject(error));
   });
 };
 /**
@@ -286,10 +264,8 @@ export const axiosL = url => {
       method: "get",
       url: url,
       responseType: "blob"
-    }).then(result => {
-      resolve(result);
-    }).catch(error => {
-      reject(error);
-    });
+    })
+      .then(result => resolve(result))
+      .catch(error => reject(error));
   });
 };

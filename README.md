@@ -7,9 +7,9 @@
 #### Build Setup
 ``` bash
 # 安装依赖
-npm install
+npm i / cnpm i
 
-# 启动服务 localhost:8013
+# 启动服务 localhost:8088
 npm run dev
 
 # 构建生产环境

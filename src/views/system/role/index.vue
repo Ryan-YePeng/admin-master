@@ -1,9 +1,12 @@
 <template>
   <el-row :gutter="20">
-    <el-col :sm="24" :md="16" class="mb-15">
+    <el-col :sm="24" :md="17" class="mb-15">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <el-button type="primary" icon="el-icon-plus" @click="add">新增</el-button>
+          <el-input placeholder="输入角色名称搜索" v-model="searchRoleName" clearable class="w-200"
+                    @keyup.enter.native="getRoleList"/>
+          <el-button type="success" class="el-icon-search ml-5" @click="getRoleList">搜索</el-button>
+          <el-button type="primary" icon="el-icon-plus" @click="add" class="float-right">新增</el-button>
         </div>
         <el-table
                 v-loading="isTableLoading"
@@ -13,10 +16,15 @@
                 :highlight-current-row="true"
         >
           <el-table-column prop="nameZh" label="名称"></el-table-column>
+          <el-table-column prop="roleName" label="名称"></el-table-column>
           <el-table-column prop="dataScope" label="数据权限"></el-table-column>
-          <el-table-column prop="roleName" label="角色权限"></el-table-column>
           <el-table-column prop="level" label="角色级别"></el-table-column>
-          <el-table-column prop="remark" label="描述"></el-table-column>
+          <el-table-column prop="remark" label="描述" :show-overflow-tooltip="true"></el-table-column>
+          <el-table-column label="创建时间" :show-overflow-tooltip="true">
+            <template slot-scope="scope">
+              <span>{{scope.row.createTime | formatDateTime}}</span>
+            </template>
+          </el-table-column>
           <el-table-column label="操作" fixed="right" align="center" width="150">
             <template slot-scope="scope">
               <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
@@ -29,7 +37,7 @@
         </el-table>
       </el-card>
     </el-col>
-    <el-col :sm="24" :md="8">
+    <el-col :sm="24" :md="7">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
           <span class="header">菜单分配</span>
@@ -78,6 +86,7 @@
         menuIds: [],
         roleId: null,
         level: null,
+        searchRoleName: ''
       }
     },
     mounted() {
@@ -103,7 +112,7 @@
       },
       getRoleList() {
         this.isTableLoading = true;
-        getRoleListApi().then(result => {
+        getRoleListApi(this.searchRoleName).then(result => {
           this.isTableLoading = false;
           this.formData = result.resultParam.roleList;
           this.clearChecked();
@@ -142,6 +151,7 @@
       edit(obj) {
         let _this = this.$refs.EditRole;
         objectEvaluate(_this.form, obj);
+        _this.form.deptIds = obj.depts.map(item => item.deptId);
         _this.visible = true
       },
       deleteRole(id) {

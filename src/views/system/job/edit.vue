@@ -23,7 +23,12 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="所属部门" prop="deptId">
-        <tree-select v-model="form.deptId" :options="dept" :normalizer="normalizer" placeholder=""/>
+        <tree-select
+                v-model="form.deptId"
+                :options="dept"
+                :normalizer="normalizer"
+                :default-expand-level="1"
+                placeholder=""/>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">

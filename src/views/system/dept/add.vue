@@ -16,7 +16,12 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="上级部门">
-        <tree-select v-model="form.pid" :options="dept" :normalizer="normalizer" placeholder=""/>
+        <tree-select
+                v-model="form.pid"
+                :options="dept"
+                :normalizer="normalizer"
+                :default-expand-level="1"
+                placeholder=""/>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">

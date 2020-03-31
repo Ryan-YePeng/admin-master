@@ -1,0 +1,167 @@
+<template>
+  <el-dialog
+          title="新增用户"
+          width="600px"
+          @close="cancel"
+          :close-on-click-modal="false"
+          :visible.sync="visible">
+    <el-form :model="form" :rules="rules" ref="Form" label-width="80px" hide-required-asterisk>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="用户名" prop="username">
+            <el-input v-model="form.username"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="电话">
+            <el-input v-model="form.phone"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="昵称">
+            <el-input v-model="form.nickName"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="邮箱">
+            <el-input v-model="form.email"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="部门">
+            <tree-select v-model="form.deptId"
+                         :options="dept"
+                         :normalizer="normalizer"
+                         placeholder=""/>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="岗位">
+            <el-select v-model="form.jobId" placeholder="请先选择部门">
+              <el-option label="全部" value="全部"></el-option>
+              <el-option label="本级" value="本级"></el-option>
+              <el-option label="自定义" value="自定义"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="性别">
+            <el-radio-group v-model="form.sex">
+              <el-radio label="男"></el-radio>
+              <el-radio label="女"></el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="状态">
+            <el-radio-group v-model="form.enabled">
+              <el-radio :label="true">激活</el-radio>
+              <el-radio :label="false">禁用</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-form-item label="角色">
+        <el-select v-model="form.roleId" clearable class="w-100">
+          <el-option
+                  v-for="item in roleList"
+                  :label="item.nameZh"
+                  :value="item.roleId"
+                  :key="item.roleId"/>
+        </el-select>
+      </el-form-item>
+
+    </el-form>
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="visible = false">取 消</el-button>
+      <submit-button ref="SubmitButton" @submit="submitForm"/>
+    </div>
+  </el-dialog>
+</template>
+
+<script>
+  import TreeSelect from '@riophae/vue-treeselect'
+  import {addUserApi} from '@/api/user'
+
+  export default {
+    name: "AddUser",
+    components: {TreeSelect},
+    props: {
+      dept: {
+        type: Array,
+        default: []
+      },
+      roleList: {
+        type: Array,
+        default: []
+      }
+    },
+    data() {
+      return {
+        normalizer(node) {
+          return {
+            id: node.deptId,
+            label: node.deptName
+          }
+        },
+        visible: false,
+        form: {
+          username: '',
+          nickName: '',
+          sex: '男',
+          phone: '',
+          email: '',
+          deptId: null,
+          jobId: null,
+          enabled: true,
+          roleId: null
+        },
+        rules: {
+          username: {required: true, message: '请输入用户名', trigger: 'blur'}
+        }
+      }
+    },
+    methods: {
+      submitForm() {
+        this.$refs['Form'].validate((valid) => {
+          if (valid) {
+            let data = {...this.form};
+            console.log(data)
+            return
+            this.$refs.SubmitButton.start();
+            addUserApi(data).then(() => {
+              this.$refs.SubmitButton.stop();
+              this.$emit('update');
+              this.cancel()
+            }).catch(() => {
+              this.$refs.SubmitButton.stop();
+            })
+          } else {
+            return false;
+          }
+        });
+      },
+      cancel() {
+        this.visible = false;
+        Object.assign(this.$data.form, this.$options.data().form);
+        this.$refs['Form'].resetFields()
+      }
+    }
+  }
+</script>
+
+<style lang="scss">
+  .el-textarea__inner {
+    height: 120px;
+  }
+</style>

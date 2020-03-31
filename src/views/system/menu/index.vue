@@ -1,7 +1,10 @@
 <template>
   <el-card class="box-card">
     <div slot="header" class="clearfix">
-      <el-button type="primary" icon="el-icon-plus" @click="add">新增</el-button>
+      <el-input placeholder="输入菜单名称搜索" v-model="searchTitle" clearable class="w-200"
+                @keyup.enter.native="searchMenu"/>
+      <el-button type="success" class="el-icon-search ml-5" @click="searchMenu">搜索</el-button>
+      <el-button type="primary" icon="el-icon-plus" @click="add" class="float-right">新增</el-button>
     </div>
     <el-table v-loading="isTableLoading"
               :data="formData"
@@ -44,8 +47,8 @@
         </template>
       </el-table-column>
     </el-table>
-    <add-menu ref="AddMenu" :menu="formData" @update="getMenu"/>
-    <edit-menu ref="EditMenu" :menu="formData" @update="getMenu"/>
+    <add-menu ref="AddMenu" :menu="menu" @update="getMenu"/>
+    <edit-menu ref="EditMenu" :menu="menu" @update="getMenu"/>
   </el-card>
 </template>
 
@@ -62,7 +65,9 @@
       return {
         isTableLoading: false,
         isDeleteLoading: false,
-        formData: []
+        formData: [],
+        menu: [],
+        searchTitle: ''
       }
     },
     mounted() {
@@ -71,9 +76,17 @@
     methods: {
       getMenu() {
         this.isTableLoading = true;
-        getAllMenuApi().then(result => {
+        getAllMenuApi('').then(result => {
           this.isTableLoading = false;
-          this.formData = result.resultParam.menuList
+          this.formData = result.resultParam.menuList;
+          this.menu = result.resultParam.menuList
+        })
+      },
+      searchMenu() {
+        this.isTableLoading = true;
+        getAllMenuApi(this.searchTitle).then(result => {
+          this.isTableLoading = false;
+          this.formData = result.resultParam.menuList;
         })
       },
       deleteMenu(id) {

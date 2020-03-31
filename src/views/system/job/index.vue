@@ -1,6 +1,9 @@
 <template>
   <el-card class="box-card">
     <div slot="header" class="clearfix">
+      <el-input placeholder="输入岗位名称搜索" v-model="searchJobName" clearable class="w-200"
+                @keyup.enter.native="getJobList"/>
+      <el-button type="success" class="el-icon-search ml-5" @click="getJobList">搜索</el-button>
       <el-button class="float-right" type="primary" icon="el-icon-plus" @click="add">新增</el-button>
     </div>
     <div>
@@ -57,7 +60,8 @@
       return {
         isTableLoading: false,
         formData: [],
-        tree: []
+        tree: [],
+        searchJobName: ''
       }
     },
     mounted() {
@@ -70,7 +74,7 @@
       getJobList() {
         this.isTableLoading = true;
         let pagination = this.$refs.Pagination;
-        let param = `current=${pagination.current}&size=${pagination.size}`;
+        let param = `current=${pagination.current}&size=${pagination.size}&jobName=${this.searchJobName}`;
         getJobListApi(param).then(result => {
           this.isTableLoading = false;
           let response = result.resultParam.jobList;
