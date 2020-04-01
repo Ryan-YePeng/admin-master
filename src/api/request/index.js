@@ -1,10 +1,10 @@
 import axios from "axios";
 import qs from "qs";
+import router from "@/router";
+import store from "@/store";
 import { timeout } from "@/settings";
 import { MessageBox } from "element-ui";
 import { errorMessage, successMsg, errorMsg } from "@/utils/EUI";
-import router from "@/router";
-import store from "@/store";
 import { isEmpty } from "@/utils/common";
 
 let errorStatus = null;
@@ -18,42 +18,45 @@ const service = axios.create({
 //请求拦截
 service.interceptors.request.use(
   config => {
-    //成功
     let token = store.getters.token;
     let url = config.url;
     if (isAddToken(url)) config.headers.Authorization = token;
     return config;
   },
   error => {
-    //错误
     errorMessage("请求错误！");
     return Promise.reject(error);
   }
 );
 
-//响应拦截
+// 响应拦截
 service.interceptors.response.use(
   response => {
-    //成功
     const { message, status } = response.data;
     if (!isEmpty(message) && status === 200) successMsg(message);
     if (!isEmpty(message) && status !== 200) errorMsg(message);
     return response.data;
   },
   error => {
-    //错误
     /* 请求超时！*/
     if (error.toString().includes("timeout")) {
       errorMessage("网络请求超时！");
       return Promise.reject(error);
     }
-    /* 网络错误！ */
-    let statusText = "";
-    try {
-      statusText = error.response.statusText;
-    } finally {
-      if (statusText === "Internal Server Error")
-        errorMessage("网络错误，请检查您的网络状况！");
+    /* 请求中断 */
+    if (
+      error.hasOwnProperty("message") &&
+      error.message === "Request Interruption"
+    ) {
+      return Promise.reject(error);
+    }
+    /* 网络错误 */
+    if (
+      error.response.hasOwnProperty("statusText") &&
+      error.response.statusText === "Internal Server Error"
+    ) {
+      errorMessage("网络错误，无法连接到服务器！");
+      return Promise.reject(error);
     }
     const { status, message } = error.response.data;
     /* 401 */
@@ -69,9 +72,7 @@ service.interceptors.response.use(
           type: "warning"
         }
       )
-        .then(() => {
-          router.push({ name: "login" });
-        })
+        .then(() => router.push({ name: "login" }))
         .catch(() => (errorStatus = null));
     } else if (status === 403) {
       /* 403 */
@@ -88,11 +89,7 @@ service.interceptors.response.use(
  * @description 白名单，不添加token的接口
  * */
 const ignoreTokenArray = ["admin/login", "admin/getCode"];
-const isAddToken = url => {
-  return ignoreTokenArray.every(item => {
-    return url !== item;
-  });
-};
+const isAddToken = url => ignoreTokenArray.every(item => url !== item);
 
 /**
  * @param {String} url 请求地址
@@ -148,9 +145,7 @@ export const axiosK = (url, param) => {
       method: "post",
       url: url,
       data: param,
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
       transformRequest: [data => qs.stringify(data)]
     })
       .then(result => resolve(result))
@@ -168,9 +163,7 @@ export const axiosP = (url, param) => {
       method: "put",
       url: url,
       data: param,
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
       transformRequest: [data => qs.stringify(data)]
     })
       .then(result => resolve(result))
@@ -188,14 +181,26 @@ export const axiosJ = (url, param) => {
       method: "post",
       url: url,
       data: param,
-      headers: {
-        "Content-Type": "application/json"
-      },
-      transformRequest: [
-        data => {
-          return JSON.stringify(data);
-        }
-      ]
+      headers: { "Content-Type": "application/json" },
+      transformRequest: [data => JSON.stringify(data)]
+    })
+      .then(result => resolve(result))
+      .catch(error => reject(error));
+  });
+};
+/**
+ * @param {String} url 请求地址
+ * @param {Object} param {name: LiHua, age: 18}
+ * @description post，JSON格式。
+ * */
+export const axiosU = (url, param) => {
+  return new Promise((resolve, reject) => {
+    service({
+      method: "put",
+      url: url,
+      data: param,
+      headers: { "Content-Type": "application/json" },
+      transformRequest: [data => JSON.stringify(data)]
     })
       .then(result => resolve(result))
       .catch(error => reject(error));
@@ -212,9 +217,7 @@ export const axiosF = (url, param) => {
       method: "post",
       url: url,
       data: param,
-      headers: {
-        "Content-Type": "multipart/form-data"
-      }
+      headers: { "Content-Type": "multipart/form-data" }
     })
       .then(result => resolve(result))
       .catch(error => reject(error));
@@ -223,32 +226,41 @@ export const axiosF = (url, param) => {
 /**
  * @param {String} url 请求地址
  * @param {Object} param {id: 1, file: [1.png, 2.png]}
+ * @param {Function=} callback 回调函数
+ * @param {Object=} source 中断请求
  * @description post，文件格式。
  * */
-export const axiosFs = (url, param) => {
+export const axiosFs = (url, param, callback, source) => {
+  let cancelToken;
+  if (!isEmpty(source)) cancelToken = source.token;
   return new Promise((resolve, reject) => {
     service({
       method: "post",
       url: url,
       data: param,
-      headers: {
-        "Content-Type": "multipart/form-data"
-      },
+      headers: { "Content-Type": "multipart/form-data" },
       transformRequest: [
         data => {
           const formData = new FormData();
           for (let key in data) {
-            if (data[key] instanceof Array) {
-              for (let i = 0; i < data[key].length; i++) {
-                formData.append(key, data[key][i]);
+            if (data.hasOwnProperty(key)) {
+              if (data[key] instanceof Array) {
+                for (let i = 0; i < data[key].length; i++) {
+                  formData.append(key, data[key][i]);
+                }
+              } else {
+                formData.append(key, data[key]);
               }
-            } else {
-              formData.append(key, data[key]);
             }
           }
           return formData;
         }
-      ]
+      ],
+      cancelToken: cancelToken,
+      onUploadProgress: progress => {
+        if (!isEmpty(callback))
+          callback(Math.round((progress.loaded / progress.total) * 100));
+      }
     })
       .then(result => resolve(result))
       .catch(error => reject(error));
