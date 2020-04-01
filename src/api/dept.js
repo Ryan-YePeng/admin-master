@@ -6,22 +6,9 @@ const getDeptTreeUrl = "test/getDeptTree?deptName="; // 分页获得部门列表
 const getDeptNameListUrl = "test/getDeptNameList"; // 获得部门列表名称
 const updateDeptUrl = "test/updateDept"; // 更新部门
 
-export function addDeptApi(data) {
-  return axiosK(addDeptUrl, data)
-}
+export const addDeptApi = data => axiosK(addDeptUrl, data);
+export const deleteDeptApi = data => axiosD(deleteDeptUrl + data);
+export const getDeptTreeApi = data => axiosG(getDeptTreeUrl + data);
+export const getDeptNameListApi = () => axiosG(getDeptNameListUrl);
+export const updateDeptApi = data => axiosP(updateDeptUrl, data);
 
-export function deleteDeptApi(data) {
-  return axiosD(deleteDeptUrl + data)
-}
-
-export function getDeptTreeApi(data) {
-  return axiosG(getDeptTreeUrl + data)
-}
-
-export function getDeptNameListApi() {
-  return axiosG(getDeptNameListUrl)
-}
-
-export function updateDeptApi(data) {
-  return axiosP(updateDeptUrl, data)
-}

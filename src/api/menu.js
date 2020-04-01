@@ -6,23 +6,8 @@ const updateMenuUrl = "test/updateMenu"; // 更改菜单
 const getMenuUrl = "test/getMenusTree"; // 获取菜单
 const getAllMenuUrl = "test/getAllMenuTree?title="; // 获取所有菜单
 
-export function addMenuApi(data) {
-  return axiosK(addMenuUrl, data);
-}
-
-export function deleteMenuApi(data) {
-  return axiosD(deleteMenuUrl + data);
-}
-
-export function updateMenuApi(data) {
-  return axiosP(updateMenuUrl, data);
-}
-
-export function getMenuApi() {
-  return axiosG(getMenuUrl);
-}
-
-export function getAllMenuApi(data) {
-  return axiosG(getAllMenuUrl + data);
-}
-
+export const addMenuApi = data => axiosK(addMenuUrl, data);
+export const deleteMenuApi = data => axiosD(deleteMenuUrl + data);
+export const updateMenuApi = data => axiosP(updateMenuUrl, data);
+export const getMenuApi = () => axiosG(getMenuUrl);
+export const getAllMenuApi = data => axiosG(getAllMenuUrl + data);

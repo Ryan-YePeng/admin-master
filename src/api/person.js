@@ -6,22 +6,8 @@ const updatePassUrl = "test/updatePass"; // 更改密码
 const getUserLogUrl = "test/getUserLog"; // 个人日志
 const getUserLevelUrl = "test/getUserLevel"; // 获得角色级别
 
-export function getUserApi() {
-  return axiosG(getUserUrl);
-}
-
-export function logoutApi() {
-  return axiosD(logoutUrl);
-}
-
-export function updatePassApi(data) {
-  return axiosK(updatePassUrl, data);
-}
-
-export function getUserLogApi() {
-  return axiosG(getUserLogUrl);
-}
-
-export function getUserLevelApi() {
-  return axiosG(getUserLevelUrl);
-}
+export const getUserApi = () => axiosG(getUserUrl);
+export const logoutApi = () => axiosD(logoutUrl);
+export const updatePassApi = data => axiosK(updatePassUrl, data);
+export const getUserLogApi = () => axiosG(getUserLogUrl);
+export const getUserLevelApi = () => axiosG(getUserLevelUrl);

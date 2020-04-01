@@ -10,38 +10,12 @@ const updateRoleUrl = "test/updateRole"; // 更改角色
 const getRoleTreeUrl = "test/getRoleTree"; // 获得权限树
 const updateRolesMenusUrl = "test/updateRolesMenus"; // 添加权限
 
-export function addRoleApi(data) {
-  return axiosFs(addRoleUrl, data)
-}
-
-export function addUserApi(data) {
-  return axiosK(addUserUrl, data)
-}
-
-export function deleteRoleApi(data) {
-  return axiosD(deleteRoleUrl + data)
-}
-
-export function getRoleListApi(data) {
-  return axiosG(getRoleListUrl + data)
-}
-
-export function getUserByIdApi(data) {
-  return axiosD(getUserByIdUrl + data)
-}
-
-export function getUserListApi() {
-  return axiosG(getUserListUrl)
-}
-
-export function updateRoleApi(data) {
-  return axiosP(updateRoleUrl, data)
-}
-
-export function getRoleTreeApi() {
-  return axiosG(getRoleTreeUrl)
-}
-
-export function updateRolesMenusApi(data) {
-  return axiosFs(updateRolesMenusUrl, data)
-}
+export const addRoleApi = data => axiosFs(addRoleUrl, data);
+export const addUserApi = data => axiosK(addUserUrl, data);
+export const deleteRoleApi = data => axiosD(deleteRoleUrl + data);
+export const getRoleListApi = data => axiosG(getRoleListUrl + data);
+export const getUserByIdApi = data => axiosD(getUserByIdUrl + data);
+export const getUserListApi = () => axiosG(getUserListUrl);
+export const updateRoleApi = data => axiosP(updateRoleUrl, data);
+export const getRoleTreeApi = () => axiosG(getRoleTreeUrl);
+export const updateRolesMenusApi = data => axiosFs(updateRolesMenusUrl, data);

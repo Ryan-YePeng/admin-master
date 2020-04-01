@@ -7,26 +7,9 @@ const getJobListPageUrl = "test/getJobListPage?"; // 分页获得职业列表
 const getJobNameListUrl = "test/getJobNameList"; // 添加职业名列表（模糊搜索职业名）
 const updateJobUrl = "test/updateJob"; // 更新职业
 
-export function addJobApi(data) {
-  return axiosK(addJobUrl, data)
-}
-
-export function deleteJobApi(data) {
-  return axiosD(deleteJobUrl + data)
-}
-
-export function getJobByIdApi(data) {
-  return axiosG(getJobByIdUrl + data)
-}
-
-export function getJobListApi(data) {
-  return axiosG(getJobListPageUrl + data)
-}
-
-export function getJobNameListApi(data) {
-  return axiosG(getJobNameListUrl + data)
-}
-
-export function updateJobApi(data) {
-  return axiosP(updateJobUrl, data)
-}
+export const addJobApi = data => axiosK(addJobUrl, data);
+export const deleteJobApi = data => axiosD(deleteJobUrl + data);
+export const getJobByIdApi = data => axiosG(getJobByIdUrl + data);
+export const getJobListApi = data => axiosG(getJobListPageUrl + data);
+export const getJobNameListApi = data => axiosG(getJobNameListUrl + data);
+export const updateJobApi = data => axiosP(updateJobUrl, data);
