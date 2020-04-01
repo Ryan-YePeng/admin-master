@@ -2,7 +2,7 @@ import Vue from "vue";
 import store from '../store'
 
 Vue.directive('permission', {
-  inserted(el, binding, vnode) {
+  inserted(el, binding) {
     const {value} = binding;
     const roles = store.getters && store.getters.user.roles;
     if (value && value instanceof Array && value.length > 0) {
@@ -27,7 +27,7 @@ Vue.directive('permission', {
  **/
 Vue.directive("title", {
   // 第一种方式  v-title="'haha'"  这样使用---传参方法
-  bind(el, binding, vunode) {
+  bind(el, binding) {
     document.title = binding.value
   },
   //第二种方式 v-title data-title="所需要的标题"  这样使用
@@ -40,7 +40,7 @@ Vue.directive("title", {
  * @description 防止同一时间多次点击
  **/
 let openDelay = false;
-Vue.directive("intervalClick", function (el, binding) {
+Vue.directive("intervalClick", (el, binding) => {
   el.onclick = function () {
     if (openDelay) return;
     openDelay = !openDelay;

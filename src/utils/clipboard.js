@@ -1,12 +1,12 @@
 import Clipboard from "clipboard";
-import EUI from "./EUI";
+import {successMsg, errorMsg} from "./EUI";
 
 function clipboardSuccess() {
-  EUI.successMsg("复制成功");
+  successMsg("复制成功");
 }
 
 function clipboardError() {
-  EUI.errorMsg("复制失败");
+  errorMsg("复制失败");
 }
 
 export default function handleClipboard(text, event) {

@@ -104,21 +104,10 @@ Vue.use(Loading.directive);
 /**
  * @param {String} msg 提示信息
  */
-export const successMsg = msg => {
-  Message.success(msg);
-};
-
-const warnMsg = msg => {
-  Message.warning(msg);
-};
-
-export const errorMsg = msg => {
-  Message.error(msg);
-};
-
-const infoMsg = msg => {
-  Message.info(msg);
-};
+const warnMsg = msg => Message.warning(msg);
+const infoMsg = msg => Message.info(msg);
+export const successMsg = msg => Message.success(msg);
+export const errorMsg = msg => Message.error(msg);
 
 const successNotify = msg => {
   Notification.success({

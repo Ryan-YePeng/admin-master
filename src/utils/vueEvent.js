@@ -6,7 +6,7 @@ const EventList = {}; //一个事件名称上面可能绑定多个函数，因�
  * @param {String} eventName
  * @param {function} callback
  * */
-const on = function(eventName, callback) {
+const on = (eventName, callback) => {
   if (!EventList[eventName]) {
     EventList[eventName] = [];
   }
@@ -17,7 +17,7 @@ const on = function(eventName, callback) {
  * @param {String} eventName
  * @param {String} params
  * */
-const emit = function(eventName, params) {
+const emit = (eventName, params) => {
   if (!EventList[eventName]) return;
   EventList[eventName].map(cb => {
     cb(params);
@@ -28,7 +28,7 @@ const emit = function(eventName, params) {
  * @param {String} eventName
  * @param {function} callback
  * */
-const off = function(eventName, callback) {
+const off = (eventName, callback) => {
   if (!EventList[eventName]) return;
   if (callback) {
     let index = EventList[eventName].indexOf(callback);
@@ -42,9 +42,3 @@ const off = function(eventName, callback) {
 Vue.prototype.$vueEventEmit = emit;
 Vue.prototype.$vueEventOn = on;
 Vue.prototype.$vueEventOff = off;
-
-/*export default {
-  $on: on,
-  $emit: emit,
-  $off: off
-}*/
