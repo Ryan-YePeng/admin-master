@@ -76,7 +76,8 @@ module.exports = {
     proxy: {
       "/api": {
         // 目标:指向网络地址
-        target: "http://192.168.0.152:8000/",
+        target: "http://192.168.0.120:8000/",
+        // target: "http://192.168.0.152:8000/",
         // target: "http://123.57.232.1:8080/",
         // webpack属性，映射一个host
         changeOrigin: true,

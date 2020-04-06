@@ -88,7 +88,10 @@ service.interceptors.response.use(
 /**
  * @description 白名单，不添加token的接口
  * */
-const ignoreTokenArray = ["admin/login", "admin/getCode"];
+const ignoreTokenArray = [
+  "test/admin/login",
+  "test/admin/getCode"
+];
 const isAddToken = url => ignoreTokenArray.every(item => url !== item);
 
 /**

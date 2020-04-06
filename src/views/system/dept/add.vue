@@ -6,8 +6,8 @@
           :close-on-click-modal="false"
           :visible.sync="visible">
     <el-form :model="form" :rules="rules" ref="Form" label-width="80px" hide-required-asterisk>
-      <el-form-item label="部门名称" prop="deptName">
-        <el-input v-model="form.deptName"></el-input>
+      <el-form-item label="部门名称" prop="name">
+        <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="部门状态">
         <el-radio-group v-model="form.enabled">
@@ -49,18 +49,17 @@
       return {
         normalizer(node) {
           return {
-            id: node.deptId,
-            label: node.deptName
+            label: node.name
           }
         },
         visible: false,
         form: {
-          deptName: '',
+          name: '',
           enabled: true,
           pid: null
         },
         rules: {
-          deptName: {required: true, message: '请输入名称', trigger: 'blur'}
+          name: {required: true, message: '请输入名称', trigger: 'blur'}
         }
       }
     },

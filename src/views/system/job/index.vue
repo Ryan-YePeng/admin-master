@@ -11,10 +11,10 @@
               v-loading="isTableLoading"
               :data="formData"
       >
-        <el-table-column prop="jobName" label="岗位名称"></el-table-column>
+        <el-table-column prop="name" label="岗位名称"></el-table-column>
         <el-table-column label="所属部门">
           <template slot-scope="scope">
-            <span>{{scope.row.dept.deptName}}</span>
+            <span>{{scope.row.dept.name}}</span>
           </template>
         </el-table-column>
         <el-table-column prop="sort" label="排序"></el-table-column>
@@ -33,8 +33,8 @@
           <template slot-scope="scope">
             <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
             <delete-button
-                    :ref="scope.row.jobId"
-                    :id="scope.row.jobId"
+                    :ref="scope.row.id"
+                    :id="scope.row.id"
                     @start="deleteJob"/>
           </template>
         </el-table-column>

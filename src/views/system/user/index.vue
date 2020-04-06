@@ -18,6 +18,7 @@
                   ref="deptTree"
                   :data="deptTree"
                   node-key="id"
+                  :props="treeProps"
                   @node-click="searchByDepartment"
                   default-expand-all
                   :expand-on-click-node="false"
@@ -82,7 +83,10 @@
         dept: [],
         deptTree: [],
         name: '',
-        roleList: []
+        roleList: [],
+        treeProps: {
+          label: 'name'
+        }
       }
     },
     mounted() {
@@ -92,9 +96,8 @@
     },
     methods: {
       getRoleList() {
-        getRoleListApi().then(result => {
-          console.log(result);
-          this.roleList = result.resultParam.roleList
+        getRoleListApi('').then(result => {
+          this.roleList = result.resultParam.roleList;
         })
       },
       getDeptTree() {
@@ -115,7 +118,7 @@
         getUserListApi(param).then(result => {
           this.isTableLoading = false;
           let response = result.resultParam.userList;
-          this.formData = response;
+          this.formData = response.records;
           pagination.total = response.total;
         })
       },

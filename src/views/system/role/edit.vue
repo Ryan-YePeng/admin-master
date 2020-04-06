@@ -6,8 +6,8 @@
           :close-on-click-modal="false"
           :visible.sync="visible">
     <el-form :model="form" :rules="rules" ref="Form" label-width="120px" hide-required-asterisk>
-      <el-form-item label="角色名称" prop="roleName">
-        <el-input v-model="form.roleName"></el-input>
+      <el-form-item label="角色名称" prop="name">
+        <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="角色级别" prop="level">
         <el-input-number
@@ -64,15 +64,14 @@
       return {
         normalizer(node) {
           return {
-            id: node.deptId,
-            label: node.deptName
+            label: node.name
           }
         },
         visible: false,
         form: {
-          roleId: null,
+          id: null,
           nameZh: '',
-          roleName: '',
+          name: '',
           dataScope: '本级',
           level: 1,
           permission: '',
@@ -80,7 +79,7 @@
           remark: ''
         },
         rules: {
-          roleName: {required: true, message: '请输入名称', trigger: 'blur'},
+          name: {required: true, message: '请输入名称', trigger: 'blur'},
           level: {required: true, message: '请输入角色级别', trigger: 'blur'}
         }
       }

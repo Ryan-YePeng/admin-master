@@ -7,7 +7,7 @@
     </div>
     <el-table v-loading="isTableLoading"
               :data="formData">
-      <el-table-column prop="userName" label="用户名"></el-table-column>
+      <el-table-column prop="username" label="用户名"></el-table-column>
       <el-table-column prop="nickName" label="用户昵称"></el-table-column>
       <el-table-column prop="job" label="岗位"></el-table-column>
       <el-table-column prop="ip" label="登陆IP"></el-table-column>

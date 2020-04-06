@@ -8,10 +8,10 @@
     </div>
     <el-table v-loading="isTableLoading"
               :data="formData"
-              row-key="deptId"
+              row-key="id"
               :default-expand-all="true"
               :tree-props="{children: 'children'}">
-      <el-table-column prop="deptName" label="部门名称"></el-table-column>
+      <el-table-column prop="name" label="部门名称"></el-table-column>
       <el-table-column label="状态">
         <template slot-scope="scope">
           <el-tag type="success" v-if="scope.row.enabled">启用</el-tag>
@@ -22,8 +22,8 @@
         <template slot-scope="scope">
           <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
           <delete-button
-                  :ref="scope.row.deptId"
-                  :id="scope.row.deptId"
+                  :ref="scope.row.id"
+                  :id="scope.row.id"
                   @start="deleteDept"/>
         </template>
       </el-table-column>

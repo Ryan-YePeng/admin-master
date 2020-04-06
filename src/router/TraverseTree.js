@@ -69,7 +69,7 @@ export class TraverseTree {
     this.allNode = [];
     this.traverseByNonRecursion(root);
     let pathNode = []; // 路径节点数组
-    let lastNode = {menuId: 0};
+    let lastNode = {id: 0};
     let leftIndex = 0;
     let rowIndex = 0;
     this.allNode.forEach(currentNode => {
@@ -79,7 +79,7 @@ export class TraverseTree {
       lastNode = currentNode;
       if (rowIndex === this.leftNode.length)
         rowIndex = leftIndex;
-      if (currentNode.menuId === this.leftNode[leftIndex].menuId)
+      if (currentNode.id === this.leftNode[leftIndex].id)
         leftIndex++
     });
     return pathNode

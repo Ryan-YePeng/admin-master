@@ -6,8 +6,8 @@
           :close-on-click-modal="false"
           :visible.sync="visible">
     <el-form :model="form" :rules="rules" ref="Form" label-width="80px" hide-required-asterisk>
-      <el-form-item label="名称" prop="jobName">
-        <el-input v-model="form.jobName"></el-input>
+      <el-form-item label="名称" prop="name">
+        <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="排序" prop="sort">
         <el-input-number
@@ -55,20 +55,19 @@
       return {
         normalizer(node) {
           return {
-            id: node.deptId,
-            label: node.deptName
+            label: node.name
           }
         },
         visible: false,
         form: {
-          jobId: null,
-          jobName: '',
+          id: null,
+          name: '',
           sort: 999,
           enabled: true,
           deptId: null
         },
         rules: {
-          jobName: {required: true, message: '请输入名称', trigger: 'blur'},
+          name: {required: true, message: '请输入名称', trigger: 'blur'},
           sort: {required: true, message: '请输入排序', trigger: 'blur'},
           deptId: {required: true, message: '请选择部门', trigger: 'blur'}
         }

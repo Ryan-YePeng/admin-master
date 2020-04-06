@@ -1,8 +1,8 @@
-import {axiosG, axiosK} from "@/api/request";
+import {axiosG} from "@/api/request";
 
-const getErrorDetailByIdUrl = "test/getErrorDetailById?log_id="; // 通过id获得报错信息的详情
+const getErrorDetailByIdUrl = "test/getErrorDetail?logId="; // 通过id获得报错信息的详情
 const getErrorLogUrl = "test/getErrorLog?"; // 获得报错日志
-const getLogListUrl = "test/getLogList?"; // 分页获得日志列表
+const getLogListUrl = "test/pageLog?"; // 分页获得日志列表
 
 export const getErrorDetailByIdApi = data => axiosG(getErrorDetailByIdUrl + data);
 export const getErrorLogApi = data => axiosG(getErrorLogUrl + data);

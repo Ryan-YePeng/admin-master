@@ -88,3 +88,6 @@ html, body, #app, .el-container {
 .w-200 {
   width: 200px;
 }
+.pointer {
+  cursor: pointer;
+}

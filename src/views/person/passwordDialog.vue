@@ -3,7 +3,6 @@
           title="修改密码"
           width="450px"
           :visible.sync="visible"
-          append-to-body
           @close="cancel"
           :close-on-click-modal="false">
     <el-form :model="form" :rules="rules" ref="Form" label-width="120px">
@@ -19,7 +18,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="cancel">取 消</el-button>
-      <submit-button ref="SubmitButton" @submit="submitPasswordForm"></submit-button>
+      <submit-button ref="SubmitButton" @submit="submitForm"></submit-button>
     </div>
   </el-dialog>
 </template>
@@ -29,6 +28,7 @@
   import {encrypt} from "@/utils/encrypt";
 
   export default {
+    name: "PasswordDialog",
     data() {
       let validatePass = (rule, value, callback) => {
         if (value === '') {
@@ -54,8 +54,7 @@
       }
     },
     methods: {
-      // 提交密码表单
-      submitPasswordForm() {
+      submitForm() {
         this.$refs["Form"].validate((valid) => {
           if (valid) {
             let data = {};
@@ -73,7 +72,6 @@
           }
         })
       },
-      // 取消
       cancel() {
         this.visible = false;
         Object.assign(this.$data.form, this.$options.data().form);

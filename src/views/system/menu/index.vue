@@ -8,7 +8,7 @@
     </div>
     <el-table v-loading="isTableLoading"
               :data="formData"
-              row-key="menuId"
+              row-key="id"
               :tree-props="{children: 'children'}">
       <el-table-column prop="title" label="菜单名称"></el-table-column>
       <el-table-column prop="icon" label="图标" align="center">
@@ -41,8 +41,8 @@
         <template slot-scope="scope">
           <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
           <delete-button
-                  :ref="scope.row.menuId"
-                  :id="scope.row.menuId"
+                  :ref="scope.row.id"
+                  :id="scope.row.id"
                   @start="deleteMenu"/>
         </template>
       </el-table-column>

@@ -15,8 +15,7 @@
                 @row-click="getTreeChecked"
                 :highlight-current-row="true"
         >
-          <el-table-column prop="nameZh" label="名称"></el-table-column>
-          <el-table-column prop="roleName" label="名称"></el-table-column>
+          <el-table-column prop="name" label="名称"></el-table-column>
           <el-table-column prop="dataScope" label="数据权限"></el-table-column>
           <el-table-column prop="level" label="角色级别"></el-table-column>
           <el-table-column prop="remark" label="描述" :show-overflow-tooltip="true"></el-table-column>
@@ -29,8 +28,8 @@
             <template slot-scope="scope">
               <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
               <delete-button
-                      :ref="scope.row.roleId"
-                      :id="scope.row.roleId"
+                      :ref="scope.row.id"
+                      :id="scope.row.id"
                       @start="deleteRole"/>
             </template>
           </el-table-column>
@@ -54,6 +53,7 @@
                   :data="tree"
                   show-checkbox
                   node-key="id"
+                  :prop="treeProps"
                   accordion
                   :default-checked-keys="menuIds"
           >
@@ -84,9 +84,12 @@
         dept: [],
         tree: [],
         menuIds: [],
-        roleId: null,
+        id: null,
         level: null,
-        searchRoleName: ''
+        searchRoleName: '',
+        treeProps: {
+          label: 'name'
+        }
       }
     },
     mounted() {
@@ -127,14 +130,13 @@
       getTreeChecked(row) {
         this.$refs.SubmitButton.cancelBan();
         this.clearChecked();
-        this.menuIds = row.menus.map(item => item.menuId);
-        this.roleId = row.roleId
+        this.menuIds = row.menus.map(item => item.id);
+        this.id = row.id
       },
       update() {
-        let roleId = this.roleId;
         let idList = this.$refs.RoleMenuTree.getCheckedNodes().map(item => item.id);
         let data = {};
-        data.roleId = roleId;
+        data.roleId = this.id;
         data.menuIds = idList;
         this.$refs.SubmitButton.start();
         updateRolesMenusApi(data).then(() => {
@@ -151,7 +153,7 @@
       edit(obj) {
         let _this = this.$refs.EditRole;
         objectEvaluate(_this.form, obj);
-        _this.form.deptIds = obj.depts.map(item => item.deptId);
+        _this.form.deptIds = obj.depts.map(item => item.id);
         _this.visible = true
       },
       deleteRole(id) {

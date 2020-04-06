@@ -16,7 +16,7 @@
           <icon-select ref="iconSelect" @selected="selected"/>
           <el-input slot="reference" v-model="form.icon" style="width: 450px;" placeholder="点击选择图标" readonly>
             <svg-icon v-if="form.icon" slot="prefix" :icon-class="form.icon" class="el-input-icon"/>
-            <i v-else slot="prefix" class="el-icon-search el-input__icon"/>
+            <i v-else slot="prefix" class="el-icon-search el-input__icon"></i>
           </el-input>
         </el-popover>
       </el-form-item>
@@ -109,7 +109,6 @@
       return {
         normalizer(node) {
           return {
-            id: node.menuId,
             label: node.title
           }
         },

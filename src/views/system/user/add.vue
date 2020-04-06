@@ -38,15 +38,20 @@
             <tree-select v-model="form.deptId"
                          :options="dept"
                          :normalizer="normalizer"
+                         :default-expand-level="1"
+                         sort-value-by="INDEX"
+                         @input="changeDept"
                          placeholder=""/>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="岗位">
             <el-select v-model="form.jobId" placeholder="请先选择部门">
-              <el-option label="全部" value="全部"></el-option>
-              <el-option label="本级" value="本级"></el-option>
-              <el-option label="自定义" value="自定义"></el-option>
+              <el-option
+                      v-for="item in options"
+                      :key="item.id"
+                      :value="item.id"
+                      :label="item.name"/>
             </el-select>
           </el-form-item>
         </el-col>
@@ -75,9 +80,9 @@
         <el-select v-model="form.roleId" clearable class="w-100">
           <el-option
                   v-for="item in roleList"
-                  :label="item.nameZh"
-                  :value="item.roleId"
-                  :key="item.roleId"/>
+                  :label="item.name"
+                  :value="item.id"
+                  :key="item.id"/>
         </el-select>
       </el-form-item>
 
@@ -92,6 +97,8 @@
 <script>
   import TreeSelect from '@riophae/vue-treeselect'
   import {addUserApi} from '@/api/user'
+  import {getJobByDeptIdApi} from '@/api/job'
+  import {isEmpty} from "@/utils/common";
 
   export default {
     name: "AddUser",
@@ -110,8 +117,7 @@
       return {
         normalizer(node) {
           return {
-            id: node.deptId,
-            label: node.deptName
+            label: node.name
           }
         },
         visible: false,
@@ -126,18 +132,27 @@
           enabled: true,
           roleId: null
         },
+        options: [],
         rules: {
           username: {required: true, message: '请输入用户名', trigger: 'blur'}
         }
       }
     },
     methods: {
+      changeDept(value) {
+        if (isEmpty(value)) {
+          this.options = []
+        } else {
+          getJobByDeptIdApi(value).then(result => {
+            this.options = result.resultParam.jobList
+          })
+        }
+        this.form.jobId = null
+      },
       submitForm() {
         this.$refs['Form'].validate((valid) => {
           if (valid) {
             let data = {...this.form};
-            console.log(data)
-            return
             this.$refs.SubmitButton.start();
             addUserApi(data).then(() => {
               this.$refs.SubmitButton.stop();
@@ -160,8 +175,6 @@
   }
 </script>
 
-<style lang="scss">
-  .el-textarea__inner {
-    height: 120px;
-  }
+<style scoped>
+
 </style>

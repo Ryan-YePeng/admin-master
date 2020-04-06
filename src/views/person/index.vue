@@ -40,8 +40,9 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>操作日志</span>
-            <i style="float: right; padding: 3px 0; cursor: pointer" @click="update"
-               :class="isLoading ? 'el-icon-loading':'el-icon-refresh'"></i>
+            <i class="float-right pointer"
+               :class="isLoading ? 'el-icon-loading':'el-icon-refresh'"
+               @click="update"></i>
           </div>
           <div>
             <el-table v-loading="isTableLoading" :data="formData">
