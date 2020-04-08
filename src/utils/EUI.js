@@ -49,7 +49,8 @@ import {
   RadioButton,
   MenuItemGroup,
   Checkbox,
-  Tree
+  Tree,
+    Progress
 } from 'element-ui';
 
 Vue.prototype.$ELEMENT = {size: store.getters.setting.layoutSize};
@@ -99,6 +100,7 @@ Vue.component('ElRadioButton', RadioButton);
 Vue.component('ElMenuItemGroup', MenuItemGroup);
 Vue.component('ElCheckbox', Checkbox);
 Vue.component('ElTree', Tree);
+Vue.component('ElProgress', Progress);
 Vue.use(Loading.directive);
 
 /**
