@@ -8,8 +8,8 @@
     <el-form :model="form" :rules="rules" ref="Form" label-width="80px" hide-required-asterisk>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="用户名" prop="username">
-            <el-input v-model="form.username"></el-input>
+          <el-form-item label="用户名">
+            <el-input disabled v-model="form.username"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -32,7 +32,7 @@
       </el-row>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="部门">
+          <el-form-item label="部门" prop="deptId">
             <tree-select v-model="form.deptId"
                          :options="dept"
                          :normalizer="normalizer"
@@ -43,7 +43,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="岗位">
+          <el-form-item label="岗位" prop="jobId">
             <el-select v-model="form.jobId" placeholder="请先选择部门">
               <el-option
                       v-for="item in options"
@@ -72,7 +72,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-form-item label="角色">
+      <el-form-item label="角色" prop="roleId">
         <el-select v-model="form.roleId" clearable class="w-100">
           <el-option
                   v-for="item in roleList"
@@ -91,9 +91,9 @@
 
 <script>
   import TreeSelect from '@riophae/vue-treeselect'
-  import {addUserApi} from '@/api/user'
+  import {editUserApi} from '@/api/user'
   import {getJobByDeptIdApi} from '@/api/job'
-  import {isEmpty} from "@/utils/common";
+  import {isEmpty, objectObtain} from "@/utils/common";
 
   export default {
     name: "EditUser",
@@ -128,9 +128,14 @@
           enabled: true,
           roleId: null
         },
+        FORM: {
+          id: null
+        },
         options: [],
         rules: {
-          username: {required: true, message: '请输入用户名', trigger: 'blur'}
+          deptId: {required: true, message: '请选择部门', trigger: 'change'},
+          jobId: {required: true, message: '请选择岗位', trigger: 'change'},
+          roleId: {required: true, message: '请选择角色', trigger: 'change'}
         }
       }
     },
@@ -140,19 +145,25 @@
           this.options = []
         } else {
           getJobByDeptIdApi(value).then(result => {
-            this.options = result.resultParam.jobList
+            this.options = result.resultParam.jobList;
           })
         }
         this.form.jobId = null
       },
+      initDept(value) {
+        getJobByDeptIdApi(value).then(result => {
+          this.options = result.resultParam.jobList;
+          this.form.jobId = value
+        })
+      },
       submitForm() {
         this.$refs['Form'].validate((valid) => {
           if (valid) {
-            let data = {...this.form};
-            console.log(data)
-            return
+            let data = objectObtain(this.form, this.FORM);
+            console.log(data);
+            return;
             this.$refs.SubmitButton.start();
-            addUserApi(data).then(() => {
+            editUserApi(data).then(() => {
               this.$refs.SubmitButton.stop();
               this.$emit('update');
               this.cancel()

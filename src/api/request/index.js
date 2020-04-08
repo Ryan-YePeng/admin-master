@@ -131,7 +131,11 @@ export const axiosDs = (url, param) => {
   return new Promise((resolve, reject) => {
     service({
       method: "delete",
-      url: `${url}/${param.join(",")}`
+      url: url,
+      params: {
+        ids: param
+      },
+      paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
     })
       .then(result => resolve(result))
       .catch(error => reject(error));

@@ -40,7 +40,7 @@
 
 <script>
   import TreeSelect from '@riophae/vue-treeselect'
-  import {updateJobApi} from '@/api/job'
+  import {editJobApi} from '@/api/job'
 
   export default {
     name: "EditJob",
@@ -79,7 +79,7 @@
           if (valid) {
             let data = {...this.form};
             this.$refs.SubmitButton.start();
-            updateJobApi(data).then(() => {
+            editJobApi(data).then(() => {
               this.$refs.SubmitButton.stop();
               this.$emit('update');
               this.cancel()

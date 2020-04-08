@@ -41,11 +41,15 @@
           <el-table-column prop="sex" label="性别"></el-table-column>
           <el-table-column prop="phone" label="电话"></el-table-column>
           <el-table-column prop="email" label="邮箱"></el-table-column>
-          <el-table-column prop="jobId" label="部门/岗位"></el-table-column>
+          <el-table-column label="部门/岗位">
+            <template slot-scope="scope">
+              {{getDeptNameAndJobName(scope.row)}}
+            </template>
+          </el-table-column>
           <el-table-column label="状态">
             <template slot-scope="scope">
-              <el-tag type="success" v-if="scope.row.enabled">激活</el-tag>
-              <el-tag type="info" v-else>禁用</el-tag>
+              <el-tag type="info" v-if="scope.row.enabled">正常</el-tag>
+              <el-tag type="danger" v-else>禁用</el-tag>
             </template>
           </el-table-column>
           <el-table-column label="创建时间">
@@ -56,10 +60,10 @@
           <el-table-column label="操作" fixed="right" align="center" width="150">
             <template slot-scope="scope">
               <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
-              <!--<delete-button-->
-              <!--  :ref="scope.row.id"-->
-              <!--  :id="scope.row.id"-->
-              <!--  @start="deleteUser"/>-->
+              <delete-button
+                      :ref="scope.row.id"
+                      :id="scope.row.id"
+                      @start="deleteUser"/>
             </template>
           </el-table-column>
         </el-table>
@@ -72,12 +76,12 @@
 </template>
 
 <script>
-  import {getUserListApi} from '@/api/user'
+  import {getUserListApi, deleteUserApi} from '@/api/user'
   import {getDeptTreeApi} from '@/api/dept'
   import {getRoleListApi} from '@/api/role'
   import AddUser from './add'
   import EditUser from './edit'
-  import {objectEvaluate} from "@/utils/common";
+  import {objectEvaluate, objectExchange} from "@/utils/common";
 
   export default {
     name: "User",
@@ -138,27 +142,32 @@
           pagination.total = response.total;
         })
       },
+      getDeptNameAndJobName(obj) {
+        return ''
+        // return `${obj.dept.name}/${obj.job.name}`
+      },
       add() {
         let _this = this.$refs.AddUser;
         _this.visible = true
       },
       edit(obj) {
         let _this = this.$refs.EditUser;
+        delete obj.jobId;
         objectEvaluate(_this.form, obj);
-        _this.changeDept(obj.deptId);
-        console.log(obj)
+        objectExchange(_this.FORM, _this.form);
+        _this.initDept(obj.deptId);
         _this.visible = true
       },
-      // deleteUser(id) {
-      //   deleteUserApi(id)
-      //       .then(() => {
-      //         this.getRoleList();
-      //         this.$refs[id].close()
-      //       })
-      //       .catch(() => {
-      //         this.$refs[id].stop();
-      //       })
-      // }
+      deleteUser(id) {
+        deleteUserApi([id])
+            .then(() => {
+              this.getUserList();
+              this.$refs[id].close()
+            })
+            .catch(() => {
+              this.$refs[id].stop();
+            })
+      }
     }
   }
 </script>

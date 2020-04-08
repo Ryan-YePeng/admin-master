@@ -13,8 +13,7 @@
                 :data="formData"
                 ref="roleTable"
                 @row-click="getTreeChecked"
-                :highlight-current-row="true"
-        >
+                :highlight-current-row="true">
           <el-table-column prop="name" label="名称"></el-table-column>
           <el-table-column prop="dataScope" label="数据权限"></el-table-column>
           <el-table-column prop="permission" label="角色权限"></el-table-column>
@@ -69,8 +68,9 @@
 </template>
 
 <script>
-  import {getRoleListApi, deleteRoleApi, getRoleTreeApi, updateRolesMenusApi} from '@/api/role'
-  import {getUserLevelApi} from '@/api/person'
+  import {getRoleListApi, deleteRoleApi, getRoleTreeApi} from '@/api/role'
+  import {editRolesMenusApi} from '@/api/menu'
+  import {getUserLevelApi} from '@/api/user'
   import {getDeptTreeApi} from '@/api/dept'
   import AddRole from './add'
   import EditRole from './edit'
@@ -95,14 +95,9 @@
       }
     },
     mounted() {
-      this.getRoleList();
+      this.getRoleListAndRoleTree();
       this.getDeptTree();
-      window.setTimeout(() => {
-        this.getRoleTree()
-      }, 500);
-      getUserLevelApi().then(result => {
-        this.level = result.resultParam.level
-      })
+      this.getUserLevel();
     },
     methods: {
       getDeptTree() {
@@ -110,10 +105,20 @@
           this.dept = result.resultParam.deptTree
         })
       },
-      getRoleTree() {
-        getRoleTreeApi().then(result => {
-          this.tree = result.resultParam.roleTree
+      getUserLevel() {
+        getUserLevelApi().then(result => {
+          this.level = result.resultParam.level
         })
+      },
+      getRoleListAndRoleTree() {
+        getRoleListApi('')
+            .then(result => {
+              this.formData = result.resultParam.roleList;
+              return getRoleTreeApi()
+            })
+            .then(result => {
+              this.tree = result.resultParam.roleTree
+            })
       },
       getRoleList() {
         this.isTableLoading = true;
@@ -135,12 +140,13 @@
         this.menuIds = row.menus.map(item => item.id);
         this.id = row.id
       },
+      // 更新权限
       update() {
         let data = {};
         data.roleId = this.id;
-        data.menuIds =this.$refs.RoleMenuTree.getCheckedNodes().map(item => item.id);
+        data.menuIds = this.$refs.RoleMenuTree.getCheckedNodes().map(item => item.id);
         this.$refs.SubmitButton.start();
-        updateRolesMenusApi(data).then(() => {
+        editRolesMenusApi(data).then(() => {
           this.$refs.SubmitButton.stop();
           this.getRoleList()
         }).catch(() => {

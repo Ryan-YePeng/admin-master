@@ -33,7 +33,7 @@
 
 <script>
   import TreeSelect from '@riophae/vue-treeselect'
-  import {updateDeptApi} from '@/api/dept'
+  import {editDeptApi} from '@/api/dept'
   import {isEmpty} from "@/utils/common";
 
   export default {
@@ -71,7 +71,7 @@
             let data = {...this.form};
             if (isEmpty(data.pid)) data.pid = 0;
             this.$refs.SubmitButton.start();
-            updateDeptApi(data).then(() => {
+            editDeptApi(data).then(() => {
               this.$refs.SubmitButton.stop();
               this.$emit('update');
               this.cancel()

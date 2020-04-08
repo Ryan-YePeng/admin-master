@@ -32,7 +32,7 @@
       </el-row>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="部门">
+          <el-form-item label="部门" prop="deptId">
             <tree-select v-model="form.deptId"
                          :options="dept"
                          :normalizer="normalizer"
@@ -43,7 +43,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="岗位">
+          <el-form-item label="岗位" prop="jobId">
             <el-select v-model="form.jobId" placeholder="请先选择部门">
               <el-option
                       v-for="item in options"
@@ -72,7 +72,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-form-item label="角色">
+      <el-form-item label="角色"  prop="roleId">
         <el-select v-model="form.roleId" clearable class="w-100">
           <el-option
                   v-for="item in roleList"
@@ -122,14 +122,17 @@
           sex: '男',
           phone: '',
           email: '',
+          enabled: true,
           deptId: null,
           jobId: null,
-          enabled: true,
           roleId: null
         },
         options: [],
         rules: {
-          username: {required: true, message: '请输入用户名', trigger: 'blur'}
+          username: {required: true, message: '请输入用户名', trigger: 'blur'},
+          deptId: {required: true, message: '请选择部门', trigger: 'change'},
+          jobId: {required: true, message: '请选择岗位', trigger: 'change'},
+          roleId: {required: true, message: '请选择角色', trigger: 'change'}
         }
       }
     },

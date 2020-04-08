@@ -61,7 +61,7 @@
 
 <script>
   import TreeSelect from '@riophae/vue-treeselect'
-  import {updateRoleApi} from '@/api/role'
+  import {editRoleApi} from '@/api/role'
 
   export default {
     name: "EditRole",
@@ -106,7 +106,7 @@
           if (valid) {
             let data = {...this.form};
             this.$refs.SubmitButton.start();
-            updateRoleApi(data).then(() => {
+            editRoleApi(data).then(() => {
               this.$refs.SubmitButton.stop();
               this.$emit('update');
               this.cancel()

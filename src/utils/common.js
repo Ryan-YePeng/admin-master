@@ -48,8 +48,59 @@ export const formatDateTime = value => {
  * */
 export const objectEvaluate = (target, object) => {
   for (let key in target) {
-    if (object.hasOwnProperty(key)) target[key] = object[key]
+    if (object.hasOwnProperty(key)) {
+      if (object[key] instanceof Array) {
+        target[key] = [...object[key]]
+      } else {
+        target[key] = object[key]
+      }
+    }
   }
+};
+
+/**
+ * @param {Object} target
+ * @param {Object} object
+ * @description target从object反向取值，删除原来的，获取新的
+ * */
+export const objectExchange = (target, object) => {
+  for (let key in object) {
+    if (!target.hasOwnProperty(key)) {
+      if (object[key] instanceof Array) {
+        target[key] = [...object[key]]
+      } else {
+        target[key] = object[key]
+      }
+    } else {
+      delete target[key]
+    }
+  }
+};
+
+/**
+ * @param {Object} current
+ * @param {Object} original
+ * @return {Object}
+ * @description 从current,original中获取需要修改的对象
+ * */
+export const objectObtain = (current, original) => {
+  let data = {};
+  for (let key in current) {
+    if (original.hasOwnProperty(key)) {
+      if (current[key] instanceof Array) {
+        if (JSON.stringify(current[key]) !== JSON.stringify(original[key])) {
+          data[key] = current[key]
+        }
+      } else {
+        if (current[key] !== original[key]) {
+          data[key] = current[key]
+        }
+      }
+    } else {
+      data[key] = current[key]
+    }
+  }
+  return data
 };
 
 /**

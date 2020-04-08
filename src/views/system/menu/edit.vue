@@ -93,7 +93,7 @@
 <script>
   import IconSelect from '@/components/IconSelect'
   import TreeSelect from '@riophae/vue-treeselect'
-  import {updateMenuApi} from '@/api/menu'
+  import {editMenuApi} from '@/api/menu'
   import {isEmpty} from "@/utils/common";
 
   export default {
@@ -142,7 +142,7 @@
             if (isEmpty(data.pid)) data.pid = 0;
             data.name = data.name.trim();
             this.$refs.SubmitButton.start();
-            updateMenuApi(data).then(() => {
+            editMenuApi(data).then(() => {
               this.$refs.SubmitButton.stop();
               this.$emit('update');
               this.cancel()
