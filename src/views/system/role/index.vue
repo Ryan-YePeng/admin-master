@@ -17,6 +17,7 @@
         >
           <el-table-column prop="name" label="名称"></el-table-column>
           <el-table-column prop="dataScope" label="数据权限"></el-table-column>
+          <el-table-column prop="permission" label="角色权限"></el-table-column>
           <el-table-column prop="level" label="角色级别"></el-table-column>
           <el-table-column prop="remark" label="描述" :show-overflow-tooltip="true"></el-table-column>
           <el-table-column label="创建时间" :show-overflow-tooltip="true">
@@ -50,6 +51,7 @@
         <div>
           <el-tree
                   ref="RoleMenuTree"
+                  :check-strictly="true"
                   :data="tree"
                   show-checkbox
                   node-key="id"
@@ -134,10 +136,9 @@
         this.id = row.id
       },
       update() {
-        let idList = this.$refs.RoleMenuTree.getCheckedNodes().map(item => item.id);
         let data = {};
         data.roleId = this.id;
-        data.menuIds = idList;
+        data.menuIds =this.$refs.RoleMenuTree.getCheckedNodes().map(item => item.id);
         this.$refs.SubmitButton.start();
         updateRolesMenusApi(data).then(() => {
           this.$refs.SubmitButton.stop();

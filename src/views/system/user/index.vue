@@ -10,7 +10,7 @@
                   prefix-icon="el-icon-search"
                   @keyup.enter.native="searchDept"
                   class="w-100"
-                  v-model="name">
+                  v-model="searchDeptName">
           </el-input>
         </div>
         <div>
@@ -19,7 +19,7 @@
                   :data="deptTree"
                   node-key="id"
                   :props="treeProps"
-                  @node-click="searchByDepartment"
+                  @node-click="searchByDeptId"
                   default-expand-all
                   :expand-on-click-node="false"
           >
@@ -30,7 +30,10 @@
     <el-col :sm="24" :md="20" class="mb-15">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <el-button type="primary" icon="el-icon-plus" @click="add">新增</el-button>
+          <el-input placeholder="输入用户名搜索" v-model="searchUsername" clearable class="w-200"
+                    @keyup.enter.native="searchUserList"/>
+          <el-button type="success" class="el-icon-search ml-5" @click="searchUserList">搜索</el-button>
+          <el-button class="float-right" type="primary" icon="el-icon-plus" @click="add">新增</el-button>
         </div>
         <el-table v-loading="isTableLoading" :data="formData">
           <el-table-column prop="username" label="用户名"></el-table-column>
@@ -53,17 +56,18 @@
           <el-table-column label="操作" fixed="right" align="center" width="150">
             <template slot-scope="scope">
               <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
-              <!--              <delete-button-->
-              <!--                      :ref="scope.row.roleId"-->
-              <!--                      :id="scope.row.roleId"-->
-              <!--                      @start="deleteRole"/>-->
+              <!--<delete-button-->
+              <!--  :ref="scope.row.id"-->
+              <!--  :id="scope.row.id"-->
+              <!--  @start="deleteUser"/>-->
             </template>
           </el-table-column>
-          <pagination ref="Pagination" @getNewData="getUserList"></pagination>
         </el-table>
+        <pagination ref="Pagination" @getNewData="getUserList"></pagination>
       </el-card>
     </el-col>
     <add-user ref="AddUser" :dept="dept" @update="getUserList" :roleList="roleList"></add-user>
+    <edit-user ref="EditUser" :dept="dept" @update="getUserList" :roleList="roleList"></edit-user>
   </el-row>
 </template>
 
@@ -72,17 +76,21 @@
   import {getDeptTreeApi} from '@/api/dept'
   import {getRoleListApi} from '@/api/role'
   import AddUser from './add'
+  import EditUser from './edit'
+  import {objectEvaluate} from "@/utils/common";
 
   export default {
     name: "User",
-    components: {AddUser},
+    components: {AddUser, EditUser},
     data() {
       return {
+        searchUsername: '',
+        searchDeptId: '',
         formData: [],
         isTableLoading: false,
         dept: [],
         deptTree: [],
-        name: '',
+        searchDeptName: '',
         roleList: [],
         treeProps: {
           label: 'name'
@@ -107,14 +115,22 @@
         })
       },
       searchDept() {
-        getDeptTreeApi(this.name).then(result => {
+        getDeptTreeApi(this.searchDeptName).then(result => {
           this.deptTree = result.resultParam.deptTree
         })
+      },
+      searchUserList() {
+        this.searchDeptId = "";
+        this.getUserList();
+      },
+      searchByDeptId(obj) {
+        this.searchDeptId = obj.id;
+        this.getUserList();
       },
       getUserList() {
         this.isTableLoading = true;
         let pagination = this.$refs.Pagination;
-        let param = `current=${pagination.current}&size=${pagination.size}`;
+        let param = `current=${pagination.current}&size=${pagination.size}&deptId=${this.searchDeptId}&username=${this.searchUsername}`;
         getUserListApi(param).then(result => {
           this.isTableLoading = false;
           let response = result.resultParam.userList;
@@ -122,15 +138,27 @@
           pagination.total = response.total;
         })
       },
-      searchByDepartment(obj) {
-        console.log(obj)
-      },
       add() {
         let _this = this.$refs.AddUser;
         _this.visible = true
       },
-      edit() {
+      edit(obj) {
+        let _this = this.$refs.EditUser;
+        objectEvaluate(_this.form, obj);
+        _this.changeDept(obj.deptId);
+        console.log(obj)
+        _this.visible = true
       },
+      // deleteUser(id) {
+      //   deleteUserApi(id)
+      //       .then(() => {
+      //         this.getRoleList();
+      //         this.$refs[id].close()
+      //       })
+      //       .catch(() => {
+      //         this.$refs[id].stop();
+      //       })
+      // }
     }
   }
 </script>

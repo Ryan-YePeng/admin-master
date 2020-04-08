@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-          title="新增用户"
+          title="编辑用户"
           width="600px"
           @close="cancel"
           :close-on-click-modal="false"
@@ -96,7 +96,7 @@
   import {isEmpty} from "@/utils/common";
 
   export default {
-    name: "AddUser",
+    name: "EditUser",
     components: {TreeSelect},
     props: {
       dept: {
@@ -117,6 +117,7 @@
         },
         visible: false,
         form: {
+          id: null,
           username: '',
           nickName: '',
           sex: '男',
@@ -148,6 +149,8 @@
         this.$refs['Form'].validate((valid) => {
           if (valid) {
             let data = {...this.form};
+            console.log(data)
+            return
             this.$refs.SubmitButton.start();
             addUserApi(data).then(() => {
               this.$refs.SubmitButton.stop();
