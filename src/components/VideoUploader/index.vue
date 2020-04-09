@@ -62,8 +62,8 @@
       uploadFile(param) {
         const {file} = param;
         const type = file.name
-            .substring(file.name.lastIndexOf(".") + 1)
-            .toLowerCase();
+          .substring(file.name.lastIndexOf(".") + 1)
+          .toLowerCase();
         const size = file.size / 1024 / 1024;
         if (!this.accept.includes(type)) {
           let accept = this.accept.replace(/[.]|[,]/g, "");
@@ -76,25 +76,25 @@
         }
         this.isLoading = true;
         uploadFileApi({pic: file}, this.update, this.source)
-            .then(result => {
-              this.reset();
-              let response = result.data;
-              if (response.status === 200) {
-                this.$emit("getVideo", response.path);
-                this.url = URL.createObjectURL(file);
-              } else {
-                this.$successMsg("上传失败");
-              }
-            })
-            .catch(error => {
-              this.reset();
-              if (
-                  axios.isCancel(error) &&
-                  error.message === "Request Interruption"
-              ) {
-                this.$successMsg("取消上传成功");
-              }
-            });
+          .then(result => {
+            this.reset();
+            let response = result.data;
+            if (response.status === 200) {
+              this.$emit("getVideo", response.path);
+              this.url = URL.createObjectURL(file);
+            } else {
+              this.$successMsg("上传失败");
+            }
+          })
+          .catch(error => {
+            this.reset();
+            if (
+              axios.isCancel(error) &&
+              error.message === "Request Interruption"
+            ) {
+              this.$successMsg("取消上传成功");
+            }
+          });
       },
       // 重置
       reset() {

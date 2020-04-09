@@ -8,8 +8,9 @@
     </div>
     <el-dropdown trigger="click">
       <div class="el-dropdown-link">
-        <el-avatar shape="square" :size="44"
-                   src="https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png"></el-avatar>
+        <el-avatar shape="square" :size="44" :src="avatarUrl">
+          <img src="../../assets/notFound.png" alt="头像"/>
+        </el-avatar>
       </div>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item icon="el-icon-s-custom" @click.native='goPerson'>个人中心</el-dropdown-item>
@@ -41,6 +42,11 @@
     data() {
       return {
         drawer: false
+      }
+    },
+    computed: {
+      avatarUrl() {
+        return process.env.VUE_APP_BASE_URL + this.$store.getters.user.avatar
       }
     },
     methods: {

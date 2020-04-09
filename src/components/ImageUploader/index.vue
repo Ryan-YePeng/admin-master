@@ -7,7 +7,7 @@
           :accept="accept"
           :http-request="uploadFile"
           :show-file-list="false">
-    <img v-if="url" :src="url" class="custom-image"/>
+    <img v-if="url" :src="url" class="custom-image" alt="图片"/>
     <i v-else class="el-icon-plus image-uploader-icon"></i>
   </el-upload>
 </template>
@@ -40,8 +40,8 @@
       uploadFile(param) {
         const {file} = param;
         const type = file.name
-            .substring(file.name.lastIndexOf(".") + 1)
-            .toLowerCase();
+          .substring(file.name.lastIndexOf(".") + 1)
+          .toLowerCase();
         const size = file.size / 1024 / 1024;
         if (!this.accept.includes(type)) {
           let accept = this.accept.replace(/[.]|[,]/g, "");
@@ -54,19 +54,19 @@
         }
         this.isLoading = true;
         uploadFileApi({pic: file})
-            .then(result => {
-              this.isLoading = false;
-              let response = result.data;
-              if (response.status === 200) {
-                this.$emit("getImage", response.path);
-                this.url = URL.createObjectURL(file);
-              } else {
-                this.$successMsg("上传失败");
-              }
-            })
-            .catch(() => {
-              this.isLoading = false;
-            });
+          .then(result => {
+            this.isLoading = false;
+            let response = result.data;
+            if (response.status === 200) {
+              this.$emit("getImage", response.path);
+              this.url = URL.createObjectURL(file);
+            } else {
+              this.$successMsg("上传失败");
+            }
+          })
+          .catch(() => {
+            this.isLoading = false;
+          });
       },
       // 清理文件
       clearFiles() {

@@ -4,7 +4,7 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import {isEmpty} from '../utils/common'
 import {getMenuApi} from '../api/menu'
-import {getUserApi} from '../api/person'
+import {getUserInfoApi} from '../api/person'
 import {title} from '../settings'
 import {TraverseTree} from './TraverseTree'
 
@@ -46,7 +46,7 @@ let layout = {
 // 动态路由
 export function generateRouter() {
   return new Promise(resolve => {
-    getUserApi().then(result => {
+    getUserInfoApi().then(result => {
       store.dispatch('setUser', result.resultParam.user)
     });
     getMenuApi().then(result => {
@@ -70,8 +70,8 @@ router.beforeEach((to, from, next) => {
   let isLogin = !isEmpty(store.getters.token);
   if (to.path === "/") {
     isLogin
-        ? next('/home')
-        : next('/login');
+      ? next('/home')
+      : next('/login');
     return
   }
   if (to.path === "/login") {

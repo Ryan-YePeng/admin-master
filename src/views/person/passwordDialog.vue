@@ -18,7 +18,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="cancel">取 消</el-button>
-      <submit-button ref="SubmitButton" @submit="submitForm"></submit-button>
+      <submit-button ref="SubmitButton" @submit="submitForm"/>
     </div>
   </el-dialog>
 </template>
