@@ -1,98 +1,5 @@
-import axios from "axios";
+import service from "./axios"
 import qs from "qs";
-import router from "@/router";
-import store from "@/store";
-import { timeout } from "@/settings";
-import { MessageBox } from "element-ui";
-import { errorMessage, successMsg, errorMsg } from "@/utils/EUI";
-import { isEmpty } from "@/utils/common";
-
-let errorStatus = null;
-
-const service = axios.create({
-  timeout: timeout,
-  baseURL: process.env.VUE_APP_BASE_API,
-  withCredentials: true
-});
-
-//请求拦截
-service.interceptors.request.use(
-  config => {
-    let token = store.getters.token;
-    let url = config.url;
-    if (isAddToken(url)) config.headers.Authorization = token;
-    return config;
-  },
-  error => {
-    errorMessage("请求错误！");
-    return Promise.reject(error);
-  }
-);
-
-// 响应拦截
-service.interceptors.response.use(
-  response => {
-    const { message, status } = response.data;
-    if (!isEmpty(message) && status === 200) successMsg(message);
-    if (!isEmpty(message) && status !== 200) errorMsg(message);
-    return response.data;
-  },
-  error => {
-    /* 请求超时！*/
-    if (error.toString().includes("timeout")) {
-      errorMessage("网络请求超时！");
-      return Promise.reject(error);
-    }
-    /* 请求中断 */
-    if (
-      error.hasOwnProperty("message") &&
-      error.message === "Request Interruption"
-    ) {
-      return Promise.reject(error);
-    }
-    /* 网络错误 */
-    if (
-      error.response.hasOwnProperty("statusText") &&
-      error.response.statusText === "Internal Server Error"
-    ) {
-      errorMessage("网络错误，无法连接到服务器！");
-      return Promise.reject(error);
-    }
-    const { status, message } = error.response.data;
-    /* 401 */
-    if (status === 401) {
-      if (errorStatus === status) return;
-      errorStatus = status;
-      MessageBox.confirm(
-        "登录状态已过期，您可以继续留在该页面，或者重新登录",
-        "系统提示",
-        {
-          confirmButtonText: "重新登录",
-          cancelButtonText: "取消",
-          type: "warning"
-        }
-      )
-        .then(() => router.push({ name: "login" }))
-        .catch(() => (errorStatus = null));
-    } else if (status === 403) {
-      /* 403 */
-      router.push({ name: "error403" });
-    } else {
-      /* elseStatus */
-      if (!isEmpty(message)) errorMsg(message);
-    }
-    return Promise.reject(error);
-  }
-);
-
-/**
- * @description 白名单，不添加token的接口
- * */
-const ignoreTokenArray = [
-  "test/admin/login",
-  "test/admin/getCode"
-];
-const isAddToken = url => ignoreTokenArray.every(item => url !== item);
 
 /**
  * @param {String} url 请求地址
@@ -108,6 +15,8 @@ export const axiosG = url => {
       .catch(error => reject(error));
   });
 };
+
+
 /**
  * @param {String} url 请求地址
  * @description delete，删除单条数据。
@@ -122,6 +31,8 @@ export const axiosD = url => {
       .catch(error => reject(error));
   });
 };
+
+
 /**
  * @param {String} url 请求地址
  * @param {Array} param [1, 2, 3]
@@ -141,6 +52,8 @@ export const axiosDs = (url, param) => {
       .catch(error => reject(error));
   });
 };
+
+
 /**
  * @param {String} url 请求地址
  * @param {Object} param {name: LiHua, age: 18}
@@ -152,13 +65,15 @@ export const axiosK = (url, param) => {
       method: "post",
       url: url,
       data: param,
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      headers: {"Content-Type": "application/x-www-form-urlencoded"},
       transformRequest: [data => qs.stringify(data)]
     })
       .then(result => resolve(result))
       .catch(error => reject(error));
   });
 };
+
+
 /**
  * @param {String} url 请求地址
  * @param {Object} param {name: LiHua, age: 18}
@@ -170,13 +85,15 @@ export const axiosP = (url, param) => {
       method: "put",
       url: url,
       data: param,
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      headers: {"Content-Type": "application/x-www-form-urlencoded"},
       transformRequest: [data => qs.stringify(data)]
     })
       .then(result => resolve(result))
       .catch(error => reject(error));
   });
 };
+
+
 /**
  * @param {String} url 请求地址
  * @param {Object} param {name: LiHua, age: 18}
@@ -188,13 +105,15 @@ export const axiosJ = (url, param) => {
       method: "post",
       url: url,
       data: param,
-      headers: { "Content-Type": "application/json" },
+      headers: {"Content-Type": "application/json"},
       transformRequest: [data => JSON.stringify(data)]
     })
       .then(result => resolve(result))
       .catch(error => reject(error));
   });
 };
+
+
 /**
  * @param {String} url 请求地址
  * @param {Object} param {name: LiHua, age: 18}
@@ -206,13 +125,15 @@ export const axiosU = (url, param) => {
       method: "put",
       url: url,
       data: param,
-      headers: { "Content-Type": "application/json" },
+      headers: {"Content-Type": "application/json"},
       transformRequest: [data => JSON.stringify(data)]
     })
       .then(result => resolve(result))
       .catch(error => reject(error));
   });
 };
+
+
 /**
  * @param {String} url 请求地址
  * @param {FormData} param new FormData()
@@ -224,12 +145,14 @@ export const axiosF = (url, param) => {
       method: "post",
       url: url,
       data: param,
-      headers: { "Content-Type": "multipart/form-data" }
+      headers: {"Content-Type": "multipart/form-data"}
     })
       .then(result => resolve(result))
       .catch(error => reject(error));
   });
 };
+
+
 /**
  * @param {String} url 请求地址
  * @param {Object} param {id: 1, file: [1.png, 2.png]}
@@ -239,13 +162,13 @@ export const axiosF = (url, param) => {
  * */
 export const axiosFs = (url, param, callback, source) => {
   let cancelToken;
-  if (!isEmpty(source)) cancelToken = source.token;
+  if (source) cancelToken = source.token;
   return new Promise((resolve, reject) => {
     service({
       method: "post",
       url: url,
       data: param,
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: {"Content-Type": "multipart/form-data"},
       transformRequest: [
         data => {
           const formData = new FormData();
@@ -265,7 +188,7 @@ export const axiosFs = (url, param, callback, source) => {
       ],
       cancelToken: cancelToken,
       onUploadProgress: progress => {
-        if (!isEmpty(callback))
+        if (callback)
           callback(Math.round((progress.loaded / progress.total) * 100));
       }
     })
@@ -273,6 +196,8 @@ export const axiosFs = (url, param, callback, source) => {
       .catch(error => reject(error));
   });
 };
+
+
 /**
  * @param {String} url 请求地址
  * @description 下载文件。

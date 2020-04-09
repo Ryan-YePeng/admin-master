@@ -23,12 +23,11 @@
   import ScrollPane from "../ScrollPane";
   import Logo from "./Logo";
   import NavMenu from "./NavMenu";
-  import Item from "./Item"
   import Style from "../scss/index.scss"
 
   export default {
     name: 'AdminMenu',
-    components: {ScrollPane, Item, NavMenu, Logo},
+    components: {ScrollPane, NavMenu, Logo},
     props: {
       isSmall: {
         type: Boolean,
