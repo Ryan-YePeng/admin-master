@@ -166,21 +166,22 @@ export const axiosFs = (url, param, callback, source) => {
   return new Promise((resolve, reject) => {
     service({
       method: "post",
+      timeout: 10 * 60 * 1000,
       url: url,
       data: param,
-      headers: {"Content-Type": "multipart/form-data"},
+      headers: {
+        "Content-Type": "multipart/form-data"
+      },
       transformRequest: [
         data => {
           const formData = new FormData();
           for (let key in data) {
             if (data.hasOwnProperty(key)) {
-              if (data[key] instanceof Array) {
-                for (let i = 0; i < data[key].length; i++) {
+              if (data[key] instanceof Array)
+                for (let i = 0; i < data[key].length; i++)
                   formData.append(key, data[key][i]);
-                }
-              } else {
-                formData.append(key, data[key]);
-              }
+              else
+                formData.append(key, data[key])
             }
           }
           return formData;

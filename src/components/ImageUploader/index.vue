@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import {uploadFileApi} from "@/api/file";
+  import {uploadPicturePlusApi} from "@/api/file";
 
   export default {
     name: "ImageUploader",
@@ -53,16 +53,14 @@
           return;
         }
         this.isLoading = true;
-        uploadFileApi({pic: file})
+        let data = {};
+        data.file = file;
+        data.typePath = 'article';
+        uploadPicturePlusApi(data)
           .then(result => {
             this.isLoading = false;
-            let response = result.data;
-            if (response.status === 200) {
-              this.$emit("getImage", response.path);
-              this.url = URL.createObjectURL(file);
-            } else {
-              this.$successMsg("上传失败");
-            }
+            this.$emit("getImage", result.resultParam.uploadFilePath);
+            this.url = URL.createObjectURL(file);
           })
           .catch(() => {
             this.isLoading = false;

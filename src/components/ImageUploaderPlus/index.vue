@@ -50,7 +50,7 @@
 
 <script>
   import {VueCropper} from 'vue-cropper'
-  import {editAvatarApi} from "@/api/user";
+  import {uploadPictureApi} from "@/api/file";
 
   export default {
     name: "ImageUploaderPlus",
@@ -117,12 +117,13 @@
       submit() {
         this.$refs.cropper.getCropBlob(data => {
           let formData = new FormData();
-          formData.append('avatar', data, this.fileName);
+          formData.append('file', data, this.fileName);
+          formData.append('typePath', 'article');
           this.$refs.SubmitButton.start();
-          editAvatarApi(formData)
-            .then(() => {
+          uploadPictureApi(formData)
+            .then(result => {
               this.url = URL.createObjectURL(data);
-              this.$emit('getImage', 'fileUrl');
+              this.$emit('getImage', result.resultParam.uploadFilePath);
               this.$refs.SubmitButton.stop();
               this.closeUpload();
             })

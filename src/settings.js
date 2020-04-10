@@ -50,7 +50,7 @@ module.exports = {
   /**
    * @description 请求超时时间，毫秒（默认20秒）
    */
-  timeout: 20000,
+  timeout: 2 * 1000,
   /**
    * @description 记住密码状态下的token在Cookie中存储的天数，默认1天
    */

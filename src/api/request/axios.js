@@ -1,13 +1,12 @@
 import axios from "axios";
 import router from "@/router";
 import store from "@/store";
-import {timeout} from "@/settings";
 import {MessageBox} from "element-ui";
 import {errorMessage, successMsg, errorMsg} from "@/utils/EUI";
 import {isEmpty} from "@/utils/common";
+import {timeout} from "@/settings";
 
 let errorStatus = null;
-
 const service = axios.create({
   timeout: timeout,
   baseURL: process.env.VUE_APP_BASE_API,

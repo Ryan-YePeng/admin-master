@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import {uploadFileApi} from "@/api/user";
+  import {uploadPicturePlusApi} from "@/api/file";
 
   export default {
     name: "ImageUploaderBatch",
@@ -61,9 +61,12 @@
           param.onError();
           return;
         }
-        uploadFileApi({avatar: file})
+        let data = {};
+        data.file = file;
+        data.typePath = 'article';
+        uploadPicturePlusApi(data)
           .then(result => {
-            param.onSuccess(file.name, file);
+            param.onSuccess(result.resultParam.uploadFilePath, file);
           })
           .catch(() => {
             param.onError();
@@ -80,13 +83,13 @@
         this.emitImage()
       },
       emitImage() {
-        let str = '';
+        let pathStr = '';
         this.$refs['ImageUploaderBatch'].uploadFiles
           .forEach(item => {
-            str = str + `${item.pathUrl},`;
+            pathStr = pathStr + `${item.pathUrl},`;
           });
-        str = str.substr(0, str.length - 1);
-        this.$emit("getImage", str);
+        pathStr = pathStr.substr(0, pathStr.length - 1);
+        this.$emit("getImage", pathStr);
       },
       exceed() {
         this.$errorMsg(`至多上传${this.limit}张图片`)

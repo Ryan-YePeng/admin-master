@@ -2,7 +2,7 @@ import {axiosD, axiosG, axiosK, axiosP} from "@/api/request";
 
 const addJobUrl = "admin/job/addJob"; // 新增职业
 const deleteJobUrl = "admin/job/delJob?jobId="; // 删除职业
-const editJobUrl = "admin/job/editJob"; // 更新职业
+const editJobUrl = "admin/job/editJob"; // 编辑职业
 const getJobListPageUrl = "admin/job/pageJob?"; // 分页获得职业列表
 const getJobByDeptIdUrl = "admin/job/listJob?deptId="; // 新增职业名列表（模糊搜索职业名）
 

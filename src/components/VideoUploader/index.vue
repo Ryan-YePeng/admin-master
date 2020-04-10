@@ -24,7 +24,7 @@
 </template>
 
 <script>
-  import {uploadFileApi} from "@/api/file";
+  import {uploadVideoPlusApi} from "@/api/file";
   import axios from "axios";
 
   export default {
@@ -75,16 +75,14 @@
           return;
         }
         this.isLoading = true;
-        uploadFileApi({pic: file}, this.update, this.source)
+        let data = {};
+        data.file = file;
+        data.typePath = 'article';
+        uploadVideoPlusApi(data, this.update, this.source)
           .then(result => {
             this.reset();
-            let response = result.data;
-            if (response.status === 200) {
-              this.$emit("getVideo", response.path);
-              this.url = URL.createObjectURL(file);
-            } else {
-              this.$successMsg("上传失败");
-            }
+            this.$emit("getVideo", result.resultParam.uploadFilePath);
+            this.url = URL.createObjectURL(file);
           })
           .catch(error => {
             this.reset();
@@ -92,7 +90,7 @@
               axios.isCancel(error) &&
               error.message === "Request Interruption"
             ) {
-              this.$successMsg("取消上传成功");
+              this.$infoMsg("已取消上传");
             }
           });
       },

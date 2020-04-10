@@ -1,6 +1,10 @@
 import Vue from "vue";
 import store from '../store'
 
+
+/**
+ * @description 权限控制
+ **/
 Vue.directive('permission', {
   inserted(el, binding) {
     const {value} = binding;
