@@ -1,19 +1,19 @@
 <template>
   <el-dialog
-          title="编辑岗位"
-          width="500px"
-          @close="cancel"
-          :close-on-click-modal="false"
-          :visible.sync="visible">
+      title="编辑岗位"
+      width="500px"
+      @close="cancel"
+      :close-on-click-modal="false"
+      :visible.sync="visible">
     <el-form :model="form" :rules="rules" ref="Form" label-width="80px" hide-required-asterisk>
       <el-form-item label="名称" prop="name">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="排序" prop="sort">
         <el-input-number
-                v-model="form.sort"
-                controls-position="right"
-                :min="1">
+            v-model="form.sort"
+            controls-position="right"
+            :min="1">
         </el-input-number>
       </el-form-item>
       <el-form-item label="状态">
@@ -24,11 +24,11 @@
       </el-form-item>
       <el-form-item label="所属部门" prop="deptId">
         <tree-select
-                v-model="form.deptId"
-                :options="dept"
-                :normalizer="normalizer"
-                :default-expand-level="1"
-                placeholder=""/>
+            v-model="form.deptId"
+            :options="dept"
+            :normalizer="normalizer"
+            :default-expand-level="1"
+            placeholder=""/>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">

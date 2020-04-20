@@ -1,10 +1,10 @@
 <template>
   <el-dialog
-          title="编辑用户"
-          width="600px"
-          @close="cancel"
-          :close-on-click-modal="false"
-          :visible.sync="visible">
+      title="编辑用户"
+      width="600px"
+      @close="cancel"
+      :close-on-click-modal="false"
+      :visible.sync="visible">
     <el-form :model="form" :rules="rules" ref="Form" label-width="80px" hide-required-asterisk>
       <el-row>
         <el-col :span="12">
@@ -46,10 +46,10 @@
           <el-form-item label="岗位" prop="jobId">
             <el-select v-model="form.jobId" placeholder="请先选择部门">
               <el-option
-                      v-for="item in options"
-                      :key="item.id"
-                      :value="item.id"
-                      :label="item.name"/>
+                  v-for="item in options"
+                  :key="item.id"
+                  :value="item.id"
+                  :label="item.name"/>
             </el-select>
           </el-form-item>
         </el-col>
@@ -75,10 +75,10 @@
       <el-form-item label="角色" prop="roleId">
         <el-select v-model="form.roleId" clearable class="w-100">
           <el-option
-                  v-for="item in roleList"
-                  :label="item.name"
-                  :value="item.id"
-                  :key="item.id"/>
+              v-for="item in roleList"
+              :label="item.name"
+              :value="item.id"
+              :key="item.id"/>
         </el-select>
       </el-form-item>
     </el-form>
@@ -144,14 +144,14 @@
         if (isEmpty(value)) {
           this.options = []
         } else {
-          getJobByDeptIdApi(value).then(result => {
+          getJobByDeptIdApi({deptId: value}).then(result => {
             this.options = result.resultParam.jobList;
           })
         }
         this.form.jobId = null
       },
       initDept(value) {
-        getJobByDeptIdApi(value).then(result => {
+        getJobByDeptIdApi({deptId: value}).then(result => {
           this.options = result.resultParam.jobList;
           this.form.jobId = value
         })

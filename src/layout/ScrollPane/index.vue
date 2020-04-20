@@ -45,11 +45,13 @@
       return {
         isShowTopPane: false,
         ops: {
+          vuescroll: {
+            wheelScrollDuration: 300
+          },
           scrollPanel: {
             scrollingX: this.hasX,
             scrollingY: this.hasY,
-            speed: 1000,
-            easing: 'easeInOutQuad'
+            speed: 800
           },
           bar: {
             onlyShowBarOnScroll: false,

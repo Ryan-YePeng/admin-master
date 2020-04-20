@@ -1,8 +1,8 @@
 <template>
   <el-card class="box-card" id="operation-log">
     <el-table
-            v-loading="isTableLoading"
-            :data="formData">
+        v-loading="isTableLoading"
+        :data="formData">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form class="log-table-expand">
@@ -56,7 +56,10 @@
       getLogList() {
         this.isTableLoading = true;
         let pagination = this.$refs.Pagination;
-        let param = `current=${pagination.current}&size=${pagination.size}`;
+        let param = {
+          current: pagination.current,
+          size: pagination.size
+        };
         getErrorLogApi(param).then(result => {
           this.isTableLoading = false;
           let response = result.resultParam.logIPage;
@@ -66,7 +69,7 @@
       },
       info(id) {
         this.dialog = true;
-        getErrorDetailByIdApi(id).then(result => {
+        getErrorDetailByIdApi({logId: id}).then(result => {
           this.errorInfo = result.resultParam.log.exceptionDetail
         })
       }

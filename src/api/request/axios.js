@@ -1,8 +1,7 @@
 import axios from "axios";
 import router from "@/router";
 import store from "@/store";
-import {MessageBox} from "element-ui";
-import {errorMessage, successMsg, errorMsg} from "@/utils/EUI";
+import {errorMessage, successMsg, errorMsg, msgBox} from "@/utils/EUI";
 import {isEmpty} from "@/utils/common";
 import {timeout} from "@/settings";
 
@@ -61,17 +60,9 @@ service.interceptors.response.use(
     if (status === 401) {
       if (errorStatus === status) return;
       errorStatus = status;
-      MessageBox.confirm(
-        "登录状态已过期，您可以继续留在该页面，或者重新登录",
-        "系统提示",
-        {
-          confirmButtonText: "重新登录",
-          cancelButtonText: "取消",
-          type: "warning"
-        }
-      )
+      msgBox("登录状态已过期，您可以继续留在该页面，或者重新登录", "重新登录", "系统提示")
         .then(() => router.push({name: "login"}))
-        .catch(() => (errorStatus = null));
+        .catch(() => (errorStatus = null))
     } else if (status === 403) {
       /* 403 */
       router.push({name: "error403"});

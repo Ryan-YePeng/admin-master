@@ -7,8 +7,8 @@ import router from '@/router'
  *
  * */
 const transformName = value =>
-      value.replace(/[_](\w)|\b(\w)/g, name =>
-          name.toUpperCase().replace(/[_]/g, ''));
+  value.replace(/[_](\w)|\b(\w)/g, name =>
+    name.toUpperCase().replace(/[_]/g, ''));
 
 const type = {
   SET_CACHE: 'SET_CACHE',

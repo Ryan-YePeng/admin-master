@@ -1,10 +1,10 @@
 <template>
   <el-dialog
-          title="新增部门"
-          width="500px"
-          @close="cancel"
-          :close-on-click-modal="false"
-          :visible.sync="visible">
+      title="新增部门"
+      width="500px"
+      @close="cancel"
+      :close-on-click-modal="false"
+      :visible.sync="visible">
     <el-form :model="form" :rules="rules" ref="Form" label-width="80px" hide-required-asterisk>
       <el-form-item label="部门名称" prop="name">
         <el-input v-model="form.name"></el-input>
@@ -17,11 +17,11 @@
       </el-form-item>
       <el-form-item label="上级部门">
         <tree-select
-                v-model="form.pid"
-                :options="dept"
-                :normalizer="normalizer"
-                :default-expand-level="1"
-                placeholder=""/>
+            v-model="form.pid"
+            :options="dept"
+            :normalizer="normalizer"
+            :default-expand-level="1"
+            placeholder=""/>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">

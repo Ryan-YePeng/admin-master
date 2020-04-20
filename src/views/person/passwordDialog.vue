@@ -1,10 +1,10 @@
 <template>
   <el-dialog
-          title="修改密码"
-          width="450px"
-          :visible.sync="visible"
-          @close="cancel"
-          :close-on-click-modal="false">
+      title="修改密码"
+      width="450px"
+      :visible.sync="visible"
+      @close="cancel"
+      :close-on-click-modal="false">
     <el-form :model="form" :rules="rules" ref="Form" label-width="120px">
       <el-form-item label="旧密码:" prop="oldPass">
         <el-input type="password" v-model="form.oldPass" autocomplete="off"></el-input>

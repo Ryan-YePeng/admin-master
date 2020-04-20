@@ -141,14 +141,19 @@ const errorNotify = msg => {
 
 /**
  * @param {String} text 提示信息
- * @param {String} type 消息框类型(success, info, error, warning)
+ * @param {String} confirmText 确认文字
+ * @param {String} title 提示文字
  */
-const msgBox = (text = "确定执行此操作吗？", type = "warning") => {
-  return MessageBox.confirm(text, "提示", {
-    confirmButtonText: "确定",
-    cancelButtonText: "取消",
-    type: type
-  });
+export const msgBox = (text = "确定执行此操作吗？", confirmText = "确定", title = "提示") => {
+  return new Promise((resolve, reject) => {
+    MessageBox.confirm(text, title, {
+      confirmButtonText: confirmText,
+      cancelButtonText: "取消",
+      type: "warning"
+    })
+      .then(result => resolve(result))
+      .catch(error => reject(error))
+  })
 };
 
 /**

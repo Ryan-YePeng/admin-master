@@ -1,15 +1,19 @@
 import service from "./axios"
 import qs from "qs";
 
+
 /**
  * @param {String} url 请求地址
+ * @param {Object=} param 参数
  * @description get
  * */
-export const axiosG = url => {
+export const axiosG = (url, param) => {
   return new Promise((resolve, reject) => {
     service({
       method: "get",
-      url: url
+      url: url,
+      params: param,
+      paramsSerializer: params => qs.stringify(params)
     })
       .then(result => resolve(result))
       .catch(error => reject(error));
@@ -19,33 +23,34 @@ export const axiosG = url => {
 
 /**
  * @param {String} url 请求地址
- * @description delete，删除单条数据。
+ * @param {Object=} param 请求地址
+ * @description delete，删除数据。
  * */
-export const axiosD = url => {
-  return new Promise((resolve, reject) => {
-    service({
-      method: "delete",
-      url: url
-    })
-      .then(result => resolve(result))
-      .catch(error => reject(error));
-  });
-};
-
-
-/**
- * @param {String} url 请求地址
- * @param {Array} param [1, 2, 3]
- * @description delete，删除多条数据。
- * */
-export const axiosDs = (url, param) => {
+export const axiosD = (url, param) => {
   return new Promise((resolve, reject) => {
     service({
       method: "delete",
       url: url,
-      params: {
-        ids: param
-      },
+      params: param,
+      paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
+    })
+      .then(result => resolve(result))
+      .catch(error => reject(error));
+  });
+};
+
+
+/**
+ * @param {String} url 请求地址
+ * @param {Object=} param 请求地址
+ * @description put，批量修改。
+ * */
+export const axiosM = (url, param) => {
+  return new Promise((resolve, reject) => {
+    service({
+      method: "put",
+      url: url,
+      params: param,
       paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
     })
       .then(result => resolve(result))
@@ -117,7 +122,7 @@ export const axiosJ = (url, param) => {
 /**
  * @param {String} url 请求地址
  * @param {Object} param {name: LiHua, age: 18}
- * @description post，JSON格式。
+ * @description put，JSON格式。
  * */
 export const axiosU = (url, param) => {
   return new Promise((resolve, reject) => {
@@ -201,14 +206,17 @@ export const axiosFs = (url, param, callback, source) => {
 
 /**
  * @param {String} url 请求地址
+ * @param {Object=} param 请求地址
  * @description 下载文件。
  * */
-export const axiosL = url => {
+export const axiosL = (url, param) => {
   return new Promise((resolve, reject) => {
     service({
       method: "get",
       url: url,
-      responseType: "blob"
+      responseType: "blob",
+      params: param,
+      paramsSerializer: params => qs.stringify(params)
     })
       .then(result => resolve(result))
       .catch(error => reject(error));

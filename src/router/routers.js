@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import {isHistory} from "../settings";
 
 Vue.use(Router);
 
@@ -25,6 +26,6 @@ const constantRouterMap = [
 ];
 
 export default new Router({
-  mode: 'history',
+  mode: process.env.NODE_ENV === "production" && isHistory ? "history" : "hash",
   routes: constantRouterMap
 })

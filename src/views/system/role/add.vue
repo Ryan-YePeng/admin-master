@@ -1,10 +1,10 @@
 <template>
   <el-dialog
-          title="新增角色"
-          width="600px"
-          @close="cancel"
-          :close-on-click-modal="false"
-          :visible.sync="visible">
+      title="新增角色"
+      width="600px"
+      @close="cancel"
+      :close-on-click-modal="false"
+      :visible.sync="visible">
     <el-form :model="form" :rules="rules" ref="Form" label-width="120px" hide-required-asterisk>
       <el-row>
         <el-col :span="12">
@@ -22,9 +22,9 @@
         <el-col :span="12">
           <el-form-item label="角色级别" prop="level">
             <el-input-number
-                    v-model="form.level"
-                    controls-position="right"
-                    :min="level">
+                v-model="form.level"
+                controls-position="right"
+                :min="level">
             </el-input-number>
           </el-form-item>
         </el-col>

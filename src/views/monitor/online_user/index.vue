@@ -21,12 +21,12 @@
       <el-table-column label="操作" fixed="right" align="center" width="70">
         <template slot-scope="scope">
           <delete-button
-                  :ref="scope.row.key"
-                  :id="scope.row.key"
-                  :msg="'确定强制退出该用户吗？'"
-                  type="text"
-                  text="强退"
-                  @start="deleteOnlineUserApi"/>
+              :ref="scope.row.key"
+              :id="scope.row.key"
+              :msg="'确定强制退出该用户吗？'"
+              type="text"
+              text="强退"
+              @start="deleteOnlineUserApi"/>
         </template>
       </el-table-column>
     </el-table>
@@ -53,7 +53,11 @@
       getOnlineUser() {
         this.isTableLoading = true;
         let pagination = this.$refs.Pagination;
-        let param = `current=${pagination.current}&size=${pagination.size}&filter=${this.searchText}`;
+        let param = {
+          current: pagination.current,
+          size: pagination.size,
+          filter: this.searchText
+        };
         getOnlineUserApi(param).then(result => {
           this.isTableLoading = false;
           let response = result.resultParam.userListPageUtil;
@@ -62,14 +66,14 @@
         })
       },
       deleteOnlineUserApi(key) {
-        deleteOnlineUserApi(key)
-            .then(() => {
-              this.getOnlineUser();
-              this.$refs[key].close()
-            })
-            .catch(() => {
-              this.$refs[key].stop();
-            })
+        deleteOnlineUserApi({keys: key})
+          .then(() => {
+            this.getOnlineUser();
+            this.$refs[key].close()
+          })
+          .catch(() => {
+            this.$refs[key].stop();
+          })
       }
     }
   }

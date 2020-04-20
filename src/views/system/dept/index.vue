@@ -22,9 +22,9 @@
         <template slot-scope="scope">
           <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
           <delete-button
-                  :ref="scope.row.id"
-                  :id="scope.row.id"
-                  @start="deleteDept"/>
+              :ref="scope.row.id"
+              :id="scope.row.id"
+              @start="deleteDept"/>
         </template>
       </el-table-column>
     </el-table>
@@ -56,7 +56,7 @@
     methods: {
       getDeptTree() {
         this.isTableLoading = true;
-        getDeptTreeApi('').then(result => {
+        getDeptTreeApi({deptName: ''}).then(result => {
           this.isTableLoading = false;
           this.formData = result.resultParam.deptTree;
           this.dept = result.resultParam.deptTree;
@@ -64,7 +64,7 @@
       },
       searchDept() {
         this.isTableLoading = true;
-        getDeptTreeApi(this.searchName).then(result => {
+        getDeptTreeApi({deptName: this.searchName}).then(result => {
           this.isTableLoading = false;
           this.formData = result.resultParam.deptTree;
         })
@@ -80,14 +80,14 @@
         _this.visible = true
       },
       deleteDept(id) {
-        deleteDeptApi(id)
-            .then(() => {
-              this.getDeptTree();
-              this.$refs[id].close()
-            })
-            .catch(() => {
-              this.$refs[id].stop();
-            })
+        deleteDeptApi({deptId: id})
+          .then(() => {
+            this.getDeptTree();
+            this.$refs[id].close()
+          })
+          .catch(() => {
+            this.$refs[id].stop();
+          })
       }
     }
   }

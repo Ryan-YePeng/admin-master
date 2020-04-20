@@ -4,24 +4,24 @@
       <el-card class="box-card">
         <div slot="header" class="clearfix">
           <el-input
-                  clearable
-                  size="small"
-                  placeholder="输入部门名称"
-                  prefix-icon="el-icon-search"
-                  @keyup.enter.native="searchDept"
-                  class="w-100"
-                  v-model="searchDeptName">
+              clearable
+              size="small"
+              placeholder="输入部门名称"
+              prefix-icon="el-icon-search"
+              @keyup.enter.native="searchDept"
+              class="w-100"
+              v-model="searchDeptName">
           </el-input>
         </div>
         <div>
           <el-tree
-                  ref="deptTree"
-                  :data="deptTree"
-                  node-key="id"
-                  :props="treeProps"
-                  @node-click="searchByDeptId"
-                  default-expand-all
-                  :expand-on-click-node="false"
+              ref="deptTree"
+              :data="deptTree"
+              node-key="id"
+              :props="treeProps"
+              @node-click="searchByDeptId"
+              default-expand-all
+              :expand-on-click-node="false"
           >
           </el-tree>
         </div>
@@ -61,9 +61,9 @@
             <template slot-scope="scope">
               <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
               <delete-button
-                      :ref="scope.row.id"
-                      :id="scope.row.id"
-                      @start="deleteUser"/>
+                  :ref="scope.row.id"
+                  :id="scope.row.id"
+                  @start="deleteUser"/>
             </template>
           </el-table-column>
         </el-table>
@@ -108,18 +108,18 @@
     },
     methods: {
       getRoleList() {
-        getRoleListApi('').then(result => {
+        getRoleListApi({roleName: ''}).then(result => {
           this.roleList = result.resultParam.roleList;
         })
       },
       getDeptTree() {
-        getDeptTreeApi('').then(result => {
+        getDeptTreeApi({deptName: ''}).then(result => {
           this.dept = result.resultParam.deptTree;
           this.deptTree = result.resultParam.deptTree
         })
       },
       searchDept() {
-        getDeptTreeApi(this.searchDeptName).then(result => {
+        getDeptTreeApi({deptName: this.searchDeptName}).then(result => {
           this.deptTree = result.resultParam.deptTree
         })
       },
@@ -134,7 +134,12 @@
       getUserList() {
         this.isTableLoading = true;
         let pagination = this.$refs.Pagination;
-        let param = `current=${pagination.current}&size=${pagination.size}&deptId=${this.searchDeptId}&username=${this.searchUsername}`;
+        let param = {
+          current: pagination.current,
+          size: pagination.size,
+          deptId: this.searchDeptId,
+          username: this.searchUsername
+        };
         getUserListApi(param).then(result => {
           this.isTableLoading = false;
           let response = result.resultParam.userList;
@@ -159,14 +164,14 @@
         _this.visible = true
       },
       deleteUser(id) {
-        deleteUserApi([id])
-            .then(() => {
-              this.getUserList();
-              this.$refs[id].close()
-            })
-            .catch(() => {
-              this.$refs[id].stop();
-            })
+        deleteUserApi({ids: id})
+          .then(() => {
+            this.getUserList();
+            this.$refs[id].close()
+          })
+          .catch(() => {
+            this.$refs[id].stop();
+          })
       }
     }
   }

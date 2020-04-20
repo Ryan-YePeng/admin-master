@@ -9,11 +9,11 @@
           <el-button type="primary" icon="el-icon-plus" @click="add" class="float-right">新增</el-button>
         </div>
         <el-table
-                v-loading="isTableLoading"
-                :data="formData"
-                ref="roleTable"
-                @row-click="getTreeChecked"
-                :highlight-current-row="true">
+            v-loading="isTableLoading"
+            :data="formData"
+            ref="roleTable"
+            @row-click="getTreeChecked"
+            :highlight-current-row="true">
           <el-table-column prop="name" label="名称"></el-table-column>
           <el-table-column prop="dataScope" label="数据权限"></el-table-column>
           <el-table-column prop="permission" label="角色权限"></el-table-column>
@@ -28,9 +28,9 @@
             <template slot-scope="scope">
               <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
               <delete-button
-                      :ref="scope.row.id"
-                      :id="scope.row.id"
-                      @start="deleteRole"/>
+                  :ref="scope.row.id"
+                  :id="scope.row.id"
+                  @start="deleteRole"/>
             </template>
           </el-table-column>
         </el-table>
@@ -41,22 +41,22 @@
         <div slot="header" class="clearfix">
           <span class="header">菜单分配</span>
           <submit-button
-                  ref="SubmitButton"
-                  icon="el-icon-check"
-                  class="float-right"
-                  @submit="update"
-                  text="保存"/>
+              ref="SubmitButton"
+              icon="el-icon-check"
+              class="float-right"
+              @submit="update"
+              text="保存"/>
         </div>
         <div>
           <el-tree
-                  ref="RoleMenuTree"
-                  :check-strictly="true"
-                  :data="tree"
-                  show-checkbox
-                  node-key="id"
-                  :prop="treeProps"
-                  accordion
-                  :default-checked-keys="menuIds"
+              ref="RoleMenuTree"
+              :check-strictly="true"
+              :data="tree"
+              show-checkbox
+              node-key="id"
+              :prop="treeProps"
+              accordion
+              :default-checked-keys="menuIds"
           >
           </el-tree>
         </div>
@@ -101,7 +101,7 @@
     },
     methods: {
       getDeptTree() {
-        getDeptTreeApi('').then(result => {
+        getDeptTreeApi({deptName: ''}).then(result => {
           this.dept = result.resultParam.deptTree
         })
       },
@@ -111,18 +111,18 @@
         })
       },
       getRoleListAndRoleTree() {
-        getRoleListApi('')
-            .then(result => {
-              this.formData = result.resultParam.roleList;
-              return getRoleTreeApi()
-            })
-            .then(result => {
-              this.tree = result.resultParam.roleTree
-            })
+        getRoleListApi({roleName: ''})
+          .then(result => {
+            this.formData = result.resultParam.roleList;
+            return getRoleTreeApi()
+          })
+          .then(result => {
+            this.tree = result.resultParam.roleTree
+          })
       },
       getRoleList() {
         this.isTableLoading = true;
-        getRoleListApi(this.searchRoleName).then(result => {
+        getRoleListApi({roleName: this.searchRoleName}).then(result => {
           this.isTableLoading = false;
           this.formData = result.resultParam.roleList;
           this.clearChecked();
@@ -164,14 +164,14 @@
         _this.visible = true
       },
       deleteRole(id) {
-        deleteRoleApi(id)
-            .then(() => {
-              this.getRoleList();
-              this.$refs[id].close()
-            })
-            .catch(() => {
-              this.$refs[id].stop();
-            })
+        deleteRoleApi({roleId: id})
+          .then(() => {
+            this.getRoleList();
+            this.$refs[id].close()
+          })
+          .catch(() => {
+            this.$refs[id].stop();
+          })
       }
     }
   }

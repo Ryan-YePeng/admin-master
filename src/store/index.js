@@ -20,43 +20,27 @@ const plugins = [
   createPersistedState({
     key: 'RYAN-ADMIN-INFO',
     storage: window.localStorage,
-    reducer(val) {
-      return {
-        info: val.info
-      };
-    }
+    reducer: val => ({info: val.info})
   }),
   createPersistedState({
     key: 'RYAN-ADMIN-SETTINGS',
     storage: window.localStorage,
-    reducer(val) {
-      return {
-        settings: val.settings
-      };
-    }
+    reducer: val => ({settings: val.settings})
   }),
   createPersistedState({
     key: 'RYAN-ADMIN-LAYOUT',
     storage: window.sessionStorage,
-    reducer(val) {
-      return {
-        layout: val.layout
-      };
-    }
+    reducer: val => ({layout: val.layout})
   }),
   createPersistedState({
     key: 'RYAN-ADMIN-TOKEN',
     storage: {
       getItem: key => Cookies.get(key),
       setItem: (key, value) =>
-          Cookies.set(key, value, {expires: modules.user.state.rememberMe ? tokenCookieExpires : 1, secure: false}),
+        Cookies.set(key, value, {expires: modules.user.state.rememberMe ? tokenCookieExpires : 1, secure: false}),
       removeItem: key => Cookies.remove(key)
     },
-    reducer(val) {
-      return {
-        token: val.token,
-      };
-    }
+    reducer: val => ({token: val.token})
   })
 ];
 

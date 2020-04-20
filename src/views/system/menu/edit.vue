@@ -1,17 +1,17 @@
 <template>
   <el-dialog
-          title="编辑菜单"
-          width="620px"
-          @close="cancel"
-          :close-on-click-modal="false"
-          :visible.sync="visible">
+      title="编辑菜单"
+      width="620px"
+      @close="cancel"
+      :close-on-click-modal="false"
+      :visible.sync="visible">
     <el-form :model="form" :rules="rules" ref="Form" label-width="80px" hide-required-asterisk>
       <el-form-item label="菜单图标">
         <el-popover
-                placement="bottom-start"
-                width="450"
-                trigger="click"
-                @show="$refs['iconSelect'].reset()"
+            placement="bottom-start"
+            width="450"
+            trigger="click"
+            @show="$refs['iconSelect'].reset()"
         >
           <icon-select ref="iconSelect" @selected="selected"/>
           <el-input slot="reference" v-model="form.icon" style="width: 450px;" placeholder="点击选择图标" readonly>
@@ -67,20 +67,20 @@
         <el-col :span="12">
           <el-form-item label="菜单排序" prop="sort">
             <el-input-number
-                    v-model="form.sort"
-                    controls-position="right"
-                    :min="1">
+                v-model="form.sort"
+                controls-position="right"
+                :min="1">
             </el-input-number>
           </el-form-item>
         </el-col>
       </el-row>
       <el-form-item label="上级类目">
         <tree-select
-                v-model="form.pid"
-                :options="menu"
-                :normalizer="normalizer"
-                :default-expand-level="1"
-                placeholder=""/>
+            v-model="form.pid"
+            :options="menu"
+            :normalizer="normalizer"
+            :default-expand-level="1"
+            placeholder=""/>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">

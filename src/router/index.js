@@ -75,18 +75,25 @@ router.beforeEach((to, from, next) => {
     return
   }
   if (to.path === "/login") {
+    next();
+    return;
+  }
+  if (!isLogin) {
+    next('/login');
+    return;
+  }
+  if (
+    process.env.NODE_ENV === 'production'
+    && (to.path === "/system/menu" || to.path === "/system/role")
+  ) {
+    next('/404');
+    return
+  }
+  if (store.getters.hasGenerateRouter) {
     next()
   } else {
-    if (isLogin) {
-      if (store.getters.hasGenerateRouter) {
-        next()
-      } else {
-        generateRouter();
-        next()
-      }
-    } else {
-      next('/login')
-    }
+    generateRouter();
+    next()
   }
 });
 

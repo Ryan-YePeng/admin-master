@@ -41,9 +41,9 @@
         <template slot-scope="scope">
           <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
           <delete-button
-                  :ref="scope.row.id"
-                  :id="scope.row.id"
-                  @start="deleteMenu"/>
+              :ref="scope.row.id"
+              :id="scope.row.id"
+              @start="deleteMenu"/>
         </template>
       </el-table-column>
     </el-table>
@@ -76,7 +76,7 @@
     methods: {
       getMenu() {
         this.isTableLoading = true;
-        getAllMenuApi('').then(result => {
+        getAllMenuApi({title: ''}).then(result => {
           this.isTableLoading = false;
           this.formData = result.resultParam.menuList;
           this.menu = result.resultParam.menuList
@@ -84,20 +84,20 @@
       },
       searchMenu() {
         this.isTableLoading = true;
-        getAllMenuApi(this.searchTitle).then(result => {
+        getAllMenuApi({title: this.searchTitle}).then(result => {
           this.isTableLoading = false;
           this.formData = result.resultParam.menuList;
         })
       },
       deleteMenu(id) {
-        deleteMenuApi(id)
-            .then(() => {
-              this.getMenu();
-              this.$refs[id].close()
-            })
-            .catch(() => {
-              this.$refs[id].stop();
-            })
+        deleteMenuApi({menuId: id})
+          .then(() => {
+            this.getMenu();
+            this.$refs[id].close()
+          })
+          .catch(() => {
+            this.$refs[id].stop();
+          })
       },
       add() {
         let _this = this.$refs.AddMenu;

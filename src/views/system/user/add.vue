@@ -141,7 +141,7 @@
         if (isEmpty(value)) {
           this.options = []
         } else {
-          getJobByDeptIdApi(value).then(result => {
+          getJobByDeptIdApi({deptId: value}).then(result => {
             this.options = result.resultParam.jobList
           })
         }

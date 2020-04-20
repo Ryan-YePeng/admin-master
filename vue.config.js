@@ -1,8 +1,10 @@
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const resolve = dir => require("path").join(__dirname, dir);
+const settings = require("./src/settings");
+const NODE_ENV = process.env.NODE_ENV;
 const isOpenGzip = false; // 开启gzip压缩, 按需引用
 module.exports = {
-  publicPath: "/", // (./相对路径) (/绝对路径)
+  publicPath: NODE_ENV === "production" && settings.isHistory ? "/" : "./", // (/绝对路径) (./相对路径)
   outputDir: "dist", // 生产环境构建文件的目录
   assetsDir: "", // 放置生成的静态资源(js、css、img、fonts)的(相对于 outputDir 的)目录
   indexPath: "index.html", // 指定生成的 index.html 的输出路径 (相对于 outputDir)。也可以是一个绝对路径。
@@ -17,7 +19,7 @@ module.exports = {
     // 开启 gzip 压缩
     // 需要 npm i -D compression-webpack-plugin
     const plugins = [];
-    if (process.env.NODE_ENV === "production" && isOpenGzip) {
+    if (NODE_ENV === "production" && isOpenGzip) {
       plugins.push(
         new CompressionWebpackPlugin({
           filename: "[path].gz[query]",

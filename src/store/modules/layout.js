@@ -50,8 +50,8 @@ const mutations = {
     }
     let nextTag;
     index === state.tags.length - 1
-        ? (nextTag = state.tags[index - 1])
-        : (nextTag = state.tags[index + 1]);
+      ? (nextTag = state.tags[index - 1])
+      : (nextTag = state.tags[index + 1]);
     router.push({name: nextTag.name});
     state.active = nextTag.title;
     state.breadcrumb = nextTag.indexPath;

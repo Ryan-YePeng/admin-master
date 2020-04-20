@@ -100,26 +100,26 @@
             const data = {...this.form};
             data.password = encrypt(data.password);
             loginApi(data)
-                .then(result => {
-                  const {token} = result.resultParam;
-                  const {user} = result.resultParam;
-                  this.$store.dispatch('setUser', user);
-                  this.$store.dispatch('setToken', token);
-                  // 动态拉取路由和菜单
-                  return generateRouter();
-                })
-                .then(() => {
-                  this.$store.dispatch('setRememberMe',
-                      {rememberMe: this.isRememberMe, username: this.form.username}
-                  );
-                  this.$router.push({name: 'home'});
-                  this.isLoading = false;
-                })
-                .catch(() => {
-                  this.getCode();
-                  this.form.code = '';
-                  this.isLoading = false;
-                })
+              .then(result => {
+                const {token} = result.resultParam;
+                const {user} = result.resultParam;
+                this.$store.dispatch('setUser', user);
+                this.$store.dispatch('setToken', token);
+                // 动态拉取路由和菜单
+                return generateRouter();
+              })
+              .then(() => {
+                this.$store.dispatch('setRememberMe',
+                  {rememberMe: this.isRememberMe, username: this.form.username}
+                );
+                this.$router.push({name: 'home'});
+                this.isLoading = false;
+              })
+              .catch(() => {
+                this.getCode();
+                this.form.code = '';
+                this.isLoading = false;
+              })
           } else {
             return false;
           }

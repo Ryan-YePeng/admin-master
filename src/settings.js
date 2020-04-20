@@ -4,6 +4,10 @@ module.exports = {
    */
   title: 'RYAN-ADMIN',
   /**
+   * @description 是否启用history
+   */
+  isHistory: false,
+  /**
    * @description 是否显示logo
    */
   isShowLogo: true,
@@ -50,7 +54,7 @@ module.exports = {
   /**
    * @description 请求超时时间，毫秒（默认20秒）
    */
-  timeout: 2 * 1000,
+  timeout: 20 * 1000,
   /**
    * @description 记住密码状态下的token在Cookie中存储的天数，默认1天
    */

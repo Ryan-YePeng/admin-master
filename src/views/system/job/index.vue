@@ -8,8 +8,8 @@
     </div>
     <div>
       <el-table
-              v-loading="isTableLoading"
-              :data="formData"
+          v-loading="isTableLoading"
+          :data="formData"
       >
         <el-table-column prop="name" label="岗位名称"></el-table-column>
         <el-table-column label="所属部门">
@@ -33,9 +33,9 @@
           <template slot-scope="scope">
             <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
             <delete-button
-                    :ref="scope.row.id"
-                    :id="scope.row.id"
-                    @start="deleteJob"/>
+                :ref="scope.row.id"
+                :id="scope.row.id"
+                @start="deleteJob"/>
           </template>
         </el-table-column>
       </el-table>
@@ -66,7 +66,7 @@
     },
     mounted() {
       this.getJobList();
-      getDeptTreeApi('').then(result => {
+      getDeptTreeApi({deptName: ''}).then(result => {
         this.tree = result.resultParam.deptTree
       })
     },
@@ -74,7 +74,11 @@
       getJobList() {
         this.isTableLoading = true;
         let pagination = this.$refs.Pagination;
-        let param = `current=${pagination.current}&size=${pagination.size}&jobName=${this.searchJobName}`;
+        let param = {
+          current: pagination.current,
+          size: pagination.size,
+          jobName: this.searchJobName
+        };
         getJobListApi(param).then(result => {
           this.isTableLoading = false;
           let response = result.resultParam.jobList;
@@ -93,14 +97,14 @@
         _this.visible = true
       },
       deleteJob(id) {
-        deleteJobApi(id)
-            .then(() => {
-              this.getJobList();
-              this.$refs[id].close()
-            })
-            .catch(() => {
-              this.$refs[id].stop();
-            })
+        deleteJobApi({jobId: id})
+          .then(() => {
+            this.getJobList();
+            this.$refs[id].close()
+          })
+          .catch(() => {
+            this.$refs[id].stop();
+          })
       }
     }
   }
