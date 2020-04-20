@@ -1,4 +1,4 @@
-import {axiosD, axiosF, axiosFs, axiosG, axiosK, axiosP} from "@/api/request";
+import {axiosD, axiosF, axiosG, axiosK, axiosP} from "@/api/request";
 
 const addUserUrl = "admin/user/addUser"; // 新增用户
 const deleteUserUrl = "admin/user/delUser"; // 删除用户
@@ -17,8 +17,3 @@ export const getUserListApi = data => axiosG(getUserListUrl, data);
 export const getUserLevelApi = () => axiosG(getUserLevelUrl);
 export const getOnlineUserApi = data => axiosG(getOnlineUserUrl, data);
 export const deleteOnlineUserApi = data => axiosD(deleteOnlineUserUrl, data);
-
-
-// 测试
-const uploadFileUrl = "admin/user/editAvatar";
-export const uploadFileApi = data => axiosFs(uploadFileUrl, data);
