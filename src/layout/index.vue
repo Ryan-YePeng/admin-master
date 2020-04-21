@@ -73,19 +73,19 @@
         return this.$route.name
       },
       cache() {
-        return this.$store.getters.cache
+        return this.$storeGet.cache
       },
       isShowTag() {
-        return this.$store.getters.setting.isShowTag
+        return this.$storeGet.setting.isShowTag
       },
       isShowFooter() {
-        return this.$store.getters.setting.isShowFooter
+        return this.$storeGet.setting.isShowFooter
       },
       isVertical() {
-        return this.$store.getters.setting.isVertical
+        return this.$storeGet.setting.isVertical
       },
       isNight() {
-        return this.$store.getters.setting.isNight
+        return this.$storeGet.setting.isNight
       },
       footerTxt() {
         return footerTxt

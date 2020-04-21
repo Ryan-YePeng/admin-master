@@ -34,7 +34,7 @@
     },
     computed: {
       routes() {
-        return this.$store.getters.menu
+        return this.$storeGet.menu
       }
     },
     watch: {

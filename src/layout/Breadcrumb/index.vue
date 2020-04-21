@@ -26,31 +26,31 @@
     computed: {
       // 面包屑
       breadcrumb: function () {
-        return this.$store.getters.breadcrumb;
+        return this.$storeGet.breadcrumb;
       },
       // 标签
       isShowTag() {
-        return this.$store.getters.setting.isShowTag
+        return this.$storeGet.setting.isShowTag
       },
       isVertical() {
-        return this.$store.getters.setting.isVertical
+        return this.$storeGet.setting.isVertical
       },
       isShowBreadcrumb() {
-        return this.$store.getters.setting.isShowBreadcrumb
+        return this.$storeGet.setting.isShowBreadcrumb
       }
     },
     methods: {
       // 跳转到首页
       jumpToHome() {
         // 面包屑
-        this.$store.dispatch("setBreadcrumb");
+        this.$storeSet("setBreadcrumb");
         // 激活菜单
-        this.$store.dispatch("setActive");
+        this.$storeSet("setActive");
       },
       // 清除所有标签
       removeAllTags() {
         // 标签
-        this.$store.dispatch('setTags');
+        this.$storeSet('setTags');
         this.jumpToHome();
         this.$router.push({name: 'home'})
       },

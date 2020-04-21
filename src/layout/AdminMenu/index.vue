@@ -41,23 +41,23 @@
     computed: {
       //获取菜单
       navMenus() {
-        return this.$store.getters.menu
+        return this.$storeGet.menu
       },
       //获取当前激活菜单
       active() {
-        return this.$store.getters.active
+        return this.$storeGet.active
       },
       isShowLogo() {
-        return this.$store.getters.setting.isShowLogo
+        return this.$storeGet.setting.isShowLogo
       },
       isVertical() {
-        return this.$store.getters.setting.isVertical
+        return this.$storeGet.setting.isVertical
       },
       isUniqueOpened() {
-        return this.$store.getters.setting.isUniqueOpened
+        return this.$storeGet.setting.isUniqueOpened
       },
       isNight() {
-        return this.$store.getters.setting.isNight
+        return this.$storeGet.setting.isNight
       },
       style() {
         return Style

@@ -46,22 +46,22 @@
     },
     computed: {
       avatarUrl() {
-        return process.env.VUE_APP_BASE_URL + this.$store.getters.user.avatar
+        return process.env.VUE_APP_BASE_URL + this.$storeGet.user.avatar
       }
     },
     methods: {
       // 进入个人中心
       goPerson() {
-        this.$store.dispatch('setBreadcrumb', ['个人中心']);
-        this.$store.dispatch('addTags', {title: '个人中心', name: 'person', indexPath: ['个人中心']});
-        this.$store.dispatch('setActive', '个人中心');
+        this.$storeSet('setBreadcrumb', ['个人中心']);
+        this.$storeSet('addTags', {title: '个人中心', name: 'person', indexPath: ['个人中心']});
+        this.$storeSet('setActive', '个人中心');
         this.$router.push({name: 'person'})
       },
       // 退出登录
       logout() {
         this.$msgBox('确定注销并退出系统吗？').then(() => {
           logoutApi().then(() => {
-            this.$store.dispatch('quitLogin');
+            this.$storeSet('quitLogin');
           })
         })
       },

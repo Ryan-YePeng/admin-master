@@ -48,25 +48,25 @@
     },
     computed: {
       tags() {
-        return this.$store.getters.tags
+        return this.$storeGet.tags
       }
     },
     watch: {
       tags() {
-        this.$store.dispatch("setCache");
+        this.$storeSet("setCache");
       },
       "$route.path"() {
         this.moveToCurrentTag();
       },
       "$store.getters.setting.layoutSize"() {
         Vue.prototype.$ELEMENT = {
-          size: this.$store.getters.setting.layoutSize
+          size: this.$storeGet.setting.layoutSize
         };
-        this.$store.dispatch('refreshRouter', this.$route.name)
+        this.$storeSet('refreshRouter', this.$route.name)
       }
     },
     mounted() {
-      this.$store.dispatch("setCache");
+      this.$storeSet("setCache");
     },
     methods: {
       // 移动到被选中的标签
@@ -88,13 +88,13 @@
       },
       // 点击标签
       tabsClick(tag) {
-        this.$store.dispatch("setBreadcrumb", tag.indexPath);
-        this.$store.dispatch("setActive", tag.title);
+        this.$storeSet("setBreadcrumb", tag.indexPath);
+        this.$storeSet("setActive", tag.title);
       },
       // 删除标签
       tabsRemove(obj) {
         if (obj.title === '首页') return;
-        this.$store.dispatch("deleteTags", obj.title);
+        this.$storeSet("deleteTags", obj.title);
       },
       // 右键菜单打开回调 (data数据类型为: object)
       show(data) {
@@ -103,9 +103,9 @@
       },
       // 刷新路由
       refresh() {
-        let activeTag = this.$store.getters.active;
+        let activeTag = this.$storeGet.active;
         if (activeTag === this.clickedTitle) {
-          this.$store.dispatch('refreshRouter', this.selectedTag.name)
+          this.$storeSet('refreshRouter', this.selectedTag.name)
         } else {
           this.$router.push({name: this.selectedTag.name});
           this.tabsClick(this.selectedTag);

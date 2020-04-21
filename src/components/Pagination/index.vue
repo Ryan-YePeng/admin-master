@@ -26,7 +26,7 @@
       }
     },
     created() {
-      this.size = this.$store.getters.setting.pagingSize
+      this.size = this.$storeGet.setting.pagingSize
     },
     watch: {
       total(newValue, oldValue) {

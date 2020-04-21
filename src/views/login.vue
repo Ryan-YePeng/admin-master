@@ -78,13 +78,13 @@
         return caseNumber
       },
       isShowFooter() {
-        return this.$store.getters.setting.isShowFooter
+        return this.$storeGet.setting.isShowFooter
       }
     },
     mounted() {
       this.getCode();
-      this.form.username = this.$store.getters.username;
-      this.isRememberMe = this.$store.getters.rememberMe
+      this.form.username = this.$storeGet.username;
+      this.isRememberMe = this.$storeGet.rememberMe
     },
     methods: {
       getCode() {
@@ -103,13 +103,13 @@
               .then(result => {
                 const {token} = result.resultParam;
                 const {user} = result.resultParam;
-                this.$store.dispatch('setUser', user);
-                this.$store.dispatch('setToken', token);
+                this.$storeSet('setUser', user);
+                this.$storeSet('setToken', token);
                 // 动态拉取路由和菜单
                 return generateRouter();
               })
               .then(() => {
-                this.$store.dispatch('setRememberMe',
+                this.$storeSet('setRememberMe',
                   {rememberMe: this.isRememberMe, username: this.form.username}
                 );
                 this.$router.push({name: 'home'});

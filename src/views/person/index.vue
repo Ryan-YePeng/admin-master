@@ -57,7 +57,7 @@
     name: 'person',
     computed: {
       user() {
-        return this.$store.getters.user
+        return this.$storeGet.user
       },
       avatarUrl() {
         return process.env.VUE_APP_BASE_URL + this.user.avatar

@@ -20,10 +20,10 @@
     },
     computed: {
       isShowLogo() {
-        return this.$store.getters.setting.isShowLogo
+        return this.$storeGet.setting.isShowLogo
       },
       isNight() {
-        return this.$store.getters.setting.isNight
+        return this.$storeGet.setting.isNight
       }
     },
     data() {

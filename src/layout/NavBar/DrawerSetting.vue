@@ -66,10 +66,10 @@
     computed: {
       isShowLogo: {
         get() {
-          return this.$store.getters.setting.isShowLogo;
+          return this.$storeGet.setting.isShowLogo;
         },
         set(value) {
-          this.$store.dispatch('changeSetting', {
+          this.$storeSet('changeSetting', {
             key: 'isShowLogo',
             value: value
           })
@@ -77,10 +77,10 @@
       },
       isShowTag: {
         get() {
-          return this.$store.getters.setting.isShowTag;
+          return this.$storeGet.setting.isShowTag;
         },
         set(value) {
-          this.$store.dispatch('changeSetting', {
+          this.$storeSet('changeSetting', {
             key: 'isShowTag',
             value: value
           })
@@ -88,10 +88,10 @@
       },
       isShowBreadcrumb: {
         get() {
-          return this.$store.getters.setting.isShowBreadcrumb;
+          return this.$storeGet.setting.isShowBreadcrumb;
         },
         set(value) {
-          this.$store.dispatch('changeSetting', {
+          this.$storeSet('changeSetting', {
             key: 'isShowBreadcrumb',
             value: value
           })
@@ -99,10 +99,10 @@
       },
       isShowFooter: {
         get() {
-          return this.$store.getters.setting.isShowFooter;
+          return this.$storeGet.setting.isShowFooter;
         },
         set(value) {
-          this.$store.dispatch('changeSetting', {
+          this.$storeSet('changeSetting', {
             key: 'isShowFooter',
             value: value
           })
@@ -110,10 +110,10 @@
       },
       isNight: {
         get() {
-          return this.$store.getters.setting.isNight;
+          return this.$storeGet.setting.isNight;
         },
         set(value) {
-          this.$store.dispatch('changeSetting', {
+          this.$storeSet('changeSetting', {
             key: 'isNight',
             value: value
           })
@@ -121,10 +121,10 @@
       },
       isVertical: {
         get() {
-          return this.$store.getters.setting.isVertical;
+          return this.$storeGet.setting.isVertical;
         },
         set(value) {
-          this.$store.dispatch('changeSetting', {
+          this.$storeSet('changeSetting', {
             key: 'isVertical',
             value: value
           })
@@ -132,10 +132,10 @@
       },
       isUniqueOpened: {
         get() {
-          return this.$store.getters.setting.isUniqueOpened;
+          return this.$storeGet.setting.isUniqueOpened;
         },
         set(value) {
-          this.$store.dispatch('changeSetting', {
+          this.$storeSet('changeSetting', {
             key: 'isUniqueOpened',
             value: value
           })
@@ -143,10 +143,10 @@
       },
       layoutSize: {
         get() {
-          return this.$store.getters.setting.layoutSize;
+          return this.$storeGet.setting.layoutSize;
         },
         set(value) {
-          this.$store.dispatch('changeSetting', {
+          this.$storeSet('changeSetting', {
             key: 'layoutSize',
             value: value
           })
@@ -154,10 +154,10 @@
       },
       pagingSize: {
         get() {
-          return this.$store.getters.setting.pagingSize;
+          return this.$storeGet.setting.pagingSize;
         },
         set(value) {
-          this.$store.dispatch('changeSetting', {
+          this.$storeSet('changeSetting', {
             key: 'pagingSize',
             value: value
           })
@@ -166,7 +166,7 @@
     },
     methods: {
       restoreSetting() {
-        this.$store.dispatch('restoreSetting')
+        this.$storeSet('restoreSetting')
       }
     }
   }

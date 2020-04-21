@@ -63,7 +63,7 @@
             this.$refs.SubmitButton.start();
             updatePassApi(data).then(() => {
               this.$refs.SubmitButton.stop();
-              this.$store.dispatch('quitLogin')
+              this.$storeSet('quitLogin')
             }).catch(() => {
               this.$refs.SubmitButton.stop();
             })

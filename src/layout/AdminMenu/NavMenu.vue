@@ -37,10 +37,10 @@
     props: ["navMenus"],
     computed: {
       isNight() {
-        return this.$store.getters.setting.isNight
+        return this.$storeGet.setting.isNight
       },
       isVertical() {
-        return this.$store.getters.setting.isVertical
+        return this.$storeGet.setting.isVertical
       },
     },
     components: {Item},
@@ -53,11 +53,11 @@
         }
         if (this.$route.name !== name) {
           // 改变面包屑
-          this.$store.dispatch('setBreadcrumb', e.indexPath);
+          this.$storeSet('setBreadcrumb', e.indexPath);
           // 添加tags
-          this.$store.dispatch('addTags', {title: e.index, name: name, cache: navMenu.cache, indexPath: e.indexPath});
+          this.$storeSet('addTags', {title: e.index, name: name, cache: navMenu.cache, indexPath: e.indexPath});
           // 改变当前激活菜单
-          this.$store.dispatch('setActive', e.index);
+          this.$storeSet('setActive', e.index);
           // 跳转
           this.$router.push({name: name});
         }
