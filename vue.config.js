@@ -1,10 +1,11 @@
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const resolve = dir => require("path").join(__dirname, dir);
 const settings = require("./src/settings");
-const NODE_ENV = process.env.NODE_ENV;
+const Analyzer = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const isOpenGzip = false; // 开启gzip压缩, 按需引用
+const isOpenAnalyzer = true; // 开启代码分析
 module.exports = {
-  publicPath: NODE_ENV === "production" && settings.isHistory ? "/" : "./", // (/绝对路径) (./相对路径)
+  publicPath: settings.isHistory ? "/" : "./", // (/绝对路径) (./相对路径)
   outputDir: "dist", // 生产环境构建文件的目录
   assetsDir: "", // 放置生成的静态资源(js、css、img、fonts)的(相对于 outputDir 的)目录
   indexPath: "index.html", // 指定生成的 index.html 的输出路径 (相对于 outputDir)。也可以是一个绝对路径。
@@ -19,7 +20,7 @@ module.exports = {
     // 开启 gzip 压缩
     // 需要 npm i -D compression-webpack-plugin
     const plugins = [];
-    if (NODE_ENV === "production" && isOpenGzip) {
+    if (process.env.NODE_ENV === "production" && isOpenGzip)
       plugins.push(
         new CompressionWebpackPlugin({
           filename: "[path].gz[query]",
@@ -30,7 +31,7 @@ module.exports = {
           deleteOriginalAssets: true // 删除源文件
         })
       );
-    }
+    if (isOpenAnalyzer) plugins.push(new Analyzer({ analyzerPort: 9000 }));
     config.plugins = [...config.plugins, ...plugins];
   },
 
@@ -57,7 +58,7 @@ module.exports = {
   },
   // css相关配置
   css: {
-    // extract: false, // 是否使用css分离插件 ExtractTextPlugin // 将组件内的 CSS 提取到一个单独的 CSS 文件 (只用在生产环境中)
+    extract: false, // 是否使用css分离插件 ExtractTextPlugin // 将组件内的 CSS 提取到一个单独的 CSS 文件 (只用在生产环境中)
     sourceMap: false, // 开启 CSS source maps? 设置为 true 之后可能会影响构建的性能。
     // css预设器配置项
     loaderOptions: {

@@ -13,33 +13,35 @@ export const isEmpty = value => {
 };
 
 /**
- * @param {String} value
+ * @param {String} time
  * @return {String}
  * @description 格式化时间
  * */
-export const formatDate = value => {
-  let date = new Date(value);
-  let year = date.getFullYear();
-  let month = (date.getMonth() + 1).toString().padStart(2, "0");
-  let day = date.getDate().toString().padStart(2, "0");
-  return `${year}-${month}-${day}`;
-};
+export const formatDate = time => formatDateTime(time, '{Y}-{M}-{D}');
 
 /**
- * @param {String} value
+ * @param {String} time
+ * @param {String=} cFormat
  * @return {String}
  * @description 格式化时间
  * */
-export const formatDateTime = value => {
-  let date = new Date(value);
-  let year = date.getFullYear();
-  let month = (date.getMonth() + 1).toString().padStart(2, "0");
-  let day = date.getDate().toString().padStart(2, "0");
-  let hours = date.getHours().toString().padStart(2, "0");
-  let minutes = date.getMinutes().toString().padStart(2, "0");
-  let seconds = date.getSeconds().toString().padStart(2, "0");
-  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+export const formatDateTime = (time, cFormat) => {
+  if (!time) return '';
+  let date = new Date(time);
+  const format = cFormat || '{Y}-{M}-{D} {h}:{m}:{s}';
+  const formatObj = {
+    Y: date.getFullYear(),
+    M: (date.getMonth() + 1).toString().padStart(2, "0"),
+    D: date.getDate().toString().padStart(2, "0"),
+    h: date.getHours().toString().padStart(2, "0"),
+    m: date.getMinutes().toString().padStart(2, "0"),
+    s: date.getSeconds().toString().padStart(2, "0")
+  };
+  return format.replace(/{(Y|M|D|h|m|s)+}/g, (result, key) => {
+    return formatObj[key]
+  });
 };
+
 
 /**
  * @param {Object} target

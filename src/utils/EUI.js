@@ -1,107 +1,18 @@
 import Vue from "vue";
 import store from "@/store";
+import "./EUI_IN"
 import {
   Message,
   MessageBox,
-  Notification,
-  Button,
-  Container,
-  Header,
-  Tooltip,
-  Dropdown,
-  Avatar,
-  DropdownMenu,
-  DropdownItem,
-  Main,
-  Form,
-  FormItem,
-  Input,
-  Breadcrumb,
-  BreadcrumbItem,
-  Menu,
-  MenuItem,
-  Pagination,
-  Table,
-  TableColumn,
-  Tag,
-  Scrollbar,
-  Submenu,
-  Dialog,
-  Col,
-  Row,
-  Upload,
-  Card,
-  Popover,
-  Loading,
-  Option,
-  Select,
-  InputNumber,
-  PageHeader,
-  Image,
-  Cascader,
-  TabPane,
-  Tabs,
-  Radio,
-  Switch,
-  Drawer,
-  Footer,
-  RadioGroup,
-  RadioButton,
-  MenuItemGroup,
-  Checkbox,
-  Tree,
-    Progress
+  Notification
 } from 'element-ui';
 
+
+/**
+ * @description 组件大小
+ */
 Vue.prototype.$ELEMENT = {size: store.getters.setting.layoutSize};
 
-Vue.component('ElButton', Button);
-Vue.component('ElContainer', Container);
-Vue.component('ElHeader', Header);
-Vue.component('ElTooltip', Tooltip);
-Vue.component('ElDropdown', Dropdown);
-Vue.component('ElDropdownMenu', DropdownMenu);
-Vue.component('ElDropdownItem', DropdownItem);
-Vue.component('ElAvatar', Avatar);
-Vue.component('ElMain', Main);
-Vue.component('ElForm', Form);
-Vue.component('ElFormItem', FormItem);
-Vue.component('ElInput', Input);
-Vue.component('ElBreadcrumb', Breadcrumb);
-Vue.component('ElBreadcrumbItem', BreadcrumbItem);
-Vue.component('ElMenu', Menu);
-Vue.component('ElMenuItem', MenuItem);
-Vue.component('ElPagination', Pagination);
-Vue.component('ElTable', Table);
-Vue.component('ElTableColumn', TableColumn);
-Vue.component('ElTag', Tag);
-Vue.component('ElScrollbar', Scrollbar);
-Vue.component('ElSubmenu', Submenu);
-Vue.component('ElDialog', Dialog);
-Vue.component('ElCol', Col);
-Vue.component('ElRow', Row);
-Vue.component('ElUpload', Upload);
-Vue.component('ElCard', Card);
-Vue.component('ElPopover', Popover);
-Vue.component('ElOption', Option);
-Vue.component('ElSelect', Select);
-Vue.component('ElInputNumber', InputNumber);
-Vue.component('ElPageHeader', PageHeader);
-Vue.component('ElImage', Image);
-Vue.component('ElCascader', Cascader);
-Vue.component('ElTabPane', TabPane);
-Vue.component('ElTabs', Tabs);
-Vue.component('ElRadio', Radio);
-Vue.component('ElSwitch', Switch);
-Vue.component('ElDrawer', Drawer);
-Vue.component('ElFooter', Footer);
-Vue.component('ElRadioGroup', RadioGroup);
-Vue.component('ElRadioButton', RadioButton);
-Vue.component('ElMenuItemGroup', MenuItemGroup);
-Vue.component('ElCheckbox', Checkbox);
-Vue.component('ElTree', Tree);
-Vue.component('ElProgress', Progress);
-Vue.use(Loading.directive);
 
 /**
  * @param {String} msg 提示信息
@@ -139,6 +50,7 @@ const errorNotify = msg => {
   });
 };
 
+
 /**
  * @param {String} text 提示信息
  * @param {String} confirmText 确认文字
@@ -155,6 +67,7 @@ export const msgBox = (text = "确定执行此操作吗？", confirmText = "确�
       .catch(error => reject(error))
   })
 };
+
 
 /**
  * @param {String} msg
@@ -173,6 +86,7 @@ export const errorMessage = (msg, time = 3000) => {
   }, time);
 };
 
+
 /**
  * @description 全局注册
  */
@@ -185,11 +99,3 @@ Vue.prototype.$errorNotify = errorNotify;
 Vue.prototype.$infoNotify = infoNotify;
 Vue.prototype.$warnNotify = warnNotify;
 Vue.prototype.$msgBox = msgBox;
-
-import DeleteButton from '@/components/DeleteButton'
-import SubmitButton from '@/components/SubmitButton'
-import CustomizedPagination from '@/components/Pagination'
-
-Vue.component('DeleteButton', DeleteButton);
-Vue.component('SubmitButton', SubmitButton);
-Vue.component('Pagination', CustomizedPagination);

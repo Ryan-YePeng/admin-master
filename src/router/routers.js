@@ -26,6 +26,6 @@ const constantRouterMap = [
 ];
 
 export default new Router({
-  mode: process.env.NODE_ENV === "production" && isHistory ? "history" : "hash",
+  mode: isHistory ? "history" : "hash",
   routes: constantRouterMap
 })

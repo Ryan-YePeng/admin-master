@@ -41,7 +41,7 @@
     watch: {
       pathString(value) {
         let list = value.split(',');
-        let baseUrl = process.env.VUE_APP_BASE_URL;
+        let baseUrl = process.env.VUE_APP_BASE_API;
         list = list.map(item => ({pathUrl: item, url: baseUrl + item}));
         this.fileList = list;
       }
