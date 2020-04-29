@@ -1,12 +1,12 @@
 <template>
   <div class="avatar-uploader">
     <el-upload
-            ref="AvatarUploader"
-            action="avatar-upload"
-            :accept="accept"
-            :show-file-list="false"
-            :auto-upload="false"
-            :on-change="changeUpload"
+        ref="AvatarUploader"
+        action="avatar-upload"
+        :accept="accept"
+        :show-file-list="false"
+        :auto-upload="false"
+        :on-change="changeUpload"
     >
       <el-avatar shape="circle" :size="120" :src="avatarUrl">
         <img src="../../assets/notFound.png" alt="头像"/>
@@ -14,32 +14,32 @@
     </el-upload>
     <!-- vueCropper 剪裁图片实现-->
     <el-dialog
-            title="图片剪裁"
-            width="700px"
-            :visible.sync="visible"
-            append-to-body
-            :close-on-click-modal="false"
-            @close="closeUpload">
+        title="图片剪裁"
+        width="700px"
+        :visible.sync="visible"
+        append-to-body
+        :close-on-click-modal="false"
+        @close="closeUpload">
       <div class="cropper">
         <vueCropper
-                ref="cropper"
-                :img="options.img"
-                :output-size="options.size"
-                :output-type="options.outputType"
-                :info="options.info"
-                :full="options.full"
-                :fixed="options.fixed"
-                :fixed-number="options.fixedNumber"
-                :can-move="options.canMove"
-                :can-move-box="options.canMoveBox"
-                :fixed-box="options.fixedBox"
-                :original="options.original"
-                :auto-crop="options.autoCrop"
-                :auto-crop-width="options.autoCropWidth"
-                :auto-crop-height="options.autoCropHeight"
-                :center-box="options.centerBox"
-                :high="options.high"
-                @imgLoad="imgLoad"
+            ref="cropper"
+            :img="options.img"
+            :output-size="options.size"
+            :output-type="options.outputType"
+            :info="options.info"
+            :full="options.full"
+            :fixed="options.fixed"
+            :fixed-number="options.fixedNumber"
+            :can-move="options.canMove"
+            :can-move-box="options.canMoveBox"
+            :fixed-box="options.fixedBox"
+            :original="options.original"
+            :auto-crop="options.autoCrop"
+            :auto-crop-width="options.autoCropWidth"
+            :auto-crop-height="options.autoCropHeight"
+            :center-box="options.centerBox"
+            :high="options.high"
+            @imgLoad="imgLoad"
         />
       </div>
       <div slot="footer" class="dialog-footer">

@@ -1,10 +1,10 @@
 <template>
   <el-button
-          :loading="isLoading"
-          type="primary"
-          :icon="icon"
-          :disabled="isDisabled"
-          @click="confirm">{{text}}
+      :loading="isLoading"
+      type="primary"
+      :icon="icon"
+      :disabled="isDisabled"
+      @click="confirm">{{text}}
   </el-button>
 </template>
 

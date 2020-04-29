@@ -81,7 +81,7 @@
           images_upload_handler: (blobInfo, success) => {
             let data = {};
             data.file = blobInfo.blob();
-            data.typePath = 'article';
+            data.typePath = this.typePath;
             uploadPicturePlusApi(data)
               .then(result => {
                 let url = process.env.VUE_APP_BASE_URL + result.resultParam.uploadFilePath;

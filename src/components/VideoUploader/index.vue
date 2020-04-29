@@ -1,13 +1,13 @@
 <template>
   <div class="video-uploader-plus">
     <el-upload
-            v-loading="isLoading"
-            ref="VideoUploader"
-            class="video-uploader"
-            action="video-upload"
-            :accept="accept"
-            :http-request="uploadFile"
-            :show-file-list="false">
+        v-loading="isLoading"
+        ref="VideoUploader"
+        class="video-uploader"
+        action="video-upload"
+        :accept="accept"
+        :http-request="uploadFile"
+        :show-file-list="false">
       <i v-show="isLoading"
          class="el-icon-close close-uploader-icon"
          @click.stop="cancelUpload"
@@ -16,9 +16,9 @@
       <i v-else :class="['el-icon-plus', 'video-uploader-icon', isLoading ? 'hidden' : 'visible']"></i>
     </el-upload>
     <el-progress
-            v-show="isLoading"
-            :percentage="percentage"
-            :color="customColor"
+        v-show="isLoading"
+        :percentage="percentage"
+        :color="customColor"
     ></el-progress>
   </div>
 </template>
@@ -34,6 +34,10 @@
         type: String,
         default: "",
         source: null
+      },
+      typePath: {
+        type: String,
+        default: 'video'
       }
     },
     data() {
@@ -77,7 +81,7 @@
         this.isLoading = true;
         let data = {};
         data.file = file;
-        data.typePath = 'article';
+        data.typePath = this.typePath;
         uploadVideoPlusApi(data, this.update, this.source)
           .then(result => {
             this.reset();

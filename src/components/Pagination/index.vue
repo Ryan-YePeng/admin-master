@@ -1,14 +1,14 @@
 <template>
   <div class="pagination">
     <el-pagination
-            v-if="total > 0"
-            :page-sizes="page_sizes"
-            :page-size="size"
-            :layout="layout"
-            :total="total"
-            :current-page.sync="current"
-            @current-change="handleCurrentChange"
-            @size-change="handleSizeChange">
+        v-if="total > 0"
+        :page-sizes="page_sizes"
+        :page-size="size"
+        :layout="layout"
+        :total="total"
+        :current-page.sync="current"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange">
     </el-pagination>
   </div>
 </template>
@@ -32,9 +32,9 @@
       total(newValue, oldValue) {
         let size = this.size;
         if (
-            newValue % size === 0
-            && newValue === oldValue - 1
-            && oldValue !== 1
+          newValue % size === 0
+          && newValue === oldValue - 1
+          && oldValue !== 1
         ) {
           setTimeout(() => {
             this.$emit("getNewData");

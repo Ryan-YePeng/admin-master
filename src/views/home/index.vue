@@ -1,4 +1,23 @@
 <template>
+  <div>
+    <image-uploader></image-uploader>
+  </div>
+</template>
+
+<script>
+  import ImageUploader from '@/components/ImageUploader'
+
+  export default {
+    components: {ImageUploader},
+    data() {
+      return {}
+    }
+  }
+</script>
+
+
+<!--
+<template>
   <div id="home"
        :style="'height:' + (mainHeight-30) + 'px'"
        v-show="isShow">
@@ -48,3 +67,4 @@
     background-size: cover;
   }
 </style>
+-->

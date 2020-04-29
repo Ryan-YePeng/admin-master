@@ -1,43 +1,43 @@
 <template>
   <div class="image-uploader-plus">
     <el-upload
-            ref="ImageUploaderPlus"
-            class="image-uploader"
-            action="image-upload"
-            :accept="accept"
-            :auto-upload="false"
-            :on-change="changeUpload"
-            :show-file-list="false">
+        ref="ImageUploaderPlus"
+        class="image-uploader"
+        action="image-upload"
+        :accept="accept"
+        :auto-upload="false"
+        :on-change="changeUpload"
+        :show-file-list="false">
       <img v-if="url" :src="url" class="custom-image" alt="图片"/>
       <i v-else class="el-icon-plus image-uploader-icon"></i>
     </el-upload>
     <el-dialog
-            title="图片剪裁"
-            width="700px"
-            :visible.sync="visible"
-            append-to-body
-            :close-on-click-modal="false"
-            @close="closeUpload">
+        title="图片剪裁"
+        width="700px"
+        :visible.sync="visible"
+        append-to-body
+        :close-on-click-modal="false"
+        @close="closeUpload">
       <div class="cropper">
         <vueCropper
-                ref="cropper"
-                :img="options.img"
-                :output-size="options.size"
-                :output-type="options.outputType"
-                :info="options.info"
-                :full="options.full"
-                :fixed="options.fixed"
-                :fixed-number="options.fixedNumber"
-                :can-move="options.canMove"
-                :can-move-box="options.canMoveBox"
-                :fixed-box="options.fixedBox"
-                :original="options.original"
-                :auto-crop="options.autoCrop"
-                :auto-crop-width="options.autoCropWidth"
-                :auto-crop-height="options.autoCropHeight"
-                :center-box="options.centerBox"
-                :high="options.high"
-                @imgLoad="imgLoad"
+            ref="cropper"
+            :img="options.img"
+            :output-size="options.size"
+            :output-type="options.outputType"
+            :info="options.info"
+            :full="options.full"
+            :fixed="options.fixed"
+            :fixed-number="options.fixedNumber"
+            :can-move="options.canMove"
+            :can-move-box="options.canMoveBox"
+            :fixed-box="options.fixedBox"
+            :original="options.original"
+            :auto-crop="options.autoCrop"
+            :auto-crop-width="options.autoCropWidth"
+            :auto-crop-height="options.autoCropHeight"
+            :center-box="options.centerBox"
+            :high="options.high"
+            @imgLoad="imgLoad"
         />
       </div>
       <div slot="footer" class="dialog-footer">
@@ -59,6 +59,10 @@
       imageUrl: {
         type: String,
         default: ""
+      },
+      typePath: {
+        type: String,
+        default: 'image'
       }
     },
     data() {

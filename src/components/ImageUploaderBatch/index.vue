@@ -1,17 +1,17 @@
 <template>
   <el-upload
-          ref="ImageUploaderBatch"
-          class="image-uploader"
-          action="image-upload"
-          list-type="picture-card"
-          :limit="limit"
-          :accept="accept"
-          :file-list="fileList"
-          :multiple="true"
-          :on-success="uploadSuccess"
-          :on-remove="emitImage"
-          :on-exceed="exceed"
-          :http-request="uploadFile">
+      ref="ImageUploaderBatch"
+      class="image-uploader"
+      action="image-upload"
+      list-type="picture-card"
+      :limit="limit"
+      :accept="accept"
+      :file-list="fileList"
+      :multiple="true"
+      :on-success="uploadSuccess"
+      :on-remove="emitImage"
+      :on-exceed="exceed"
+      :http-request="uploadFile">
     <i class="el-icon-plus"></i>
   </el-upload>
 </template>
@@ -25,6 +25,10 @@
       pathString: {
         type: String,
         default: ""
+      },
+      typePath: {
+        type: String,
+        default: 'image'
       }
     },
     data() {
@@ -63,7 +67,7 @@
         }
         let data = {};
         data.file = file;
-        data.typePath = 'article';
+        data.typePath = this.typePath;
         uploadPicturePlusApi(data)
           .then(result => {
             param.onSuccess(result.resultParam.uploadFilePath, file);

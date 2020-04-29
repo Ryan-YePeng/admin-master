@@ -1,16 +1,16 @@
 <template>
   <el-popover
-          ref="DeleteButton"
-          placement="top"
-          :width="width">
+      ref="DeleteButton"
+      placement="top"
+      :width="width">
     <p>{{msg}}</p>
     <div style="text-align: right; margin: 0">
       <el-button size="mini" type="text" @click="$refs['DeleteButton'].doClose()">取消</el-button>
       <el-button
-              :loading="isDeleteLoading"
-              type="primary"
-              size="mini"
-              @click.stop="deleteData()">确定
+          :loading="isDeleteLoading"
+          type="primary"
+          size="mini"
+          @click.stop="deleteData()">确定
       </el-button>
     </div>
     <el-button v-if="type==='button'" slot="reference" type="danger"

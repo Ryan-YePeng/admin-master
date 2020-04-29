@@ -1,12 +1,12 @@
 <template>
   <el-upload
-          v-loading="isLoading"
-          ref="ImageUploader"
-          class="image-uploader"
-          action="image-upload"
-          :accept="accept"
-          :http-request="uploadFile"
-          :show-file-list="false">
+      v-loading="isLoading"
+      ref="ImageUploader"
+      class="image-uploader"
+      action="image-upload"
+      :accept="accept"
+      :http-request="uploadFile"
+      :show-file-list="false">
     <img v-if="url" :src="url" class="custom-image" alt="图片"/>
     <i v-else class="el-icon-plus image-uploader-icon"></i>
   </el-upload>
@@ -21,6 +21,10 @@
       imageUrl: {
         type: String,
         default: ""
+      },
+      typePath: {
+        type: String,
+        default: 'image'
       }
     },
     data() {
@@ -55,7 +59,7 @@
         this.isLoading = true;
         let data = {};
         data.file = file;
-        data.typePath = 'article';
+        data.typePath = this.typePath;
         uploadPicturePlusApi(data)
           .then(result => {
             this.isLoading = false;
