@@ -6,72 +6,56 @@
       :close-on-click-modal="false"
       :visible.sync="visible">
     <el-form :model="form" :rules="rules" ref="Form" label-width="80px" hide-required-asterisk>
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="用户名">
-            <el-input disabled v-model="form.username"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="电话">
-            <el-input v-model="form.phone"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="昵称">
-            <el-input v-model="form.nickName"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="邮箱">
-            <el-input v-model="form.email"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="部门" prop="deptId">
-            <tree-select v-model="form.deptId"
-                         :options="dept"
-                         :normalizer="normalizer"
-                         :default-expand-level="1"
-                         sort-value-by="INDEX"
-                         @input="changeDept"
-                         placeholder=""/>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="岗位" prop="jobId">
-            <el-select v-model="form.jobId" placeholder="请先选择部门">
-              <el-option
-                  v-for="item in options"
-                  :key="item.id"
-                  :value="item.id"
-                  :label="item.name"/>
-            </el-select>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="性别">
-            <el-radio-group v-model="form.sex">
-              <el-radio label="男"></el-radio>
-              <el-radio label="女"></el-radio>
-            </el-radio-group>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="状态">
-            <el-radio-group v-model="form.enabled">
-              <el-radio :label="true">激活</el-radio>
-              <el-radio :label="false">禁用</el-radio>
-            </el-radio-group>
-          </el-form-item>
-        </el-col>
-      </el-row>
+      <row-col>
+        <el-form-item label="用户名">
+          <el-input disabled v-model="form.username"></el-input>
+        </el-form-item>
+        <el-form-item slot="r" label="电话">
+          <el-input v-model="form.phone"></el-input>
+        </el-form-item>
+      </row-col>
+      <row-col>
+        <el-form-item label="昵称">
+          <el-input v-model="form.nickName"></el-input>
+        </el-form-item>
+        <el-form-item slot="r" label="邮箱">
+          <el-input v-model="form.email"></el-input>
+        </el-form-item>
+      </row-col>
+      <row-col>
+        <el-form-item label="部门" prop="deptId">
+          <tree-select v-model="form.deptId"
+                       :options="dept"
+                       :normalizer="normalizer"
+                       :default-expand-level="1"
+                       sort-value-by="INDEX"
+                       @input="changeDept"
+                       placeholder=""/>
+        </el-form-item>
+        <el-form-item slot="r" label="岗位" prop="jobId">
+          <el-select v-model="form.jobId" placeholder="请先选择部门">
+            <el-option
+                v-for="item in options"
+                :key="item.id"
+                :value="item.id"
+                :label="item.name"/>
+          </el-select>
+        </el-form-item>
+      </row-col>
+      <row-col>
+        <el-form-item label="性别">
+          <el-radio-group v-model="form.sex">
+            <el-radio label="男"></el-radio>
+            <el-radio label="女"></el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item slot="r" label="状态">
+          <el-radio-group v-model="form.enabled">
+            <el-radio :label="true">激活</el-radio>
+            <el-radio :label="false">禁用</el-radio>
+          </el-radio-group>
+        </el-form-item>
+      </row-col>
       <el-form-item label="角色" prop="roleId">
         <el-select v-model="form.roleId" clearable class="w-100">
           <el-option

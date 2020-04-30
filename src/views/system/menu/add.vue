@@ -46,34 +46,26 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="菜单标题" prop="title">
-            <el-input v-model="form.title"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="权限标识">
-            <el-input v-model="form.permission"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="路由名称">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="菜单排序" prop="sort">
-            <el-input-number
-                v-model="form.sort"
-                controls-position="right"
-                :min="1">
-            </el-input-number>
-          </el-form-item>
-        </el-col>
-      </el-row>
+      <row-col>
+        <el-form-item label="菜单标题" prop="title">
+          <el-input v-model="form.title"></el-input>
+        </el-form-item>
+        <el-form-item slot="r" label="权限标识">
+          <el-input v-model="form.permission"></el-input>
+        </el-form-item>
+      </row-col>
+      <row-col>
+        <el-form-item label="路由名称">
+          <el-input v-model="form.name"></el-input>
+        </el-form-item>
+        <el-form-item slot="r" label="菜单排序" prop="sort">
+          <el-input-number
+              v-model="form.sort"
+              controls-position="right"
+              :min="1">
+          </el-input-number>
+        </el-form-item>
+      </row-col>
       <el-form-item label="上级类目">
         <tree-select
             v-model="form.pid"

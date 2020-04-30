@@ -1,14 +1,8 @@
 <template>
-  <row-col :gutter="20">
-    <div style="height: 20px;background-color: red"></div>
-    <div slot="r" style="height: 20px;background-color: pink"></div>
-  </row-col>
-  <!--  <row-col>-->
-  <!--    <div slot="l" id="home"-->
-  <!--         :style="'height:' + (mainHeight-30) + 'px'"-->
-  <!--         v-show="isShow">-->
-  <!--    </div>-->
-  <!--  </row-col>-->
+  <div id="home"
+       :style="'height:' + (mainHeight-30) + 'px'"
+       v-show="isShow">
+  </div>
 </template>
 
 <script>
