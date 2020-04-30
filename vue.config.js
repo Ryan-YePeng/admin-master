@@ -7,7 +7,7 @@ const isOpenAnalyzer = true; // 开启代码分析
 module.exports = {
   publicPath: settings.isHistory ? "/" : "./", // (/绝对路径) (./相对路径)
   outputDir: "dist", // 生产环境构建文件的目录
-  assetsDir: "", // 放置生成的静态资源(js、css、img、fonts)的(相对于 outputDir 的)目录
+  assetsDir: "static", // 放置生成的静态资源(js、css、img、fonts)的(相对于 outputDir 的)目录
   indexPath: "index.html", // 指定生成的 index.html 的输出路径 (相对于 outputDir)。也可以是一个绝对路径。
   filenameHashing: true, // 生成的静态资源在它们的文件名中包含了 hash 以便更好的控制缓存。
   lintOnSave: false, // eslint是否在保存的时候检查
@@ -58,7 +58,7 @@ module.exports = {
   },
   // css相关配置
   css: {
-    extract: false, // 是否使用css分离插件 ExtractTextPlugin // 将组件内的 CSS 提取到一个单独的 CSS 文件 (只用在生产环境中)
+    extract: true, // 是否使用css分离插件 ExtractTextPlugin // 将组件内的 CSS 提取到一个单独的 CSS 文件 (只用在生产环境中)
     sourceMap: false, // 开启 CSS source maps? 设置为 true 之后可能会影响构建的性能。
     // css预设器配置项
     loaderOptions: {
