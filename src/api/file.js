@@ -3,31 +3,31 @@ import {axiosF, axiosFs} from "./request";
 /**
  * @module 图片
  * */
-const uploadPictureUrl = 'file/uploadPictureFile';
+const uploadPicture = 'file/uploadPictureFile';
 
-export const uploadPictureApi = data => axiosF(uploadPictureUrl, data);
-export const uploadPicturePlusApi = data => axiosFs(uploadPictureUrl, data);
+export const uploadPictureApi = data => axiosF(uploadPicture, data);
+export const uploadPicturePlusApi = data => axiosFs(uploadPicture, data);
 
 /**
  * @module 音频
  * */
-const uploadAudioUrl = 'file/uploadAudioFile';
+const uploadAudio = 'file/uploadAudioFile';
 
-export const uploadAudioApi = data => axiosF(uploadAudioUrl, data);
-export const uploadAudioPlusApi = data => axiosFs(uploadAudioUrl, data);
+export const uploadAudioApi = data => axiosF(uploadAudio, data);
+export const uploadAudioPlusApi = data => axiosFs(uploadAudio, data);
 
 /**
  * @module 视频
  * */
-const uploadVideoUrl = 'file/uploadVideoFile';
+const uploadVideo = 'file/uploadVideoFile';
 
-export const uploadVideoApi = data => axiosF(uploadVideoUrl, data);
-export const uploadVideoPlusApi = (data, callback, source) => axiosFs(uploadVideoUrl, data, callback, source);
+export const uploadVideoApi = data => axiosF(uploadVideo, data);
+export const uploadVideoPlusApi = (data, callback, source) => axiosFs(uploadVideo, data, callback, source);
 
 /**
  * @module 文档
  * */
-const uploadDocumentsUrl = 'file/uploadDocumentsFile';
+const uploadDocuments = 'file/uploadDocumentsFile';
 
-export const uploadDocumentsApi = data => axiosF(uploadDocumentsUrl, data);
-export const uploadDocumentsPlusApi = data => axiosFs(uploadDocumentsUrl, data);
+export const uploadDocumentsApi = data => axiosF(uploadDocuments, data);
+export const uploadDocumentsPlusApi = data => axiosFs(uploadDocuments, data);

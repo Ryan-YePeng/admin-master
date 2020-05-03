@@ -1,12 +1,12 @@
 import {axiosD, axiosG, axiosK} from "./request";
 
-const getUserUrl = "admin/login/getUserInfo"; // 获取用户信息
-const logoutUrl = "admin/login/logout"; // 退出登录
-const updatePassUrl = "test/updatePass"; // 修改密码
-const getUserLogUrl = "test/pageUserLog"; // 个人日志
+const getUser = "admin/login/getUserInfo"; // 获取用户信息
+const logout = "admin/login/logout"; // 退出登录
+const updatePass = "test/updatePass"; // 修改密码
+const getUserLog = "test/pageUserLog"; // 个人日志
 
-export const getUserInfoApi = () => axiosG(getUserUrl);
-export const logoutApi = () => axiosD(logoutUrl);
-export const updatePassApi = data => axiosK(updatePassUrl, data);
-export const getUserLogApi = () => axiosG(getUserLogUrl);
+export const getUserInfoApi = () => axiosG(getUser);
+export const logoutApi = () => axiosD(logout);
+export const updatePassApi = data => axiosK(updatePass, data);
+export const getUserLogApi = () => axiosG(getUserLog);
 
