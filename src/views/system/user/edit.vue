@@ -5,7 +5,7 @@
       @close="cancel"
       :close-on-click-modal="false"
       :visible.sync="visible">
-    <el-form :model="form" :rules="rules" ref="Form" label-width="80px" hide-required-asterisk>
+    <el-form :model="form" :rules="rules" ref="Form" label-width="80px">
       <row-col>
         <el-form-item label="用户名">
           <el-input disabled v-model="form.username"></el-input>
@@ -56,8 +56,8 @@
           </el-radio-group>
         </el-form-item>
       </row-col>
-      <el-form-item label="角色" prop="roleId">
-        <el-select v-model="form.roleId" clearable class="w-100">
+      <el-form-item label="角色" prop="rolesId">
+        <el-select v-model="form.rolesId" multiple class="w-100">
           <el-option
               v-for="item in roleList"
               :label="item.name"
@@ -110,7 +110,7 @@
           deptId: null,
           jobId: null,
           enabled: true,
-          roleId: null
+          rolesId: []
         },
         FORM: {
           id: null
@@ -119,7 +119,7 @@
         rules: {
           deptId: {required: true, message: '请选择部门', trigger: 'change'},
           jobId: {required: true, message: '请选择岗位', trigger: 'change'},
-          roleId: {required: true, message: '请选择角色', trigger: 'change'}
+          rolesId: {required: true, message: '请选择角色', trigger: 'change'}
         }
       }
     },
@@ -144,8 +144,6 @@
         this.$refs['Form'].validate((valid) => {
           if (valid) {
             let data = objectObtain(this.form, this.FORM);
-            console.log(data);
-            return;
             this.$refs.SubmitButton.start();
             editUserApi(data).then(() => {
               this.$refs.SubmitButton.stop();
@@ -162,7 +160,9 @@
       cancel() {
         this.visible = false;
         Object.assign(this.$data.form, this.$options.data().form);
-        this.$refs['Form'].resetFields()
+        this.$refs['Form'].resetFields();
+        this.FORM = {};
+        Object.assign(this.$data.FORM, this.$options.data().FORM);
       }
     }
   }

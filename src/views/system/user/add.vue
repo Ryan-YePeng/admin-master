@@ -5,7 +5,7 @@
       @close="cancel"
       :close-on-click-modal="false"
       :visible.sync="visible">
-    <el-form :model="form" :rules="rules" ref="Form" label-width="80px" hide-required-asterisk>
+    <el-form :model="form" :rules="rules" ref="Form" label-width="80px">
       <row-col>
         <el-form-item label="用户名" prop="username">
           <el-input v-model="form.username"></el-input>
@@ -56,8 +56,8 @@
           </el-radio-group>
         </el-form-item>
       </row-col>
-      <el-form-item label="角色" prop="roleId">
-        <el-select v-model="form.roleId" clearable class="w-100">
+      <el-form-item label="角色" prop="rolesId">
+        <el-select v-model="form.rolesId" multiple class="w-100">
           <el-option
               v-for="item in roleList"
               :label="item.name"
@@ -109,14 +109,14 @@
           enabled: true,
           deptId: null,
           jobId: null,
-          roleId: null
+          rolesId: []
         },
         options: [],
         rules: {
           username: {required: true, message: '请输入用户名', trigger: 'blur'},
           deptId: {required: true, message: '请选择部门', trigger: 'change'},
           jobId: {required: true, message: '请选择岗位', trigger: 'change'},
-          roleId: {required: true, message: '请选择角色', trigger: 'change'}
+          rolesId: {required: true, message: '请选择角色', trigger: 'change'}
         }
       }
     },

@@ -1,4 +1,4 @@
-import {axiosD, axiosF, axiosG, axiosK, axiosP} from "@/api/request";
+import {axiosA, axiosD, axiosF, axiosG, axiosM} from "@/api/request";
 
 const addUser = "admin/user/addUser"; // 新增用户
 const deleteUser = "admin/user/delUser"; // 删除用户
@@ -9,9 +9,9 @@ const getUserLevel = "admin/user/getUserLevel"; // 获得角色级别
 const getOnlineUser = "admin/user/online/pageOnLineUser"; // 查询在线用户
 const deleteOnlineUser = "admin/user/online/kickOut"; // 踢出用户
 
-export const addUserApi = data => axiosK(addUser, data);
+export const addUserApi = data => axiosA(addUser, data);
 export const deleteUserApi = data => axiosD(deleteUser, data);
-export const editUserApi = data => axiosP(editUser, data);
+export const editUserApi = data => axiosM(editUser, data);
 export const editAvatarApi = data => axiosF(editAvatar, data);
 export const getUserListApi = data => axiosG(getUserList, data);
 export const getUserLevelApi = () => axiosG(getUserLevel);

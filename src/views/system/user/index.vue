@@ -148,8 +148,10 @@
         })
       },
       getDeptNameAndJobName(obj) {
-        return ''
-        // return `${obj.dept.name}/${obj.job.name}`
+        let dept, job = '';
+        if (obj.hasOwnProperty('dept')) dept = obj.dept.name;
+        if (obj.hasOwnProperty('job')) job = obj.job.name;
+        return `${dept} / ${job}`
       },
       add() {
         let _this = this.$refs.AddUser;
@@ -158,6 +160,7 @@
       edit(obj) {
         let _this = this.$refs.EditUser;
         delete obj.jobId;
+        obj.rolesId = obj.roles.map(item => item.id);
         objectEvaluate(_this.form, obj);
         objectExchange(_this.FORM, _this.form);
         _this.initDept(obj.deptId);

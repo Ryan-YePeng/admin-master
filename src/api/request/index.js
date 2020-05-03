@@ -43,7 +43,26 @@ export const axiosD = (url, param) => {
 /**
  * @param {String} url 请求地址
  * @param {Object=} param 请求地址
- * @description put，批量修改。
+ * @description post，数组。
+ * */
+export const axiosA = (url, param) => {
+  return new Promise((resolve, reject) => {
+    service({
+      method: "post",
+      url: url,
+      params: param,
+      paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
+    })
+      .then(result => resolve(result))
+      .catch(error => reject(error));
+  });
+};
+
+
+/**
+ * @param {String} url 请求地址
+ * @param {Object=} param 请求地址
+ * @description put，数组。
  * */
 export const axiosM = (url, param) => {
   return new Promise((resolve, reject) => {

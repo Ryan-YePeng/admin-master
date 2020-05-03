@@ -5,7 +5,7 @@
       @close="cancel"
       :close-on-click-modal="false"
       :visible.sync="visible">
-    <el-form :model="form" :rules="rules" ref="Form" label-width="80px" hide-required-asterisk>
+    <el-form :model="form" :rules="rules" ref="Form" label-width="80px">
       <el-form-item label="部门名称" prop="name">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
