@@ -78,7 +78,7 @@
   import {addUserApi} from '@/api/user'
   import {getJobByDeptIdApi} from '@/api/job'
   import {isEmpty} from "@/utils/common";
-  import {validatePhone, validEmail} from '@/utils/validate'
+  import {validatePhone, validateUsername, validEmail} from '@/utils/validate'
 
   export default {
     name: "AddUser",
@@ -114,7 +114,10 @@
         },
         options: [],
         rules: {
-          username: {required: true, message: '请输入用户名', trigger: 'blur'},
+          username: [
+            {required: true, message: '请输入用户名', trigger: 'blur'},
+            {validator: validateUsername, trigger: 'blur'}
+          ],
           email: {validator: validEmail, trigger: 'blur'},
           phone: {validator: validatePhone, trigger: 'blur'},
           deptId: {required: true, message: '请选择部门', trigger: 'change'},

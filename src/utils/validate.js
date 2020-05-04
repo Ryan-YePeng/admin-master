@@ -171,56 +171,40 @@ export function validateIdNo(rule, value, callback) {
   }
 }
 
-/* 账号 */
+/* 用户名 */
 export function validateUsername(rule, value, callback) {
-  const reg = /^[a-zA-Z][a-zA-Z0-9_]{4,15}$/;
+  const reg1 = /[\S]/;
+  const reg2 = /^[a-zA-Z0-9_]*$/;
+  const reg3 = /^[a-zA-Z0-9_]{2,16}$/;
   if (value === '' || value === undefined || value == null) {
     callback()
   } else {
-    if ((!reg.test(value)) && value !== '') {
-      callback(new Error('账号以字母开头，长度在 5~16 之间，允许字母数字下划线'))
+    if ((!reg1.test(value)) && value !== '') {
+      callback(new Error('不能包括空格'))
+    } else if ((!reg2.test(value)) && value !== '') {
+      callback(new Error('只允许字母数字下划线'))
+    } else if ((!reg3.test(value)) && value !== '') {
+      callback(new Error('长度为2-16个字符'))
     } else {
       callback()
     }
   }
 }
 
-/* 弱密码 */
-export function validateWeakPass(rule, value, callback) {
-  const reg = /^[a-zA-Z]\w{5,17}$/;
+/* 密码 */
+export function validatePassword(rule, value, callback) {
+  const reg1 = /[\S]/;
+  const reg2 = /^.{6,16}$/;
+  const reg3 = /^(?:\d+|[a-zA-Z]+|[!@#$%^&*~,?_.]+)*$/;
   if (value === '' || value === undefined || value == null) {
     callback()
   } else {
-    if ((!reg.test(value)) && value !== '') {
-      callback(new Error('密码以字母开头，长度在 6~18 之间，只能包含字母、数字和下划线'))
-    } else {
-      callback()
-    }
-  }
-}
-
-/* 中密码 */
-export function validateMediumPass(rule, value, callback) {
-  const reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,18}$/;
-  if (value === '' || value === undefined || value == null) {
-    callback()
-  } else {
-    if ((!reg.test(value)) && value !== '') {
-      callback(new Error('密码必须包含大小写字母和数字的组合，不能使用特殊字符，长度在 8~18 之间'))
-    } else {
-      callback()
-    }
-  }
-}
-
-/* 强密码 */
-export function validateStrictPass(rule, value, callback) {
-  const reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,18}$/;
-  if (value === '' || value === undefined || value == null) {
-    callback()
-  } else {
-    if ((!reg.test(value)) && value !== '') {
-      callback(new Error('密码必须包含大小写字母和数字的组合，可以使用特殊字符，长度在 8~18 之间'))
+    if ((!reg1.test(value)) && value !== '') {
+      callback(new Error('不能包括空格'))
+    } else if ((!reg2.test(value)) && value !== '') {
+      callback(new Error('长度为6-16个字符'))
+    } else if ((!reg3.test(value)) && value !== '') {
+      callback(new Error('不能包括特殊字符'))
     } else {
       callback()
     }
