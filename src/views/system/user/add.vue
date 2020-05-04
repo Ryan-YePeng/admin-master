@@ -10,7 +10,7 @@
         <el-form-item label="用户名" prop="username">
           <el-input v-model="form.username"></el-input>
         </el-form-item>
-        <el-form-item slot="r" label="电话">
+        <el-form-item slot="r" label="电话" prop="phone">
           <el-input v-model="form.phone"></el-input>
         </el-form-item>
       </row-col>
@@ -18,7 +18,7 @@
         <el-form-item label="昵称">
           <el-input v-model="form.nickName"></el-input>
         </el-form-item>
-        <el-form-item slot="r" label="邮箱">
+        <el-form-item slot="r" label="邮箱" prop="email">
           <el-input v-model="form.email"></el-input>
         </el-form-item>
       </row-col>
@@ -78,6 +78,7 @@
   import {addUserApi} from '@/api/user'
   import {getJobByDeptIdApi} from '@/api/job'
   import {isEmpty} from "@/utils/common";
+  import {validatePhone, validEmail} from '@/utils/validate'
 
   export default {
     name: "AddUser",
@@ -114,6 +115,8 @@
         options: [],
         rules: {
           username: {required: true, message: '请输入用户名', trigger: 'blur'},
+          email: {validator: validEmail, trigger: 'blur'},
+          phone: {validator: validatePhone, trigger: 'blur'},
           deptId: {required: true, message: '请选择部门', trigger: 'change'},
           jobId: {required: true, message: '请选择岗位', trigger: 'change'},
           rolesId: {required: true, message: '请选择角色', trigger: 'change'}
@@ -157,6 +160,4 @@
   }
 </script>
 
-<style scoped>
 
-</style>

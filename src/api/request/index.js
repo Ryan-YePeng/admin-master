@@ -13,7 +13,7 @@ export const axiosG = (url, param) => {
       method: "get",
       url: url,
       params: param,
-      paramsSerializer: params => qs.stringify(params)
+      paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
     })
       .then(result => resolve(result))
       .catch(error => reject(error));
@@ -235,7 +235,7 @@ export const axiosL = (url, param) => {
       url: url,
       responseType: "blob",
       params: param,
-      paramsSerializer: params => qs.stringify(params)
+      paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
     })
       .then(result => resolve(result))
       .catch(error => reject(error));

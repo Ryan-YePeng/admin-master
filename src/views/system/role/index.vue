@@ -54,7 +54,6 @@
               :data="tree"
               show-checkbox
               node-key="id"
-              :prop="treeProps"
               accordion
               :default-checked-keys="menuIds"
           >
@@ -88,10 +87,7 @@
         menuIds: [],
         id: null,
         level: null,
-        searchRoleName: '',
-        treeProps: {
-          label: 'name'
-        }
+        searchRoleName: ''
       }
     },
     mounted() {
@@ -177,6 +173,4 @@
   }
 </script>
 
-<style scoped>
 
-</style>

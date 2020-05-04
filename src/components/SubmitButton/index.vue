@@ -47,6 +47,4 @@
   }
 </script>
 
-<style scoped>
 
-</style>

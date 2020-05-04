@@ -81,6 +81,4 @@
   }
 </script>
 
-<style scoped>
 
-</style>
