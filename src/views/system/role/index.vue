@@ -47,18 +47,7 @@
               @submit="update"
               text="保存"/>
         </div>
-        <div>
-          <el-tree
-              ref="RoleMenuTree"
-              :check-strictly="true"
-              :data="tree"
-              show-checkbox
-              node-key="id"
-              accordion
-              :default-checked-keys="menuIds"
-          >
-          </el-tree>
-        </div>
+        <checkbox-tree ref="RoleMenuTree" :ids="menuIds" :tree="tree"/>
       </el-card>
     </el-col>
     <add-role ref="AddRole" :dept="dept" :level="level" @update="getRoleList"/>
@@ -71,13 +60,14 @@
   import {editRolesMenusApi} from '@/api/menu'
   import {getUserLevelApi} from '@/api/user'
   import {getDeptTreeApi} from '@/api/dept'
+  import {objectEvaluate} from "@/utils/common";
   import AddRole from './add'
   import EditRole from './edit'
-  import {objectEvaluate} from "@/utils/common";
+  import CheckboxTree from '@/components/CheckboxTree'
 
   export default {
     name: "Role",
-    components: {AddRole, EditRole},
+    components: {AddRole, EditRole, CheckboxTree},
     data() {
       return {
         isTableLoading: false,
@@ -107,6 +97,7 @@
         })
       },
       getRoleListAndRoleTree() {
+        this.$refs.SubmitButton.ban();
         getRoleListApi({roleName: ''})
           .then(result => {
             this.formData = result.resultParam.roleList;
@@ -121,18 +112,14 @@
         getRoleListApi({roleName: this.searchRoleName}).then(result => {
           this.isTableLoading = false;
           this.formData = result.resultParam.roleList;
-          this.clearChecked();
+          this.$refs.RoleMenuTree.clear();
           this.$refs.SubmitButton.ban();
         })
-      },
-      // 清除选中
-      clearChecked() {
-        this.$refs.RoleMenuTree.setCheckedKeys([])
       },
       // 点击行
       getTreeChecked(row) {
         this.$refs.SubmitButton.cancelBan();
-        this.clearChecked();
+        this.$refs.RoleMenuTree.clear();
         this.menuIds = row.menus.map(item => item.id);
         this.id = row.id
       },
@@ -140,7 +127,7 @@
       update() {
         let data = {};
         data.roleId = this.id;
-        data.menuIds = this.$refs.RoleMenuTree.getCheckedNodes().map(item => item.id);
+        data.menuIds = this.$refs.RoleMenuTree.get();
         this.$refs.SubmitButton.start();
         editRolesMenusApi(data).then(() => {
           this.$refs.SubmitButton.stop();

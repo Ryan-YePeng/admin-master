@@ -2,6 +2,7 @@ const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const resolve = dir => require("path").join(__dirname, dir);
 const settings = require("./src/settings");
 const Analyzer = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const NODE_ENV = process.env.NODE_ENV;
 const isOpenGzip = false; // 开启gzip压缩, 按需引用
 const isOpenAnalyzer = true; // 开启代码分析
 module.exports = {
@@ -20,7 +21,7 @@ module.exports = {
     // 开启 gzip 压缩
     // 需要 npm i -D compression-webpack-plugin
     const plugins = [];
-    if (process.env.NODE_ENV === "production" && isOpenGzip)
+    if (NODE_ENV === "production" && isOpenGzip)
       plugins.push(
         new CompressionWebpackPlugin({
           filename: "[path].gz[query]",
@@ -31,7 +32,8 @@ module.exports = {
           deleteOriginalAssets: true // 删除源文件
         })
       );
-    if (isOpenAnalyzer) plugins.push(new Analyzer({ analyzerPort: 9000 }));
+    if (isOpenAnalyzer && NODE_ENV === "development")
+      plugins.push(new Analyzer({analyzerPort: 9999}));
     config.plugins = [...config.plugins, ...plugins];
   },
 
@@ -78,12 +80,8 @@ module.exports = {
     hotOnly: false,
     proxy: {
       "/api": {
-        // 目标:指向网络地址
-        target: "http://o3108022o2.zicp.vip",
-        // target: "http://192.168.0.120:8000",
-        // target: "http://192.168.0.152:8000",
-        // target: "http://123.57.232.1:8080"
-        // webpack属性，映射一个host
+        // target: "http://o3108022o2.zicp.vip",
+        target: "http://wangweio.cn:8000",
         changeOrigin: true,
         pathRewrite: {
           "^/api": ""

@@ -6,7 +6,7 @@ module.exports = {
   /**
    * @description 是否启用history
    */
-  isHistory: false,
+  isHistory: true,
   /**
    * @description 是否显示logo
    */

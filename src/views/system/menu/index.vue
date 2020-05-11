@@ -17,7 +17,11 @@
         </template>
       </el-table-column>
       <el-table-column prop="sort" label="排序" align="center"></el-table-column>
-      <el-table-column prop="name" label="路径名称"></el-table-column>
+      <el-table-column label="路径名称">
+        <template slot-scope="scope">
+          <clipboard :text="scope.row.name">{{scope.row.name}}</clipboard>
+        </template>
+      </el-table-column>
       <el-table-column prop="permission" label="权限标识"></el-table-column>
       <el-table-column label="外链">
         <template slot-scope="scope">
@@ -54,13 +58,14 @@
 
 <script>
   import {getAllMenuApi, deleteMenuApi} from '@/api/menu'
+  import {objectEvaluate} from "@/utils/common";
   import AddMenu from './add'
   import EditMenu from './edit'
-  import {objectEvaluate} from "@/utils/common";
+  import Clipboard from '@/components/Clipboard'
 
   export default {
     name: "Menu",
-    components: {AddMenu, EditMenu},
+    components: {AddMenu, EditMenu, Clipboard},
     data() {
       return {
         isTableLoading: false,

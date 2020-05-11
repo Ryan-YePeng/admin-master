@@ -6,8 +6,8 @@ const editUser = "admin/user/editUser"; // 编辑用户
 const editAvatar = "admin/user/editAvatar"; // 编辑头像
 const getUserList = "admin/user/pageUser"; // 获得用户列表
 const getUserLevel = "admin/user/getUserLevel"; // 获得角色级别
-const getOnlineUser = "admin/user/online/pageOnLineUser"; // 查询在线用户
-const deleteOnlineUser = "admin/user/online/kickOut"; // 踢出用户
+const getOnlineUser = "test/online/pageOnLineUser"; // 查询在线用户
+const deleteOnlineUser = "test/online/kickOut"; // 踢出用户
 
 export const addUserApi = data => axiosA(addUser, data);
 export const deleteUserApi = data => axiosD(deleteUser, data);
