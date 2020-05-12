@@ -1,8 +1,6 @@
 <template>
   <el-card class="box-card" id="operation-log">
-    <el-table
-        v-loading="isTableLoading"
-        :data="formData">
+    <expand-table ref="ExpandTable" :data="formData">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form class="log-table-expand">
@@ -25,13 +23,13 @@
       </el-table-column>
       <el-table-column label="异常详情" width="100px">
         <template slot-scope="scope">
-          <el-button type="text" @click="info(scope.row.logId)">查看详情</el-button>
+          <el-button type="text" @click="info(scope.row.id)">查看详情</el-button>
         </template>
       </el-table-column>
-    </el-table>
+    </expand-table>
     <pagination ref="Pagination" @getNewData="getLogList"></pagination>
     <el-dialog :visible.sync="dialog" title="异常详情" :close-on-click-modal="false" top="30px" width="85%">
-      <pre v-highlightjs="errorInfo"><code class="java"/></pre>
+      <pre>{{errorInfo}}</pre>
     </el-dialog>
   </el-card>
 </template>
@@ -43,7 +41,6 @@
     name: "OperationLog",
     data() {
       return {
-        isTableLoading: false,
         formData: [],
         dialog: false,
         errorInfo: ''
@@ -54,23 +51,25 @@
     },
     methods: {
       getLogList() {
-        this.isTableLoading = true;
+        this.$refs.ExpandTable.start();
         let pagination = this.$refs.Pagination;
         let param = {
           current: pagination.current,
           size: pagination.size
         };
         getErrorLogApi(param).then(result => {
-          this.isTableLoading = false;
+          this.$refs.ExpandTable.stop();
           let response = result.resultParam.logIPage;
           this.formData = response.records;
           pagination.total = response.total;
         })
       },
       info(id) {
-        this.dialog = true;
-        getErrorDetailByIdApi({logId: id}).then(result => {
-          this.errorInfo = result.resultParam.log.exceptionDetail
+        this.$refs.ExpandTable.start();
+        getErrorDetailByIdApi({id: id}).then(result => {
+          this.dialog = true;
+          this.$refs.ExpandTable.stop();
+          this.errorInfo = result.resultParam.log.detail
         })
       }
     }
@@ -98,13 +97,12 @@
       font-size: 12px;
     }
 
-    .java.hljs {
-      color: #444;
-      background: #ffffff !important;
-    }
-
     .el-dialog__body {
       padding: 0 20px 10px 20px !important;
+    }
+
+    pre {
+      white-space: pre-wrap;
     }
   }
 </style>

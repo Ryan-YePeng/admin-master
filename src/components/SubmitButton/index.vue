@@ -12,11 +12,11 @@
   export default {
     name: "SubmitButton",
     props: {
-      text: {
+      text: { // 按钮文字
         type: String,
         default: '确 定'
       },
-      icon: {
+      icon: { // 按钮图标
         type: String,
         default: ''
       }
@@ -28,10 +28,10 @@
       }
     },
     methods: {
-      ban() {
+      ban() { // 禁用
         this.isDisabled = true
       },
-      cancelBan() {
+      cancelBan() { // 取消禁用
         this.isDisabled = false
       },
       confirm() {

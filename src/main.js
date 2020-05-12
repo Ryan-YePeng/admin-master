@@ -10,13 +10,10 @@ import './utils/directive'; // 自定义指令
 import './utils/filter'; // 过滤
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'; // 树状选择器
 import './assets/icons'; // svg
-import VueHighlightJS from 'vue-highlightjs' // 代码高亮
-import 'highlight.js/styles/atom-one-dark.css' // 代码高亮样式
 import App from "./App.vue";
 
 Vue.use(vuescroll);
 Vue.use(EVueContextmenu);
-Vue.use(VueHighlightJS);
 
 Vue.config.productionTip = false;
 

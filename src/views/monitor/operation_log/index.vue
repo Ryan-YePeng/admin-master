@@ -1,8 +1,6 @@
 <template>
   <el-card class="box-card" id="error-log">
-    <el-table
-        v-loading="isTableLoading"
-        :data="formData">
+    <expand-table ref="ExpandTable" :data="formData">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form class="log-table-expand">
@@ -30,7 +28,7 @@
           <span>{{ scope.row.createTime | formatDateTime}}</span>
         </template>
       </el-table-column>
-    </el-table>
+    </expand-table>
     <pagination ref="Pagination" @getNewData="getLogList"></pagination>
   </el-card>
 </template>
@@ -42,7 +40,6 @@
     name: "ErrorLog",
     data() {
       return {
-        isTableLoading: false,
         formData: []
       }
     },
@@ -51,14 +48,14 @@
     },
     methods: {
       getLogList() {
-        this.isTableLoading = true;
+        this.$refs.ExpandTable.start();
         let pagination = this.$refs.Pagination;
         let param = {
           current: pagination.current,
           size: pagination.size
         };
         getLogListApi(param).then(result => {
-          this.isTableLoading = false;
+          this.$refs.ExpandTable.stop();
           let response = result.resultParam.logIPage;
           this.formData = response.records;
           pagination.total = response.total;

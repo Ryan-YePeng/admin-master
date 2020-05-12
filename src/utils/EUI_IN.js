@@ -105,11 +105,17 @@ Vue.use(Loading.directive);
  * @description 自定义Element-UI组件
  * */
 import RowCol from '@/components/RowCol'
+import ExpandTable from '@/components/ExpandTable'
+import ElementTable from '@/components/ElementTable'
+import SelectionTable from '@/components/SelectionTable'
 import DeleteButton from '@/components/DeleteButton'
 import SubmitButton from '@/components/SubmitButton'
 import CustomizedPagination from '@/components/Pagination'
 
 Vue.component('RowCol', RowCol);
+Vue.component('ExpandTable', ExpandTable);
+Vue.component('ElementTable', ElementTable);
+Vue.component('SelectionTable', SelectionTable);
 Vue.component('DeleteButton', DeleteButton);
 Vue.component('SubmitButton', SubmitButton);
 Vue.component('Pagination', CustomizedPagination);

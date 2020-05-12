@@ -201,6 +201,7 @@
       font-weight: 400;
       color: #333;
       box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
+      z-index: 2003;
 
       li {
         margin: 0;

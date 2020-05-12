@@ -13,10 +13,20 @@
           @click.stop="deleteData()">确定
       </el-button>
     </div>
-    <el-button v-if="type==='button'" slot="reference" type="danger"
-               icon="el-icon-delete" class="delete-button" @click.stop/>
-    <el-button v-if="type==='text'" slot="reference" type="text"
-               class="delete-button" @click.stop>{{text}}
+    <el-button
+        v-if="type==='button'"
+        slot="reference"
+        type="danger"
+        icon="el-icon-delete"
+        style="margin-left: 5px;"
+        @click.stop/>
+    <el-button
+        v-else
+        slot="reference"
+        type="text"
+        style="margin-left: 5px;"
+        @click.stop>
+      {{text}}
     </el-button>
   </el-popover>
 </template>
@@ -25,20 +35,23 @@
   export default {
     name: "DeleteButton",
     props: {
-      id: {required: true},
-      msg: {
+      id: {
+        type: Number,
+        required: true
+      },
+      msg: { // 提示文字
         type: String,
         default: '确定删除本条数据吗？'
       },
-      width: {
+      width: { // 提示框宽度
         type: Number,
         default: 180
       },
-      type: {
+      type: { // 按钮类型
         type: String,
         default: 'button'
       },
-      text: {
+      text: { // 按钮文字
         type: String,
         default: ''
       }
@@ -63,9 +76,3 @@
     }
   }
 </script>
-
-<style lang="scss" scoped>
-  .delete-button {
-    margin-left: 5px;
-  }
-</style>
