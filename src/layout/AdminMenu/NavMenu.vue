@@ -3,11 +3,11 @@
 
     <template v-for="navMenu in navMenus">
       <el-submenu
-              v-if="hasChildren(navMenu.children)"
-              v-show="!navMenu.hidden"
-              :key="navMenu.id"
-              :index="navMenu.title"
-              class="submenu-title">
+          v-if="hasChildren(navMenu.children)"
+          v-show="!navMenu.hidden"
+          :key="navMenu.id"
+          :index="navMenu.title"
+          class="submenu-title">
         <template slot="title">
           <item :title="navMenu.title" :icon="navMenu.icon"></item>
         </template>
@@ -15,12 +15,12 @@
       </el-submenu>
 
       <el-menu-item
-              v-else
-              v-show="!navMenu.hidden"
-              :key="navMenu.id"
-              :index="navMenu.title"
-              @click="jump($event, navMenu)"
-              class="menu-item">
+          v-else
+          v-show="!navMenu.hidden"
+          :key="navMenu.id"
+          :index="navMenu.title"
+          @click="jump($event, navMenu)"
+          class="menu-item">
         <item :title="navMenu.title" :icon="navMenu.icon"></item>
       </el-menu-item>
     </template>

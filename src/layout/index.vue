@@ -4,12 +4,12 @@
       <!-- 菜单 -->
       <admin-menu v-if="isVertical" :isCollapse="isCollapse" :isSmall="isSmall"></admin-menu>
       <el-drawer
-              v-if="isVertical"
-              :class="[isNight ? 'night-drawer-menu' : 'light-drawer-menu']"
-              :destroy-on-close="true"
-              :visible.sync="isShowDrawerMenu"
-              direction="ltr"
-              :with-header="false">
+          v-if="isVertical"
+          :class="[isNight ? 'night-drawer-menu' : 'light-drawer-menu']"
+          :destroy-on-close="true"
+          :visible.sync="isShowDrawerMenu"
+          direction="ltr"
+          :with-header="false">
         <admin-menu/>
       </el-drawer>
       <el-container>
@@ -31,14 +31,11 @@
         </el-header>
         <!-- 内容 -->
         <el-main class="main">
-          <scroll-pane ref="ScrollPane" :isUseGoBackTop="true">
-            <transition name="Ryan-animation">
-              <keep-alive :include="cache">
-                <router-view :key="key"/>
-              </keep-alive>
-            </transition>
-          </scroll-pane>
+          <keep-alive :include="cache">
+            <router-view :key="key"/>
+          </keep-alive>
         </el-main>
+        <el-backtop target=".main" :right="16"></el-backtop>
         <el-footer class="footer" v-show="isShowFooter">
           <div class="footer-text">
             <span>{{footerTxt}} - {{caseNumber}}</span>
@@ -50,7 +47,6 @@
 </template>
 
 <script>
-  import ScrollPane from './ScrollPane'
   import AdminMenu from './AdminMenu'
   import Breadcrumb from './Breadcrumb'
   import NavBar from './NavBar'
@@ -59,7 +55,7 @@
 
   export default {
     name: 'Layout',
-    components: {ScrollPane, NavBar, AdminMenu, Breadcrumb, Tag},
+    components: {NavBar, AdminMenu, Breadcrumb, Tag},
     data() {
       return {
         isCollapse: false,
@@ -165,33 +161,11 @@
     }
 
     .main {
-      padding: 0;
+      padding: 15px;
       background-color: $main-bg-color;
-      overflow: hidden;
-
-      .__view {
-        padding: 15px;
-
-        .Ryan-animation-enter-active {
-          transition: all .5s .6s;
-        }
-
-        .Ryan-animation-leave-active {
-          transition: all .5s;
-        }
-
-        .Ryan-animation-enter {
-          transform: translateX(-30px);
-          opacity: 0;
-        }
-
-        .Ryan-animation-leave-to {
-          transform: translateX(30px);
-          opacity: 0;
-        }
-      }
+      overflow-y: auto;
+      overflow-x: hidden;
     }
-
 
     .footer {
       padding: 0;

@@ -20,10 +20,10 @@
     </el-dropdown>
     <div class="setting">
       <el-drawer
-              :visible.sync="drawer"
-              :show-close="false"
-              :with-header="false"
-              :destroy-on-close="true">
+          :visible.sync="drawer"
+          :show-close="false"
+          :with-header="false"
+          :destroy-on-close="true">
         <drawer-setting></drawer-setting>
       </el-drawer>
     </div>

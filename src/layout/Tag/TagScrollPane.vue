@@ -75,7 +75,7 @@
     width: 100%;
 
     .el-scrollbar__bar {
-      height: 3px!important;
+      height: 3px !important;
       bottom: 0;
     }
 

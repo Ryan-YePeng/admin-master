@@ -2,16 +2,16 @@
   <div id="tags-view-container">
     <tag-scroll-pane ref="TagScrollPane" class="tags-view-wrapper">
       <router-link
-              v-for="tag in tags"
-              ref="tag"
-              :class="isActive(tag.name) ? 'active' : ''"
-              :key="tag.name"
-              :to="{name: tag.name}"
-              tag="span"
-              class="tags-view-item"
-              @click.middle.native="tabsRemove(tag)"
-              @contextmenu.prevent.native="$refs.ContextMenu.showMenu($event, tag)"
-              @click.prevent.native="tabsClick(tag)">
+          v-for="tag in tags"
+          ref="tag"
+          :class="isActive(tag.name) ? 'active' : ''"
+          :key="tag.name"
+          :to="{name: tag.name}"
+          tag="span"
+          class="tags-view-item"
+          @click.middle.native="tabsRemove(tag)"
+          @contextmenu.prevent.native="$refs.ContextMenu.showMenu($event, tag)"
+          @click.prevent.native="tabsClick(tag)">
         <span>{{tag.title}}</span>
         <span v-if="tag.title !== '首页'"
               class="el-icon-close"

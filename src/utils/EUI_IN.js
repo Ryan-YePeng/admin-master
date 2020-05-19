@@ -50,7 +50,9 @@ import {
   MenuItemGroup,
   Checkbox,
   Tree,
-  Progress
+  Progress,
+  Backtop,
+  Icon
 } from 'element-ui';
 
 Vue.component('ElButton', Button);
@@ -99,6 +101,8 @@ Vue.component('ElMenuItemGroup', MenuItemGroup);
 Vue.component('ElCheckbox', Checkbox);
 Vue.component('ElTree', Tree);
 Vue.component('ElProgress', Progress);
+Vue.component('ElBacktop', Backtop);
+Vue.component('ElIcon', Icon);
 Vue.use(Loading.directive);
 
 /**

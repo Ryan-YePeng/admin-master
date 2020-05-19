@@ -4,14 +4,14 @@
        v-show="!isSmall || !isVertical">
     <scroll-pane :has-x="!isVertical" :has-y="isVertical">
       <el-menu
-              :default-active="active"
-              :class="isVertical ? 'el-menu-vertical-demo' : 'el-menu-demo'"
-              :collapse="isVertical ? isCollapse : null"
-              :unique-opened="isUniqueOpened"
-              :mode="isVertical ? 'vertical' : 'horizontal'"
-              :text-color="isNight ? '#bfcbd9' : '#444444'"
-              :background-color="isNight ? style.menuNightBg : style.menuLightBg"
-              active-text-color="#409eff">
+          :default-active="active"
+          :class="isVertical ? 'el-menu-vertical-demo' : 'el-menu-demo'"
+          :collapse="isVertical ? isCollapse : null"
+          :unique-opened="isUniqueOpened"
+          :mode="isVertical ? 'vertical' : 'horizontal'"
+          :text-color="isNight ? '#bfcbd9' : '#444444'"
+          :background-color="isNight ? style.menuNightBg : style.menuLightBg"
+          active-text-color="#409eff">
         <logo :isCollapse="isCollapse"></logo>
         <nav-menu :navMenus=navMenus></nav-menu>
       </el-menu>

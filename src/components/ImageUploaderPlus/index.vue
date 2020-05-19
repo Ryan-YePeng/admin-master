@@ -122,7 +122,7 @@
         this.$refs.cropper.getCropBlob(data => {
           let formData = new FormData();
           formData.append('file', data, this.fileName);
-          formData.append('typePath', 'article');
+          formData.append('typePath', this.typePath);
           this.$refs.SubmitButton.start();
           uploadPictureApi(formData)
             .then(result => {

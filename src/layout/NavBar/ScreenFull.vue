@@ -1,5 +1,5 @@
 <template>
-  <div id="screen-full">
+  <div id="screen-full" v-if="!isIE()">
     <i class="el-icon-full-screen" @click="click"></i>
   </div>
 </template>
@@ -21,6 +21,9 @@
       this.destroy()
     },
     methods: {
+      isIE() { //判断浏览器类型
+        return !!window.ActiveXObject || "ActiveXObject" in window;
+      },
       click() {
         if (!screenfull.isEnabled) {
           this.$warnMsg('您的浏览器不支持该功能！');

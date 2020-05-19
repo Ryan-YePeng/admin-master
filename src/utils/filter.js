@@ -1,15 +1,21 @@
 import Vue from "vue";
-import {formatDateTime} from "@/utils/common";
 
+const formatTime = require('silly-datetime');
 
 /**
  * @description 过滤时间
  * @return YYYY-MM-DD
  **/
-Vue.filter("formatDate", time => formatDateTime(time, '{Y}-{M}-{D}'));
+Vue.filter("formatDate", function (time) {
+  if (!time) return '';
+  return formatTime.format(time, 'YYYY-MM-DD');
+});
 
 /**
  * @description 过滤时间
  * @return YYYY-MM-DD hh:mm:ss
  **/
-Vue.filter("formatDateTime", time => formatDateTime(time));
+Vue.filter("formatDateTime", function (time) {
+  if (!time) return '';
+  return formatTime.format(time, 'YYYY-MM-DD HH:mm:ss');
+});

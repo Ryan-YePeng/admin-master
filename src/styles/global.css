@@ -6,6 +6,10 @@ html, body, #app, .el-container {
   height: 100%;
 }
 
+.el-container {
+  flex: 1;
+}
+
 .clearfix:before,
 .clearfix:after {
   display: table;
@@ -88,6 +92,7 @@ html, body, #app, .el-container {
 .w-200 {
   width: 200px;
 }
+
 .pointer {
   cursor: pointer;
 }

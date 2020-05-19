@@ -1,3 +1,5 @@
+const formatTime = require('silly-datetime');
+
 /**
  * @param value
  * @return {Boolean}
@@ -13,35 +15,24 @@ export const isEmpty = value => {
 };
 
 /**
- * @param {String} time
+ * @param {Date} time
  * @return {String}
  * @description 格式化时间
  * */
-export const formatDate = time => formatDateTime(time, '{Y}-{M}-{D}');
-
-/**
- * @param {String} time
- * @param {String=} cFormat
- * @return {String}
- * @description 格式化时间
- * */
-export const formatDateTime = (time, cFormat) => {
+export const formatDate = time => {
   if (!time) return '';
-  let date = new Date(time);
-  const format = cFormat || '{Y}-{M}-{D} {h}:{m}:{s}';
-  const formatObj = {
-    Y: date.getFullYear(),
-    M: (date.getMonth() + 1).toString().padStart(2, "0"),
-    D: date.getDate().toString().padStart(2, "0"),
-    h: date.getHours().toString().padStart(2, "0"),
-    m: date.getMinutes().toString().padStart(2, "0"),
-    s: date.getSeconds().toString().padStart(2, "0")
-  };
-  return format.replace(/{(Y|M|D|h|m|s)+}/g, (result, key) => {
-    return formatObj[key]
-  });
+  return formatTime.format(time, 'YYYY-MM-DD');
 };
 
+/**
+ * @param {Date} time
+ * @return {String}
+ * @description 格式化时间
+ * */
+export const formatDateTime = time => {
+  if (!time) return '';
+  return formatTime.format(time, 'YYYY-MM-DD HH:mm:ss');
+};
 
 /**
  * @param {Object} target
