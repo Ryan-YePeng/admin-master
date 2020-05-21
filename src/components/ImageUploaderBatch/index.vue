@@ -22,7 +22,7 @@
   export default {
     name: "ImageUploaderBatch",
     props: {
-      pathString: {
+      value: {
         type: String,
         default: ""
       },
@@ -35,15 +35,18 @@
       return {
         limit: 9,
         accept: ".jpg, .png",
-        fileList: []
+        fileList: [],
+        hasUpload: false
       };
     },
     watch: {
-      pathString(value) {
-        let list = value.split(',');
-        let baseUrl = process.env.VUE_APP_BASE_API;
-        list = list.map(item => ({pathUrl: item, url: baseUrl + item}));
-        this.fileList = list;
+      value(val) {
+        if (val && !this.hasUpload) {
+          let list = val.split(',');
+          let baseUrl = process.env.VUE_APP_BASE_API;
+          this.fileList = list.map(item => ({pathUrl: item, url: baseUrl + item}))
+        }
+        if (!val) this.clearFiles()
       }
     },
     methods: {
@@ -70,6 +73,7 @@
         data.typePath = this.typePath;
         uploadPicturePlusApi(data)
           .then(result => {
+            this.hasUpload = true;
             param.onSuccess(result.resultParam.uploadFilePath, file);
           })
           .catch(() => {
@@ -93,15 +97,18 @@
             pathStr = pathStr + `${item.pathUrl},`;
           });
         pathStr = pathStr.substr(0, pathStr.length - 1);
-        this.$emit("getImage", pathStr);
+        this.$emit("input", pathStr);
+        this.$parent.$emit('el.form.change')
       },
       exceed() {
         this.$errorMsg(`至多上传${this.limit}张图片`)
       },
       // 清理文件
       clearFiles() {
+        this.fileList = [];
+        this.hasUpload = false;
         this.$refs.ImageUploaderBatch.clearFiles();
-      },
+      }
     }
   };
 </script>
