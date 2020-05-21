@@ -97,6 +97,11 @@
         return process.env.VUE_APP_BASE_API
       }
     },
+    watch: {
+      value(val) {
+        if (!val) this.clearFiles()
+      }
+    },
     methods: {
       changeUpload(result) {
         let file = result.raw;
@@ -154,7 +159,7 @@
         this.url = "";
         this.$refs.SubmitButton.stop();
         this.$refs.ImageUploaderPlus.clearFiles();
-      },
+      }
     }
   };
 </script>

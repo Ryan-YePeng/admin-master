@@ -12,8 +12,8 @@
          class="el-icon-close close-uploader-icon"
          @click.stop="cancelUpload"
       ></i>
-      <video v-if="url" :src="url" class="custom-video"></video>
-      <video v-else-if="value" :src="baseUrl + value" class="custom-video"></video>
+      <video v-if="url && !isLoading" :src="url" class="custom-video"></video>
+      <video v-else-if="value && !isLoading" :src="baseUrl + value" class="custom-video"></video>
       <i v-else :class="['el-icon-plus', 'video-uploader-icon', isLoading ? 'hidden' : 'visible']"></i>
     </el-upload>
     <el-progress
@@ -25,8 +25,8 @@
 </template>
 
 <script>
-  import {uploadVideoPlusApi} from "@/api/file";
   import axios from "axios";
+  import {uploadVideoPlusApi} from "@/api/file";
 
   export default {
     name: "VideoUploader",
@@ -59,6 +59,11 @@
         return process.env.VUE_APP_BASE_API
       }
     },
+    watch: {
+      value(val) {
+        if (!val) this.clearFiles()
+      }
+    },
     mounted() {
       this.reset();
     },
@@ -79,8 +84,6 @@
           this.$errorMsg("上传视屏大小不能超过 40MB!");
           return;
         }
-        this.url = "";
-        this.$emit("input", '');
         this.isLoading = true;
         let data = {};
         data.file = file;

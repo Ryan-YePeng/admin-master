@@ -24,9 +24,11 @@
             end-placeholder="结束日期">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="项目图片" prop="picture">
-        <image-uploader ref="ImageUploader" v-model="form.picture"/>
-      </el-form-item>
+      <row-col>
+        <el-form-item label="项目图片" prop="picture">
+          <image-uploader v-model="form.picture"/>
+        </el-form-item>
+      </row-col>
       <el-form-item label="项目内容" prop="content">
         <el-input type="textarea" v-model="form.content"></el-input>
       </el-form-item>
@@ -41,7 +43,7 @@
 <script>
   import {addProjectApi} from '../../../api/project'
   import {formatDateTime} from "../../../utils/common";
-  import ImageUploader from '@/components/ImageUploaderBatch';
+  import ImageUploader from '@/components/VideoUploader';
 
   export default {
     name: "AddProject",
@@ -94,7 +96,6 @@
         this.visible = false;
         Object.assign(this.$data.form, this.$options.data().form);
         this.$refs['Form'].clearValidate();
-        this.$refs['ImageUploader'].clearFiles();
       }
     }
   }

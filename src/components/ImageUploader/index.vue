@@ -1,6 +1,7 @@
 <template>
   <el-upload
       v-loading="isLoading"
+      element-loading-background="rgba(255, 255, 255, 0)"
       ref="ImageUploader"
       class="image-uploader"
       action="image-upload"
@@ -40,6 +41,11 @@
         return process.env.VUE_APP_BASE_API
       }
     },
+    watch: {
+      value(val) {
+        if (!val) this.clearFiles()
+      }
+    },
     methods: {
       /* 自定义上传 */
       uploadFile(param) {
@@ -57,8 +63,6 @@
           this.$errorMsg("上传视屏封面大小不能超过 2MB!");
           return;
         }
-        this.url = "";
-        this.$emit("input", '');
         this.isLoading = true;
         let data = {};
         data.file = file;
