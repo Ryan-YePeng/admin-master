@@ -52,7 +52,8 @@ import {
   Tree,
   Progress,
   Backtop,
-  Icon
+  Icon,
+  DatePicker
 } from 'element-ui';
 
 Vue.component('ElButton', Button);
@@ -103,6 +104,7 @@ Vue.component('ElTree', Tree);
 Vue.component('ElProgress', Progress);
 Vue.component('ElBacktop', Backtop);
 Vue.component('ElIcon', Icon);
+Vue.component('ElDatePicker', DatePicker);
 Vue.use(Loading.directive);
 
 /**

@@ -9,6 +9,7 @@
         :on-change="changeUpload"
         :show-file-list="false">
       <img v-if="url" :src="url" class="custom-image" alt="图片"/>
+      <img v-else-if="value" :src="baseUrl + value" class="custom-image" alt="图片"/>
       <i v-else class="el-icon-plus image-uploader-icon"></i>
     </el-upload>
     <el-dialog
@@ -56,7 +57,7 @@
     name: "ImageUploaderPlus",
     components: {VueCropper},
     props: {
-      imageUrl: {
+      value: {
         type: String,
         default: ""
       },
@@ -91,9 +92,9 @@
         }
       };
     },
-    watch: {
-      imageUrl(value) {
-        this.url = value;
+    computed: {
+      baseUrl() {
+        return process.env.VUE_APP_BASE_API
       }
     },
     methods: {
@@ -127,7 +128,8 @@
           uploadPictureApi(formData)
             .then(result => {
               this.url = URL.createObjectURL(data);
-              this.$emit('getImage', result.resultParam.uploadFilePath);
+              this.$emit('input', result.resultParam.uploadFilePath);
+              this.$parent.$emit('el.form.change');
               this.$refs.SubmitButton.stop();
               this.closeUpload();
             })
@@ -150,6 +152,7 @@
       // 清理文件
       clearFiles() {
         this.url = "";
+        this.$refs.SubmitButton.stop();
         this.$refs.ImageUploaderPlus.clearFiles();
       },
     }

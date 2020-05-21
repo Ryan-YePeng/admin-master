@@ -8,6 +8,7 @@
       :http-request="uploadFile"
       :show-file-list="false">
     <img v-if="url" :src="url" class="custom-image" alt="图片"/>
+    <img v-else-if="value" :src="baseUrl + value" class="custom-image" alt="图片"/>
     <i v-else class="el-icon-plus image-uploader-icon"></i>
   </el-upload>
 </template>
@@ -18,7 +19,7 @@
   export default {
     name: "ImageUploader",
     props: {
-      imageUrl: {
+      value: {
         type: String,
         default: ""
       },
@@ -34,9 +35,9 @@
         url: ""
       };
     },
-    watch: {
-      imageUrl(value) {
-        this.url = value;
+    computed: {
+      baseUrl() {
+        return process.env.VUE_APP_BASE_API
       }
     },
     methods: {
@@ -56,6 +57,8 @@
           this.$errorMsg("上传视屏封面大小不能超过 2MB!");
           return;
         }
+        this.url = "";
+        this.$emit("input", '');
         this.isLoading = true;
         let data = {};
         data.file = file;
@@ -63,7 +66,8 @@
         uploadPicturePlusApi(data)
           .then(result => {
             this.isLoading = false;
-            this.$emit("getImage", result.resultParam.uploadFilePath);
+            this.$emit("input", result.resultParam.uploadFilePath);
+            this.$parent.$emit('el.form.change');
             this.url = URL.createObjectURL(file);
           })
           .catch(() => {

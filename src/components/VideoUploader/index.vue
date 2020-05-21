@@ -13,6 +13,7 @@
          @click.stop="cancelUpload"
       ></i>
       <video v-if="url" :src="url" class="custom-video"></video>
+      <video v-else-if="value" :src="baseUrl + value" class="custom-video"></video>
       <i v-else :class="['el-icon-plus', 'video-uploader-icon', isLoading ? 'hidden' : 'visible']"></i>
     </el-upload>
     <el-progress
@@ -30,10 +31,9 @@
   export default {
     name: "VideoUploader",
     props: {
-      videoUrl: {
+      value: {
         type: String,
-        default: "",
-        source: null
+        default: ""
       },
       typePath: {
         type: String,
@@ -43,6 +43,7 @@
     data() {
       return {
         isLoading: false,
+        source: null,
         url: "",
         percentage: 0,
         accept: ".avi, .mp4, .flv, .wmv, .mkv",
@@ -53,9 +54,9 @@
         ]
       };
     },
-    watch: {
-      videoUrl(value) {
-        this.url = value;
+    computed: {
+      baseUrl() {
+        return process.env.VUE_APP_BASE_API
       }
     },
     mounted() {
@@ -78,6 +79,8 @@
           this.$errorMsg("上传视屏大小不能超过 40MB!");
           return;
         }
+        this.url = "";
+        this.$emit("input", '');
         this.isLoading = true;
         let data = {};
         data.file = file;
@@ -85,7 +88,8 @@
         uploadVideoPlusApi(data, this.update, this.source)
           .then(result => {
             this.reset();
-            this.$emit("getVideo", result.resultParam.uploadFilePath);
+            this.$emit("input", result.resultParam.uploadFilePath);
+            this.$parent.$emit('el.form.change');
             this.url = URL.createObjectURL(file);
           })
           .catch(error => {
@@ -97,6 +101,10 @@
               this.$infoMsg("已取消上传");
             }
           });
+      },
+      // 滚动条更新
+      update(value) {
+        this.percentage = value;
       },
       // 重置
       reset() {
@@ -113,12 +121,9 @@
       clearFiles() {
         this.url = "";
         this.percentage = 0;
+        this.isLoading = false;
         if (this.isLoading) this.cancelUpload();
         this.$refs.VideoUploader.clearFiles();
-      },
-      // 滚动条更新
-      update(value) {
-        this.percentage = value;
       }
     }
   };
