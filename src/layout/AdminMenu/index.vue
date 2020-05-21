@@ -1,33 +1,31 @@
 <template>
-  <div :class="[isNight ? 'admin-menu-night' : 'admin-menu-light']"
-       :id="isVertical ? 'admin-vertical-menu' : 'admin-horizontal-menu'"
-       v-show="!isSmall || !isVertical">
-    <scroll-pane :has-x="!isVertical" :has-y="isVertical">
-      <el-menu
-          :default-active="active"
-          :class="isVertical ? 'el-menu-vertical-demo' : 'el-menu-demo'"
-          :collapse="isVertical ? isCollapse : null"
-          :unique-opened="isUniqueOpened"
-          :mode="isVertical ? 'vertical' : 'horizontal'"
-          :text-color="isNight ? '#bfcbd9' : '#444444'"
-          :background-color="isNight ? style.menuNightBg : style.menuLightBg"
-          active-text-color="#409eff">
-        <logo :isCollapse="isCollapse"></logo>
-        <nav-menu :navMenus=navMenus></nav-menu>
-      </el-menu>
-    </scroll-pane>
-  </div>
+  <el-scrollbar
+      :class="[isNight ? 'admin-menu-night' : 'admin-menu-light']"
+      :id="isVertical ? 'admin-vertical-menu' : 'admin-horizontal-menu'"
+      v-show="!isSmall || !isVertical">
+    <el-menu
+        :default-active="active"
+        :class="isVertical ? 'el-menu-vertical-demo' : 'el-menu-demo'"
+        :collapse="isVertical ? isCollapse : null"
+        :unique-opened="isUniqueOpened"
+        :mode="isVertical ? 'vertical' : 'horizontal'"
+        :text-color="isNight ? '#bfcbd9' : '#444444'"
+        :background-color="isNight ? style.menuNightBg : style.menuLightBg"
+        active-text-color="#409eff">
+      <logo :isCollapse="isCollapse"></logo>
+      <nav-menu :navMenus=navMenus></nav-menu>
+    </el-menu>
+  </el-scrollbar>
 </template>
 
 <script>
-  import ScrollPane from "../ScrollPane";
   import Logo from "./Logo";
   import NavMenu from "./NavMenu";
   import Style from "../scss/index.scss"
 
   export default {
     name: 'AdminMenu',
-    components: {ScrollPane, NavMenu, Logo},
+    components: {NavMenu, Logo},
     props: {
       isSmall: {
         type: Boolean,
@@ -66,9 +64,10 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import '../scss/index';
 
+  /* 禁止选择 */
   .admin-menu-night,
   .admin-menu-light {
     -webkit-user-select: none;
@@ -90,8 +89,11 @@
 
   /* 水平菜单 */
   #admin-horizontal-menu {
-    .__vuescroll {
-      height: $horizontal-menu-height !important;
+    flex: none;
+    height: $horizontal-menu-height + 1 !important;
+
+    .el-scrollbar__wrap {
+      overflow: hidden;
     }
 
     .el-menu--horizontal {
@@ -106,6 +108,13 @@
 
   /* 垂直菜单 */
   #admin-vertical-menu {
+    height: 100%;
+
+    .el-scrollbar__wrap {
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
+
     .el-menu {
       border: 0;
     }

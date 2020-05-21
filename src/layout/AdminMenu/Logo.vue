@@ -1,5 +1,6 @@
 <template>
   <div v-if="isShowLogo"
+       :id="isVertical ? '' : 'logo-horizontal'"
        :class="['logo-container', isNight ? 'logo-night' : 'logo-light']">
     <div class="logo-box">
       <img :src="logo" class="logo" alt="logo">
@@ -24,6 +25,9 @@
       },
       isNight() {
         return this.$storeGet.setting.isNight
+      },
+      isVertical() {
+        return this.$storeGet.setting.isVertical
       }
     },
     data() {
@@ -56,6 +60,11 @@
     .logo-title {
       color: $night-menu-bg-color;
     }
+  }
+
+  /* 菜单水平 */
+  #logo-horizontal {
+    border: none;
   }
 
   .logo-container {

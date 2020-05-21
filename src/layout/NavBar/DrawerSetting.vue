@@ -1,5 +1,5 @@
 <template>
-  <scroll-pane>
+  <el-scrollbar class="drawer-setting-scrollbar">
     <div class="drawer-setting">
       <div>
         <h1 class="drawer-title">系统布局设置</h1>
@@ -54,15 +54,12 @@
       </div>
       <el-button type="success" class="restoreButton" @click="restoreSetting">恢 复 系 统 默 认 设 置</el-button>
     </div>
-  </scroll-pane>
+  </el-scrollbar>
 </template>
 
 <script>
-  import ScrollPane from '../ScrollPane'
-
   export default {
     name: "DrawerSetting",
-    components: {ScrollPane},
     computed: {
       isShowLogo: {
         get() {
@@ -173,6 +170,15 @@
 </script>
 
 <style lang="scss">
+  .drawer-setting-scrollbar {
+    height: 100%;
+
+    .el-scrollbar__wrap {
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
+  }
+
   .drawer-setting {
     position: relative;
     padding: 10px 24px 24px 24px;

@@ -130,16 +130,25 @@
     width: 100%;
     height: 100%;
 
-    .night-drawer-menu {
+    .night-drawer-menu,
+    .light-drawer-menu {
+      .el-drawer__body {
+        height: 0;
+      }
+
       .el-drawer {
         width: $menu-width !important;
+      }
+    }
+
+    .night-drawer-menu {
+      .el-drawer {
         background-color: $night-menu-bg-color
       }
     }
 
     .light-drawer-menu {
       .el-drawer {
-        width: $menu-width !important;
         background-color: $light-menu-bg-color
       }
     }

@@ -82,6 +82,7 @@ module.exports = {
       "/api": {
         // target: "http://o3108022o2.zicp.vip",
         target: "http://wangweio.cn:8000",
+        // target: "http://31p08u0222.oicp.vip",
         changeOrigin: true,
         pathRewrite: {
           "^/api": ""
