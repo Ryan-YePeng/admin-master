@@ -81,9 +81,9 @@ module.exports = {
     proxy: {
       "/api": {
         // target: "http://o3108022o2.zicp.vip",
-        // target: "http://wangweio.cn:8000",
+        target: "http://wangweio.cn:8000",
         // target: "http://31p08u0222.oicp.vip",
-        target: "http://192.168.0.121:8081",
+        // target: "http://192.168.0.121:8081",
         changeOrigin: true,
         pathRewrite: {
           "^/api": ""

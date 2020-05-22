@@ -4,7 +4,8 @@ import "./EUI_IN"
 import {
   Message,
   MessageBox,
-  Notification
+  Notification,
+  Loading
 } from 'element-ui';
 
 
@@ -86,6 +87,23 @@ export const errorMessage = (msg, time = 3000) => {
   }, time);
 };
 
+/**
+ * @description 加载提示
+ */
+let LOADING = null;
+const startLoading = (text = '加载中...') => {
+  LOADING = Loading.service({
+    text,
+    lock: true,
+    fullscreen: true,
+    background: 'rgba(0, 0, 0, 0.1)',
+    spinner: 'el-icon-loading'
+  })
+};
+
+const stopLoading = () => {
+  LOADING.close();
+};
 
 /**
  * @description 全局注册
@@ -99,3 +117,5 @@ Vue.prototype.$errorNotify = errorNotify;
 Vue.prototype.$infoNotify = infoNotify;
 Vue.prototype.$warnNotify = warnNotify;
 Vue.prototype.$msgBox = msgBox;
+Vue.prototype.$startLoading = startLoading;
+Vue.prototype.$stopLoading = stopLoading;

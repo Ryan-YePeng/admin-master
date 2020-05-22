@@ -56,11 +56,6 @@
         }
       };
     },
-    computed: {
-      pictureBaseUrl() {
-        return process.env.VUE_APP_PICTURE_BASE_API;
-      }
-    },
     mounted() {
       this.init();
     },
@@ -102,5 +97,3 @@
     }
   };
 </script>
-
-<style></style>
