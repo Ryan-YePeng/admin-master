@@ -23,7 +23,7 @@
           </template>
         </el-table-column>
       </el-table>
-      <pagination ref="Pagination" @getNewData="getLog"></pagination>
+      <pagination ref="Pagination" @update="getLog"></pagination>
     </div>
   </el-card>
 </template>

@@ -40,7 +40,7 @@
         </el-table-column>
       </el-table>
     </div>
-    <pagination ref="Pagination" @getNewData="getJobList"></pagination>
+    <pagination ref="Pagination" @update="getJobList"></pagination>
     <add-job ref="AddJob" :dept="tree" @update="getJobList"></add-job>
     <edit-job ref="EditJob" :dept="tree" @update="getJobList"></edit-job>
   </el-card>

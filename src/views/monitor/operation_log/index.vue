@@ -29,7 +29,7 @@
         </template>
       </el-table-column>
     </expand-table>
-    <pagination ref="Pagination" @getNewData="getLogList"></pagination>
+    <pagination ref="Pagination" @update="getLogList"></pagination>
   </el-card>
 </template>
 

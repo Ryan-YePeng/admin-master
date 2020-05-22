@@ -67,7 +67,7 @@
             </template>
           </el-table-column>
         </el-table>
-        <pagination ref="Pagination" @getNewData="getUserList"></pagination>
+        <pagination ref="Pagination" @update="getUserList"></pagination>
       </el-card>
     </el-col>
     <add-user ref="AddUser" :dept="dept" @update="getUserList" :roleList="roleList"></add-user>

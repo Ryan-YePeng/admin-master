@@ -30,7 +30,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <pagination ref="Pagination" @getNewData="getOnlineUser"></pagination>
+    <pagination ref="Pagination" @update="getOnlineUser"></pagination>
   </el-card>
 </template>
 

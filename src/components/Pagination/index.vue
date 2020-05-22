@@ -37,7 +37,7 @@
           || newValue / size === Math.floor(oldValue / size) - 1
         ) {
           setTimeout(() => {
-            this.$emit("getNewData");
+            this.$emit("update");
           }, 500);
         }
       }
@@ -45,11 +45,11 @@
     methods: {
       handleCurrentChange(current) {
         this.current = current;
-        this.$emit("getNewData");
+        this.$emit("update");
       },
       handleSizeChange(size) {
         this.size = size;
-        this.$emit("getNewData");
+        this.$emit("update");
       }
     }
   };

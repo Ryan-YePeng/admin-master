@@ -27,7 +27,7 @@
         </template>
       </el-table-column>
     </expand-table>
-    <pagination ref="Pagination" @getNewData="getLogList"></pagination>
+    <pagination ref="Pagination" @update="getLogList"></pagination>
     <el-dialog :visible.sync="dialog" title="异常详情" :close-on-click-modal="false" top="30px" width="85%">
       <pre>{{errorInfo}}</pre>
     </el-dialog>
