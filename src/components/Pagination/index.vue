@@ -32,9 +32,9 @@
       total(newValue, oldValue) {
         let size = this.size;
         if (
-          newValue % size === 0
-          && newValue === oldValue - 1
-          && oldValue !== 1
+          newValue !== 0
+          && newValue / size === Math.floor(oldValue / size)
+          || newValue / size === Math.floor(oldValue / size) - 1
         ) {
           setTimeout(() => {
             this.$emit("getNewData");
