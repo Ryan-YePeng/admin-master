@@ -31,6 +31,10 @@
       editorKey: {
         type: Number,
         default: 0
+      },
+      typePath: {
+        type: String,
+        default: 'editor'
       }
     },
     data() {
@@ -60,14 +64,6 @@
       this.init();
     },
     methods: {
-      // 获得富文本内容
-      getContent() {
-        return tinymce.editors[this.editorKey].getContent()
-      },
-      // 设置富文本内容
-      setContent(value = "") {
-        tinymce.editors[this.editorKey].setContent(value)
-      },
       init() {
         tinymce.init({
           // 默认配置
@@ -88,6 +84,15 @@
         });
       }
     },
+    // 获得富文本内容
+    get() {
+      return tinymce.editors[this.editorKey].getContent()
+    },
+    // 设置富文本内容
+    set(value = "") {
+      tinymce.editors[this.editorKey].setContent(value)
+    },
+    // 退出销毁
     beforeDestroy() {
       let list = document.querySelectorAll('.custom-editor');
       list.forEach(item => {

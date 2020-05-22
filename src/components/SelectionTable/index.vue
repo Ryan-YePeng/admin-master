@@ -4,8 +4,7 @@
       :data="data"
       @selection-change="getSelected"
   >
-    <el-table-column type="selection" width="55">
-    </el-table-column>
+    <el-table-column type="selection" width="55"/>
     <slot/>
   </el-table>
 </template>
@@ -39,7 +38,7 @@
       getSelected(array) {
         this.keys = array.map(item => item[this.rowKey])
       },
-      getKeys() {
+      get() {
         return this.keys
       }
     }

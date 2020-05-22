@@ -1,7 +1,6 @@
 import Vue from "vue";
 import store from '../store'
 
-
 /**
  * @description 权限控制
  **/
@@ -22,7 +21,6 @@ Vue.directive('permission', {
     }
   }
 });
-
 
 /**
  * @description 改变窗口标题
