@@ -33,7 +33,7 @@ module.exports = {
         })
       );
     if (isOpenAnalyzer && NODE_ENV === "development")
-      plugins.push(new Analyzer({analyzerPort: 9999}));
+      plugins.push(new Analyzer({ analyzerPort: 9999 }));
     config.plugins = [...config.plugins, ...plugins];
   },
 

@@ -1,14 +1,14 @@
 <template>
-  <div id="home"
-       :style="'height:' + (mainHeight-30) + 'px'"
-       v-show="isShow">
+  <div
+      id="home"
+      :style="'height:' + (mainHeight-30) + 'px'"
+      v-show="isShow">
   </div>
 </template>
 
 <script>
   const elementResizeDetectorMaker = require("element-resize-detector");
-  let mainResizeListen = null;
-  mainResizeListen = elementResizeDetectorMaker();
+  let mainResizeListen = elementResizeDetectorMaker();
 
   export default {
     name: "Home",
@@ -42,7 +42,6 @@
 
 <style lang="scss">
   #home {
-    width: 100%;
     box-shadow: 0 0 3px 3px silver;
     background: url('../../assets/home.jpg') no-repeat top right;
     background-size: cover;

@@ -1,7 +1,7 @@
 <template>
   <div class="out">
     <div id="container">
-      <img class="png" src="../../assets/error/403.png"/>
+      <img class="png" src="../../assets/error/403.png" alt="403"/>
       <div class="msg">很抱歉，您似乎没有权限访问该接口</div>
       <p class="go-back">
         <a class="pointer" @click.stop="$router.go(-1)" target="_blank">
