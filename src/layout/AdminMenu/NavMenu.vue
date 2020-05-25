@@ -96,11 +96,6 @@
     display: none;
   }
 
-  /* 弹出菜单 */
-  .el-menu--popup {
-    padding: 0;
-  }
-
   /* 白昼模式 */
   .navMenu-light {
     .submenu-title > .el-submenu__title,

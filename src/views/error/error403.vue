@@ -1,5 +1,8 @@
 <template>
-  <div class="out">
+  <div
+      id="error-403"
+      :style="'height:' + (mainHeight-30) + 'px'"
+      v-show="isShow">
     <div id="container">
       <img class="png" src="../../assets/error/403.png" alt="403"/>
       <div class="msg">很抱歉，您似乎没有权限访问该接口</div>
@@ -14,20 +17,45 @@
 </template>
 
 <script>
+  const elementResizeDetectorMaker = require("element-resize-detector");
+  let mainResizeListen = elementResizeDetectorMaker();
+
   export default {
-    name: "Error403"
+    name: "Error403",
+    data() {
+      return {
+        mainHeight: 0,
+        isShow: false
+      }
+    },
+    mounted() {
+      this.addListen()
+    },
+    methods: {
+      addListen() {
+        let main = document.querySelector(".main");
+        this.mainHeight = main.offsetHeight;
+        this.isShow = true;
+        mainResizeListen.listenTo(main, () => {
+          this.$nextTick(() => {
+            this.mainHeight = main.offsetHeight;
+          })
+        })
+      }
+    },
+    beforeDestroy() {
+      let main = document.querySelector(".main");
+      mainResizeListen.uninstall(main);
+    }
   }
 </script>
 
 <style scoped lang="scss">
-  .out {
-    height: calc(100% - 25px);
+  #error-403 {
+    position: relative;
+    box-shadow: 0 0 3px 3px silver;
     background: url("../../assets/error/error_bg.jpg") repeat-x scroll 0 0 #67ACE4;
-    overflow: hidden;
-    position: absolute;
-    right: 12px;
-    top: 12px;
-    width: calc(100% - 25px);
+    background-size: cover;
   }
 
   .btn {

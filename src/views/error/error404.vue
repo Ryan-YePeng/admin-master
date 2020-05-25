@@ -1,5 +1,5 @@
 <template>
-  <div class="out">
+  <div id="error-404">
     <div id="container">
       <img class="png" src="../../assets/error/404.png"/>
       <img class="png msg" src="../../assets/error/404_msg.png"/>
@@ -21,7 +21,7 @@
 </script>
 
 <style scoped>
-  .out {
+  #error-404 {
     height: 100%;
     background: url("../../assets/error/error_bg.jpg") repeat-x scroll 0 0 #67ACE4;
   }
