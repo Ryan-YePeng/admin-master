@@ -1,9 +1,7 @@
-const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const resolve = dir => require("path").join(__dirname, dir);
 const settings = require("./src/settings");
 const Analyzer = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const NODE_ENV = process.env.NODE_ENV;
-const isOpenGzip = false; // 开启gzip压缩, 按需引用
 const isOpenAnalyzer = true; // 开启代码分析
 module.exports = {
   publicPath: settings.isHistory ? "/" : "./", // (/绝对路径) (./相对路径)
@@ -18,25 +16,11 @@ module.exports = {
   crossorigin: undefined, // 设置生成的 HTML 中 <link rel="stylesheet"> 和 <script> 标签的 crossorigin 属性。
   // 如果这个值是一个对象，则会通过 webpack-merge 合并到最终的配置中。
   configureWebpack: config => {
-    // 开启 gzip 压缩
-    // 需要 npm i -D compression-webpack-plugin
     const plugins = [];
-    if (NODE_ENV === "production" && isOpenGzip)
-      plugins.push(
-        new CompressionWebpackPlugin({
-          filename: "[path].gz[query]",
-          algorithm: "gzip",
-          test: /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i,
-          threshold: 10240, // 对超过10k的数据压缩
-          minRatio: 0.8,
-          deleteOriginalAssets: true // 删除源文件
-        })
-      );
     if (isOpenAnalyzer && NODE_ENV === "development")
       plugins.push(new Analyzer({ analyzerPort: 9999 }));
     config.plugins = [...config.plugins, ...plugins];
   },
-
   // 配置快捷路径，styles为路径名字，resolve是原路径地址
   chainWebpack: config => {
     config.resolve.symlinks(true); // 修复HMR
@@ -81,9 +65,9 @@ module.exports = {
     proxy: {
       "/api": {
         // target: "http://o3108022o2.zicp.vip",
-        // target: "http://wangweio.cn:8000",
+        target: "http://wangweio.cn:8000",
         // target: "http://31p08u0222.oicp.vip",
-        target: "http://192.168.0.126:8081",
+        // target: "http://192.168.0.136:8081",
         changeOrigin: true,
         pathRewrite: {
           "^/api": ""

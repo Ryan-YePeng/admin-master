@@ -2,7 +2,6 @@ import axios from "axios";
 import router from "@/router";
 import store from "@/store";
 import {errorMessage, successMsg, errorMsg, msgBox} from "@/utils/EUI";
-import {isEmpty} from "@/utils/common";
 import {timeout} from "@/settings";
 
 let errorStatus = null;
@@ -30,8 +29,8 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const {message, status} = response.data;
-    if (!isEmpty(message) && status === 200) successMsg(message);
-    if (!isEmpty(message) && status !== 200) errorMsg(message);
+    if (message && status === 200) successMsg(message);
+    if (message && status !== 200) errorMsg(message);
     return response.data;
   },
   error => {
@@ -68,7 +67,7 @@ service.interceptors.response.use(
       router.push({name: "error403"});
     } else {
       /* elseStatus */
-      if (!isEmpty(message)) errorMsg(message);
+      if (message) errorMsg(message);
     }
     return Promise.reject(error);
   }

@@ -82,13 +82,13 @@ router.beforeEach((to, from, next) => {
     next('/login');
     return;
   }
-  if (
-    process.env.NODE_ENV === 'production'
-    && (to.path === "/system/menu" || to.path === "/system/role")
-  ) {
-    next('/404');
-    return
-  }
+  // if (
+  //   process.env.NODE_ENV === 'production'
+  //   && (to.path === "/system/menu" || to.path === "/system/role")
+  // ) {
+  //   next('/404');
+  //   return
+  // }
   if (store.getters.hasGenerateRouter) {
     next()
   } else {
