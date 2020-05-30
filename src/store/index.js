@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
-import * as Cookies from "js-cookie";
+import Cookies from "js-cookie";
 import {tokenCookieExpires} from '@/settings'
 
 Vue.use(Vuex);
@@ -37,7 +37,7 @@ const plugins = [
     storage: {
       getItem: key => Cookies.get(key),
       setItem: (key, value) =>
-        Cookies.set(key, value, {expires: modules.user.state.rememberMe ? tokenCookieExpires : 1, secure: false}),
+        Cookies.set(key, value, {expires: modules.user.state.rememberMe ? tokenCookieExpires : 1}),
       removeItem: key => Cookies.remove(key)
     },
     reducer: val => ({token: val.token})

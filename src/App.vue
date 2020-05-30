@@ -13,31 +13,28 @@
 </template>
 
 <script>
-  // import DateTimePicker from '@/components/DateTimePicker'
-
   export default {
     name: "App",
-    // components: {DateTimePicker},
-    // data() {
-    //   return {
-    //     form: {
-    //       startTime: '',
-    //       endTime: ''
-    //     },
-    //     rules: {
-    //       endTime: {required: true, message: '请选择日期', trigger: 'change'}
-    //     }
-    //   }
-    // },
-    // methods: {
-    //   fun() {
-    //     this.form.startTime = 'Wed Jun 17 2020 00:00:00 GMT+0800 (中国标准时间)';
-    //     this.form.endTime = 'Wed Jun 20 2020 00:00:00 GMT+0800 (中国标准时间)'
-    //   },
-    //   reset() {
-    //     Object.assign(this.$data.form, this.$options.data().form);
-    //     this.$refs['Form'].clearValidate()
-    //   }
-    // }
+    data() {
+      return {
+        // form: {
+        //   startTime: '',
+        //   endTime: ''
+        // },
+        // rules: {
+        //   endTime: {required: true, message: '请选择日期', trigger: 'change'}
+        // }
+      }
+    },
+    methods: {
+      fun() {
+        this.form.startTime = 'Wed Jun 17 2020 00:00:00 GMT+0800 (中国标准时间)';
+        this.form.endTime = 'Wed Jun 20 2020 00:00:00 GMT+0800 (中国标准时间)'
+      },
+      reset() {
+        Object.assign(this.$data.form, this.$options.data().form);
+        this.$refs['Form'].clearValidate()
+      }
+    }
   };
 </script>

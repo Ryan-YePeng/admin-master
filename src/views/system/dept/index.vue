@@ -18,13 +18,18 @@
           <el-tag type="info" v-else>停用</el-tag>
         </template>
       </el-table-column>
+      <el-table-column label="创建时间" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          <span>{{scope.row.createTime | formatDateTime}}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" fixed="right" align="center" width="150">
         <template slot-scope="scope">
           <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
           <delete-button
-              :ref="scope.row.id"
-              :id="scope.row.id"
-              @start="deleteDept"/>
+            :ref="scope.row.id"
+            :id="scope.row.id"
+            @start="deleteDept"/>
         </template>
       </el-table-column>
     </el-table>

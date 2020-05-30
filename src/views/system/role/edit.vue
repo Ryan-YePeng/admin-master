@@ -33,13 +33,16 @@
       <el-form-item label="数据权限" v-if="form.dataScope==='自定义'">
         <tree-select
             v-model="form.deptIds"
+            :multiple="true"
             :options="dept"
             :normalizer="normalizer"
-            multiple
             :flat="true"
+            :autoSelectDescendants="true"
             :default-expand-level="1"
             sort-value-by="INDEX"
-            placeholder=""/>
+            placeholder="请选择部门"
+            noResultsText="无数据"
+        />
       </el-form-item>
       <el-form-item label="描述">
         <el-input type="textarea" v-model="form.remark"></el-input>

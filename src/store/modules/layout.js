@@ -3,7 +3,7 @@ import router from '@/router'
 /* 布局设置 */
 const type = {
   SET_ACTIVE: 'SET_ACTIVE',
-  SET_TAGS: 'SET_TAGS',
+  CLEAR_TAGS: 'CLEAR_TAGS',
   ADD_TAGS: 'ADD_TAGS',
   DELETE_TAGS: 'DELETE_TAGS',
   SET_BREADCRUMB: 'SET_BREADCRUMB'
@@ -30,7 +30,7 @@ const mutations = {
     if (breadcrumb) state.breadcrumb = breadcrumb;
     else state.breadcrumb = []
   },
-  [type.SET_TAGS](state, tags) {
+  [type.CLEAR_TAGS](state, tags) {
     if (tags) state.tags = tags;
     else state.tags = [{title: "首页", name: "home", cache: false, indexPath: []}]
   },
@@ -63,8 +63,8 @@ const actions = {
   setActive: ({commit}, active) => {
     commit(type.SET_ACTIVE, active)
   },
-  setTags: ({commit}, tags) => {
-    commit(type.SET_TAGS, tags)
+  clearTags: ({commit}, tags) => {
+    commit(type.CLEAR_TAGS, tags)
   },
   addTags: ({commit}, tags) => {
     commit(type.ADD_TAGS, tags)
@@ -84,4 +84,3 @@ export default {
   mutations,
   actions
 }
-

@@ -1,19 +1,18 @@
 <template>
   <el-scrollbar
       :class="[isNight ? 'admin-menu-night' : 'admin-menu-light']"
-      :id="isVertical ? 'admin-vertical-menu' : 'admin-horizontal-menu'"
-      v-show="!isSmall || !isVertical">
+      :id="isVertical ? 'admin-vertical-menu' : 'admin-horizontal-menu'">
     <el-menu
         :default-active="active"
         :class="isVertical ? 'el-menu-vertical-demo' : 'el-menu-demo'"
-        :collapse="isVertical ? isCollapse : null"
+        :collapse="isVertical ? isCollapsed : null"
         :unique-opened="isUniqueOpened"
         :mode="isVertical ? 'vertical' : 'horizontal'"
         :text-color="isNight ? '#bfcbd9' : '#444444'"
         :background-color="isNight ? style.menuNightBg : style.menuLightBg"
         active-text-color="#409eff">
-      <logo :isCollapse="isCollapse"></logo>
-      <nav-menu :navMenus=navMenus></nav-menu>
+      <logo/>
+      <nav-menu :navMenus="navMenus"></nav-menu>
     </el-menu>
   </el-scrollbar>
 </template>
@@ -26,22 +25,11 @@
   export default {
     name: 'AdminMenu',
     components: {NavMenu, Logo},
-    props: {
-      isSmall: {
-        type: Boolean,
-        default: false
-      },
-      isCollapse: {
-        type: Boolean,
-        default: false
-      }
-    },
+    props: ['isCollapsed'],
     computed: {
-      //获取菜单
       navMenus() {
         return this.$storeGet.menu
       },
-      //获取当前激活菜单
       active() {
         return this.$storeGet.active
       },

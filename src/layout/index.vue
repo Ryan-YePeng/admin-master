@@ -2,25 +2,25 @@
   <div id="index">
     <el-container>
       <!-- 菜单 -->
-      <admin-menu v-if="isVertical" :isCollapse="isCollapse" :isSmall="isSmall"></admin-menu>
+      <admin-menu v-if="isVertical" v-show="!isSmall" :isCollapsed="isCollapsed"/>
       <el-drawer
           v-if="isVertical"
           :class="[isNight ? 'night-drawer-menu' : 'light-drawer-menu']"
           :destroy-on-close="true"
-          :visible.sync="isShowDrawerMenu"
+          :visible.sync="isDrawer"
           direction="ltr"
           :with-header="false">
-        <admin-menu/>
+        <admin-menu :isCollapsed="false"/>
       </el-drawer>
       <el-container>
         <!-- 菜单 -->
-        <admin-menu v-if="!isVertical" :isCollapse="isCollapse" :isSmall="isSmall"></admin-menu>
+        <admin-menu v-if="!isVertical"/>
         <!-- 头部 -->
         <el-header class="header">
           <!-- 上 -->
           <div class="header-up">
             <!-- 上左 -->
-            <breadcrumb :isCollapse="isCollapse" @showDrawerMenu="showDrawerMenu"></breadcrumb>
+            <breadcrumb @showDrawerMenu="showDrawerMenu"/>
             <!-- 上右侧 -->
             <nav-bar/>
           </div>
@@ -37,7 +37,7 @@
             </keep-alive>
           </transition>
         </el-main>
-        <el-backtop target=".main" :right="16"></el-backtop>
+        <el-backtop target=".main" :right="16"/>
         <el-footer class="footer" v-show="isShowFooter">
           <div class="footer-text">
             <span>{{footerTxt}} - {{caseNumber}}</span>
@@ -58,15 +58,21 @@
   export default {
     name: 'Layout',
     components: {NavBar, AdminMenu, Breadcrumb, Tag},
-    data() {
-      return {
-        isCollapse: false,
-        isSmall: false,
-        isShowDrawerMenu: false,
-        cacheViews: 'home'
-      }
-    },
     computed: {
+      isDrawer: {
+        get() {
+          return this.$storeGet.isDrawer;
+        },
+        set(value) {
+          this.$storeSet('setDrawer', value);
+        }
+      },
+      isSmall() {
+        return this.$storeGet.isSmall
+      },
+      isCollapsed() {
+        return this.$storeGet.isCollapsed
+      },
       key() {
         return this.$route.name
       },
@@ -105,20 +111,20 @@
       },
       // 获取屏幕宽度
       getWindowWidth() {
-        if (window.innerWidth < 1100) {
-          this.isSmall = true;
-          this.isCollapse = true
+        if (window.innerWidth < 992) {
+          this.$storeSet('setSmall', true);
+          this.$storeSet('setCollapsed', true);
         } else {
-          this.isSmall = false;
-          this.isShowDrawerMenu = false
+          this.$storeSet('setSmall', false);
+          this.$storeSet('setDrawer', false);
         }
       },
       // 显示抽屉菜单
       showDrawerMenu() {
         if (this.isSmall) {
-          this.isShowDrawerMenu = !this.isShowDrawerMenu
+          this.$storeSet('setDrawer', !this.isDrawer);
         } else {
-          this.isCollapse = !this.isCollapse
+          this.$storeSet('setCollapsed', !this.isCollapsed);
         }
       }
     }

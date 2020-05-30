@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import {isHistory} from "../settings";
+import {isHistory} from "@/settings";
 
 Vue.use(Router);
 

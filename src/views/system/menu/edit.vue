@@ -72,7 +72,9 @@
             :options="menu"
             :normalizer="normalizer"
             :default-expand-level="1"
-            placeholder=""/>
+            placeholder="默认顶级菜单"
+            noResultsText="无数据"
+        />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -86,7 +88,6 @@
   import IconSelect from '@/components/IconSelect'
   import TreeSelect from '@riophae/vue-treeselect'
   import {editMenuApi} from '@/api/menu'
-  import {isEmpty} from "@/utils/common";
 
   export default {
     name: "EditMenu",
@@ -131,7 +132,7 @@
         this.$refs['Form'].validate((valid) => {
           if (valid) {
             let data = {...this.form};
-            if (isEmpty(data.pid)) data.pid = 0;
+            if (!data.pid) data.pid = 0;
             data.name = data.name.trim();
             this.$refs.SubmitButton.start();
             editMenuApi(data).then(() => {

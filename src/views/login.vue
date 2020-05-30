@@ -45,10 +45,10 @@
 </template>
 
 <script>
-  import {loginApi, getCodeApi} from '../api/login'
-  import {encrypt} from '../utils/encrypt'
-  import {generateRouter} from "../router";
-  import {footerTxt, caseNumber} from '../settings'
+  import {loginApi, getCodeApi} from '@/api/login'
+  import {encrypt} from '@/utils/encrypt'
+  import {generateRouter} from "@/router";
+  import {footerTxt, caseNumber} from '@/settings'
 
   export default {
     name: "Login",

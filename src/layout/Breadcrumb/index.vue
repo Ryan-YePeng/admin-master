@@ -1,7 +1,7 @@
 <template>
   <div id="breadcrumb">
     <div class="menu-button" v-show="isVertical">
-      <i :class="[isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']" @click="showDrawerMenu"></i>
+      <i :class="[isCollapsed ? 'el-icon-s-unfold' : 'el-icon-s-fold']" @click="showDrawerMenu"></i>
     </div>
     <div class="clear-button" v-show="isShowTag">
       <i class="el-icon-circle-close" @click="removeAllTags"></i>
@@ -22,15 +22,15 @@
 <script>
   export default {
     name: 'Breadcrumb',
-    props: {isCollapse: Boolean},
     computed: {
-      // 面包屑
-      breadcrumb: function () {
+      breadcrumb() {
         return this.$storeGet.breadcrumb;
       },
-      // 标签
       isShowTag() {
         return this.$storeGet.setting.isShowTag
+      },
+      isCollapsed() {
+        return this.$storeGet.isCollapsed;
       },
       isVertical() {
         return this.$storeGet.setting.isVertical
@@ -50,7 +50,7 @@
       // 清除所有标签
       removeAllTags() {
         // 标签
-        this.$storeSet('setTags');
+        this.$storeSet('clearTags');
         this.jumpToHome();
         this.$router.push({name: 'home'})
       },

@@ -22,7 +22,7 @@ const mutations = {
   [type.QUIT_LOGIN]() {
     router.push({name: 'login'});
     store.dispatch('setActive');
-    store.dispatch('setTags');
+    store.dispatch('clearTags');
     store.dispatch('setBreadcrumb');
     store.dispatch('setToken');
     location.reload();

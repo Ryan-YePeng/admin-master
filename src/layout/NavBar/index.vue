@@ -21,7 +21,7 @@
           :show-close="false"
           :with-header="false"
           :destroy-on-close="true">
-        <drawer-setting></drawer-setting>
+        <drawer-setting/>
       </el-drawer>
     </div>
   </div>

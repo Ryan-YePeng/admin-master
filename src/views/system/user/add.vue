@@ -24,13 +24,16 @@
       </row-col>
       <row-col>
         <el-form-item label="部门" prop="deptId">
-          <tree-select v-model="form.deptId"
-                       :options="dept"
-                       :normalizer="normalizer"
-                       :default-expand-level="1"
-                       sort-value-by="INDEX"
-                       @input="changeDept"
-                       placeholder=""/>
+          <tree-select
+              v-model="form.deptId"
+              :options="dept"
+              :normalizer="normalizer"
+              :default-expand-level="1"
+              sort-value-by="INDEX"
+              @input="changeDept"
+              placeholder=""
+              noResultsText="无数据"
+          />
         </el-form-item>
         <el-form-item slot="r" label="岗位" prop="jobId">
           <el-select v-model="form.jobId" placeholder="请先选择部门">

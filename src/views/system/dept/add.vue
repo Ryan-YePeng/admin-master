@@ -21,7 +21,9 @@
             :options="dept"
             :normalizer="normalizer"
             :default-expand-level="1"
-            placeholder=""/>
+            placeholder="默认顶级部门"
+            noResultsText="无数据"
+        />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -34,7 +36,6 @@
 <script>
   import TreeSelect from '@riophae/vue-treeselect'
   import {addDeptApi} from '@/api/dept'
-  import {isEmpty} from "@/utils/common";
 
   export default {
     name: "AddDept",
@@ -68,7 +69,7 @@
         this.$refs['Form'].validate((valid) => {
           if (valid) {
             let data = {...this.form};
-            if (isEmpty(data.pid)) data.pid = 0;
+            if (!data.pid) data.pid = 0;
             this.$refs.SubmitButton.start();
             addDeptApi(data).then(() => {
               this.$refs.SubmitButton.stop();

@@ -28,7 +28,9 @@
             :options="dept"
             :normalizer="normalizer"
             :default-expand-level="1"
-            placeholder=""/>
+            placeholder=""
+            noResultsText="无数据"
+        />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">

@@ -3,22 +3,15 @@
        :id="isVertical ? '' : 'logo-horizontal'"
        :class="['logo-container', isNight ? 'logo-night' : 'logo-light']">
     <div class="logo-box">
-      <img :src="logo" class="logo" alt="logo">
+      <img src="../../assets/admin-logo.png" class="logo" alt="logo">
       <h1 class="logo-title">{{title}}</h1>
     </div>
   </div>
 </template>
 
 <script>
-  import Logo from '@/assets/admin-logo.png'
-
   export default {
     name: "Logo",
-    props: {
-      isCollapse: {
-        type: Boolean
-      }
-    },
     computed: {
       isShowLogo() {
         return this.$storeGet.setting.isShowLogo
@@ -32,8 +25,7 @@
     },
     data() {
       return {
-        title: 'RYAN-后台管理',
-        logo: Logo
+        title: 'RYAN-后台管理'
       }
     }
   }

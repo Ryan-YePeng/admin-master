@@ -2,10 +2,9 @@ import router from './routers'
 import store from '../store'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import {isEmpty} from '../utils/common'
-import {getMenuApi} from '../api/menu'
-import {getUserInfoApi} from '../api/person'
-import {title} from '../settings'
+import {getMenuApi} from '@/api/menu'
+import {getUserInfoApi} from '@/api/person'
+import {title} from '@/settings'
 import {TraverseTree} from './TraverseTree'
 
 NProgress.configure({showSpinner: false});
@@ -67,7 +66,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title + ' - ' + title
   }
-  let isLogin = !isEmpty(store.getters.token);
+  let isLogin = store.getters.token;
   if (to.path === "/") {
     isLogin
       ? next('/home')
