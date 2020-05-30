@@ -58,6 +58,8 @@
           this.$storeSet('addTags', {title: e.index, name: name, cache: navMenu.cache, indexPath: e.indexPath});
           // 改变当前激活菜单
           this.$storeSet('setActive', e.index);
+          // 关闭抽屉菜单
+          this.$storeSet('setDrawer', false);
           // 跳转
           this.$router.push({name: name});
         }

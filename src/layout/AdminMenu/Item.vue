@@ -12,13 +12,27 @@
         default: ''
       }
     },
-    render(h, context) {
-      const { icon, title } = context.props;
+    render(createElement, context) {
       const vnodes = [];
+      const {icon, title} = context.props;
       if (icon)
-        vnodes.push(<svg-icon icon-class={icon} class='svg-menu'/>)
+        vnodes.push(
+          createElement('svg-icon', {
+            class: 'svg-menu',
+            attrs: {
+              'icon-class': icon
+            }
+          })
+        );
       if (title)
-        vnodes.push(<span slot='title'>{(title)}</span>)
+        vnodes.push(
+          createElement('span', {
+            slot: 'title',
+            domProps: {
+              innerHTML: title
+            }
+          })
+        );
       return vnodes
     }
   }
