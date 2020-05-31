@@ -1,16 +1,16 @@
 <template>
-  <el-card class="box-card">
-    <div slot="header" class="clearfix">
+  <card ref="Card">
+    <div slot="header">
       <el-input placeholder="输入部门名称搜索" v-model="searchName" clearable class="w-200"
                 @keyup.enter.native="searchDept"/>
       <el-button type="success" class="el-icon-search ml-5" @click="searchDept">搜索</el-button>
       <el-button class="float-right" type="primary" icon="el-icon-plus" @click="add">新增</el-button>
     </div>
-    <el-table v-loading="isTableLoading"
-              :data="formData"
-              row-key="id"
-              :default-expand-all="true"
-              :tree-props="{children: 'children'}">
+    <el-table
+        row-key="id"
+        :data="formData"
+        :default-expand-all="true"
+        :tree-props="{children: 'children'}">
       <el-table-column prop="name" label="部门名称"></el-table-column>
       <el-table-column label="状态">
         <template slot-scope="scope">
@@ -27,15 +27,15 @@
         <template slot-scope="scope">
           <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
           <delete-button
-            :ref="scope.row.id"
-            :id="scope.row.id"
-            @start="deleteDept"/>
+              :ref="scope.row.id"
+              :id="scope.row.id"
+              @start="deleteDept"/>
         </template>
       </el-table-column>
     </el-table>
     <add-dept ref="AddDept" :dept="dept" @update="getDeptTree"/>
     <edit-dept ref="EditDept" :dept="dept" @update="getDeptTree"/>
-  </el-card>
+  </card>
 </template>
 
 <script>
@@ -49,7 +49,6 @@
     components: {AddDept, EditDept},
     data() {
       return {
-        isTableLoading: false,
         formData: [],
         dept: [],
         searchName: ''
@@ -60,17 +59,17 @@
     },
     methods: {
       getDeptTree() {
-        this.isTableLoading = true;
+        this.$refs.Card.start();
         getDeptTreeApi({deptName: ''}).then(result => {
-          this.isTableLoading = false;
+          this.$refs.Card.stop();
           this.formData = result.resultParam.deptTree;
           this.dept = result.resultParam.deptTree;
         })
       },
       searchDept() {
-        this.isTableLoading = true;
+        this.$refs.Card.start();
         getDeptTreeApi({deptName: this.searchName}).then(result => {
-          this.isTableLoading = false;
+          this.$refs.Card.stop();
           this.formData = result.resultParam.deptTree;
         })
       },

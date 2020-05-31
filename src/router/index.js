@@ -46,10 +46,12 @@ let layout = {
 export function generateRouter() {
   return new Promise(resolve => {
     getUserInfoApi().then(result => {
-      store.dispatch('setUser', result.resultParam.user)
+      const {user, roles} = result.resultParam.currentUser
+      store.dispatch('setUser', user)
+      store.dispatch('setRoles', roles)
     });
     getMenuApi().then(result => {
-      let menu = result.resultParam.content;
+      const menu = result.resultParam.content;
       layout = new TraverseTree(menu, layout).get();
       store.dispatch('setMenu', menu);
       store.dispatch('setHasGenerateRouter');

@@ -7,7 +7,7 @@ import store from '../store'
 Vue.directive('permission', {
   inserted(el, binding) {
     const {value} = binding;
-    const roles = store.getters && store.getters.user.roles;
+    const roles = store.getters.roles;
     if (value && value instanceof Array && value.length > 0) {
       const permissionRoles = value;
       const hasPermission = roles.some(role => {

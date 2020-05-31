@@ -1,6 +1,5 @@
 <template>
   <el-table
-      v-loading="isTableLoading"
       :data="data"
       :row-key="rowKey"
       @row-click="rowClick"
@@ -25,17 +24,10 @@
     },
     data() {
       return {
-        isTableLoading: false,
         expands: []
       }
     },
     methods: {
-      start() {
-        this.isTableLoading = true
-      },
-      stop() {
-        this.isTableLoading = false
-      },
       rowClick(row) {
         Array.prototype.remove = function (val) {
           let index = this.indexOf(val);

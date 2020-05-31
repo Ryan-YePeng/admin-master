@@ -1,6 +1,6 @@
 <template>
-  <el-card class="box-card" id="operation-log">
-    <expand-table ref="ExpandTable" :data="formData">
+  <card ref="Card" id="operation-log">
+    <expand-table :data="formData">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form class="log-table-expand">
@@ -23,7 +23,7 @@
       </el-table-column>
       <el-table-column label="异常详情" width="100px">
         <template slot-scope="scope">
-          <el-button type="text" @click="info(scope.row.id)">查看详情</el-button>
+          <el-button type="text" @click.stop="info(scope.row.id)">查看详情</el-button>
         </template>
       </el-table-column>
     </expand-table>
@@ -31,7 +31,7 @@
     <el-dialog :visible.sync="dialog" title="异常详情" :close-on-click-modal="false" top="30px" width="85%">
       <pre>{{errorInfo}}</pre>
     </el-dialog>
-  </el-card>
+  </card>
 </template>
 
 <script>
@@ -51,24 +51,24 @@
     },
     methods: {
       getLogList() {
-        this.$refs.ExpandTable.start();
+        this.$refs.Card.start();
         let pagination = this.$refs.Pagination;
         let param = {
           current: pagination.current,
           size: pagination.size
         };
         getErrorLogApi(param).then(result => {
-          this.$refs.ExpandTable.stop();
+          this.$refs.Card.stop();
           let response = result.resultParam.logIPage;
           this.formData = response.records;
           pagination.total = response.total;
         })
       },
       info(id) {
-        this.$refs.ExpandTable.start();
+        this.$refs.Card.start();
         getErrorDetailByIdApi({id: id}).then(result => {
           this.dialog = true;
-          this.$refs.ExpandTable.stop();
+          this.$refs.Card.stop();
           this.errorInfo = result.resultParam.log.detail
         })
       }

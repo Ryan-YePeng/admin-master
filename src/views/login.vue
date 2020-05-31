@@ -101,10 +101,7 @@
             data.password = encrypt(data.password);
             loginApi(data)
               .then(result => {
-                const {token} = result.resultParam;
-                const {user} = result.resultParam;
-                this.$storeSet('setUser', user);
-                this.$storeSet('setToken', token);
+                this.$storeSet('setToken', result.resultParam.token);
                 // 动态拉取路由和菜单
                 return generateRouter();
               })

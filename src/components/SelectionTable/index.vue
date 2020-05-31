@@ -1,6 +1,5 @@
 <template>
   <el-table
-      v-loading="isTableLoading"
       :data="data"
       @selection-change="getSelected"
   >
@@ -24,17 +23,10 @@
     },
     data() {
       return {
-        isTableLoading: false,
         keys: []
       }
     },
     methods: {
-      start() {
-        this.isTableLoading = true
-      },
-      stop() {
-        this.isTableLoading = false
-      },
       getSelected(array) {
         this.keys = array.map(item => item[this.rowKey])
       },

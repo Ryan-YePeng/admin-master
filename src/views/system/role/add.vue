@@ -6,19 +6,15 @@
       :close-on-click-modal="false"
       :visible.sync="visible">
     <el-form :model="form" :rules="rules" ref="Form" label-width="120px">
-      <row-col>
-        <el-form-item label="角色名称" prop="name">
-          <el-input v-model="form.name"></el-input>
-        </el-form-item>
-        <el-form-item slot="r" label="角色权限" prop="permission">
-          <el-input v-model="form.permission"></el-input>
-        </el-form-item>
-      </row-col>
+      <el-form-item label="角色名称" prop="name">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
       <row-col>
         <el-form-item label="角色级别" prop="level">
           <el-input-number
               v-model="form.level"
               controls-position="right"
+              :precision="0"
               :min="level">
           </el-input-number>
         </el-form-item>
@@ -84,13 +80,11 @@
           name: '',
           dataScope: '本级',
           level: 1,
-          permission: '',
           deptIds: [],
           remark: ''
         },
         rules: {
           name: {required: true, message: '请输入名称', trigger: 'blur'},
-          permission: {required: true, message: '请输入角色权限', trigger: 'blur'},
           level: {required: true, message: '请输入角色级别', trigger: 'blur'}
         }
       }

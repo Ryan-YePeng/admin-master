@@ -1,15 +1,15 @@
 <template>
-  <el-card class="box-card">
-    <div slot="header" class="clearfix">
+  <card ref="Card">
+    <div slot="header">
       <el-input placeholder="输入菜单名称搜索" v-model="searchTitle" clearable class="w-200"
                 @keyup.enter.native="searchMenu"/>
       <el-button type="success" class="el-icon-search ml-5" @click="searchMenu">搜索</el-button>
       <el-button type="primary" icon="el-icon-plus" @click="add" class="float-right">新增</el-button>
     </div>
-    <el-table v-loading="isTableLoading"
-              :data="formData"
-              row-key="id"
-              :tree-props="{children: 'children'}">
+    <el-table
+        :data="formData"
+        row-key="id"
+        :tree-props="{children: 'children'}">
       <el-table-column prop="title" label="菜单名称"></el-table-column>
       <el-table-column prop="icon" label="图标" align="center">
         <template slot-scope="scope">
@@ -53,7 +53,7 @@
     </el-table>
     <add-menu ref="AddMenu" :menu="menu" @update="getMenu"/>
     <edit-menu ref="EditMenu" :menu="menu" @update="getMenu"/>
-  </el-card>
+  </card>
 </template>
 
 <script>
@@ -68,7 +68,6 @@
     components: {AddMenu, EditMenu, Clipboard},
     data() {
       return {
-        isTableLoading: false,
         isDeleteLoading: false,
         formData: [],
         menu: [],
@@ -80,17 +79,17 @@
     },
     methods: {
       getMenu() {
-        this.isTableLoading = true;
+        this.$refs.Card.start();
         getAllMenuApi({title: ''}).then(result => {
-          this.isTableLoading = false;
+          this.$refs.Card.stop();
           this.formData = result.resultParam.menuList;
           this.menu = result.resultParam.menuList
         })
       },
       searchMenu() {
-        this.isTableLoading = true;
+        this.$refs.Card.start();
         getAllMenuApi({title: this.searchTitle}).then(result => {
-          this.isTableLoading = false;
+          this.$refs.Card.stop();
           this.formData = result.resultParam.menuList;
         })
       },

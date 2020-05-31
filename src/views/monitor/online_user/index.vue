@@ -1,15 +1,14 @@
 <template>
-  <el-card class="box-card">
-    <div slot="header" class="clearfix">
+  <card ref="Card">
+    <div slot="header">
       <el-input placeholder="全表模糊搜索" v-model="searchText" clearable class="w-200"
                 @keyup.enter.native="getOnlineUser"/>
       <el-button type="success" class="el-icon-search ml-5" @click="getOnlineUser">搜索</el-button>
     </div>
-    <el-table v-loading="isTableLoading"
-              :data="formData">
-      <el-table-column prop="username" label="用户名"></el-table-column>
+    <el-table :data="formData">
+      <el-table-column prop="userName" label="用户名"></el-table-column>
       <el-table-column prop="nickName" label="用户昵称"></el-table-column>
-      <el-table-column prop="job" label="岗位"></el-table-column>
+      <el-table-column prop="dept" label="部门"></el-table-column>
       <el-table-column prop="ip" label="登陆IP"></el-table-column>
       <el-table-column prop="address" label="登陆地点"></el-table-column>
       <el-table-column prop="browser" label="浏览器"></el-table-column>
@@ -31,7 +30,7 @@
       </el-table-column>
     </el-table>
     <pagination ref="Pagination" @update="getOnlineUser"></pagination>
-  </el-card>
+  </card>
 </template>
 
 <script>
@@ -41,7 +40,6 @@
     name: "OnlineUser",
     data() {
       return {
-        isTableLoading: false,
         formData: [],
         searchText: ''
       }
@@ -51,7 +49,7 @@
     },
     methods: {
       getOnlineUser() {
-        this.isTableLoading = true;
+        this.$refs.Card.start();
         let pagination = this.$refs.Pagination;
         let param = {
           current: pagination.current,
@@ -59,9 +57,9 @@
           filter: this.searchText
         };
         getOnlineUserApi(param).then(result => {
-          this.isTableLoading = false;
+          this.$refs.Card.stop();
           let response = result.resultParam.userListPageUtil;
-          this.formData = response.list;
+          this.formData = response.records;
           pagination.total = response.total;
         })
       },

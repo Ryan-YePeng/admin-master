@@ -1,6 +1,6 @@
 <template>
-  <el-card class="box-card" id="error-log">
-    <expand-table ref="ExpandTable" :data="formData">
+  <card ref="Card" id="error-log">
+    <expand-table :data="formData">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form class="log-table-expand">
@@ -30,7 +30,7 @@
       </el-table-column>
     </expand-table>
     <pagination ref="Pagination" @update="getLogList"></pagination>
-  </el-card>
+  </card>
 </template>
 
 <script>
@@ -48,14 +48,14 @@
     },
     methods: {
       getLogList() {
-        this.$refs.ExpandTable.start();
+        this.$refs.Card.start();
         let pagination = this.$refs.Pagination;
         let param = {
           current: pagination.current,
           size: pagination.size
         };
         getLogListApi(param).then(result => {
-          this.$refs.ExpandTable.stop();
+          this.$refs.Card.stop();
           let response = result.resultParam.logIPage;
           this.formData = response.records;
           pagination.total = response.total;

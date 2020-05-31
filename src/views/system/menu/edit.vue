@@ -62,6 +62,7 @@
           <el-input-number
               v-model="form.sort"
               controls-position="right"
+              :precision="0"
               :min="1">
           </el-input-number>
         </el-form-item>

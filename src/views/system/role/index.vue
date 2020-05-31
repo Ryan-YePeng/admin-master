@@ -1,22 +1,20 @@
 <template>
   <el-row :gutter="20">
     <el-col :sm="24" :md="17" class="mb-15">
-      <el-card class="box-card">
-        <div slot="header" class="clearfix">
+      <card ref="Card">
+        <div slot="header">
           <el-input placeholder="输入角色名称搜索" v-model="searchRoleName" clearable class="w-200"
                     @keyup.enter.native="getRoleList"/>
           <el-button type="success" class="el-icon-search ml-5" @click="getRoleList">搜索</el-button>
           <el-button type="primary" icon="el-icon-plus" @click="add" class="float-right">新增</el-button>
         </div>
         <el-table
-            v-loading="isTableLoading"
             :data="formData"
-            ref="roleTable"
             @row-click="getTreeChecked"
-            :highlight-current-row="true">
+            :highlight-current-row="true"
+        >
           <el-table-column prop="name" label="名称"></el-table-column>
           <el-table-column prop="dataScope" label="数据权限"></el-table-column>
-          <el-table-column prop="permission" label="角色权限"></el-table-column>
           <el-table-column prop="level" label="角色级别"></el-table-column>
           <el-table-column prop="remark" label="描述" :show-overflow-tooltip="true"></el-table-column>
           <el-table-column label="创建时间" :show-overflow-tooltip="true">
@@ -34,12 +32,12 @@
             </template>
           </el-table-column>
         </el-table>
-      </el-card>
+      </card>
     </el-col>
     <el-col :sm="24" :md="7">
-      <el-card class="box-card">
-        <div slot="header" class="clearfix">
-          <span class="header">菜单分配</span>
+      <card ref="TreeCard">
+        <div slot="header">
+          <span>菜单分配</span>
           <submit-button
               ref="SubmitButton"
               icon="el-icon-check"
@@ -48,7 +46,7 @@
               text="保存"/>
         </div>
         <checkbox-tree ref="RoleMenuTree" :ids="menuIds" :tree="tree"/>
-      </el-card>
+      </card>
     </el-col>
     <add-role ref="AddRole" :dept="dept" :level="level" @update="getRoleList"/>
     <edit-role ref="EditRole" :dept="dept" :level="level" @update="getRoleList"/>
@@ -70,7 +68,6 @@
     components: {AddRole, EditRole, CheckboxTree},
     data() {
       return {
-        isTableLoading: false,
         formData: [],
         dept: [],
         tree: [],
@@ -98,19 +95,23 @@
       },
       getRoleListAndRoleTree() {
         this.$refs.SubmitButton.ban();
+        this.$refs.Card.start();
+        this.$refs.TreeCard.start();
         getRoleListApi({roleName: ''})
           .then(result => {
+            this.$refs.Card.stop();
             this.formData = result.resultParam.roleList;
             return getRoleTreeApi()
           })
           .then(result => {
+            this.$refs.TreeCard.stop();
             this.tree = result.resultParam.roleTree
           })
       },
       getRoleList() {
-        this.isTableLoading = true;
+        this.$refs.Card.start();
         getRoleListApi({roleName: this.searchRoleName}).then(result => {
-          this.isTableLoading = false;
+          this.$refs.Card.stop();
           this.formData = result.resultParam.roleList;
           this.$refs.RoleMenuTree.clear();
           this.$refs.SubmitButton.ban();

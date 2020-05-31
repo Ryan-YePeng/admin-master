@@ -1,13 +1,13 @@
 <template>
-  <el-card class="box-card">
-    <div slot="header" class="clearfix">
+  <card ref="Card">
+    <div slot="header">
       <span>操作日志</span>
       <i class="float-right pointer"
          :class="isLoading ? 'el-icon-loading':'el-icon-refresh'"
          @click="update"></i>
     </div>
     <div>
-      <el-table v-loading="isTableLoading" :data="formData">
+      <el-table :data="formData">
         <el-table-column prop="description" label="行为"></el-table-column>
         <el-table-column prop="requestIp" label="IP" :show-overflow-tooltip="true"></el-table-column>
         <el-table-column prop="address" label="IP来源" :show-overflow-tooltip="true"></el-table-column>
@@ -25,18 +25,17 @@
       </el-table>
       <pagination ref="Pagination" @update="getLog"></pagination>
     </div>
-  </el-card>
+  </card>
 </template>
 
 <script>
-  import {getUserLogApi} from '../../api/person'
+  import {getUserLogApi} from '@/api/person'
 
   export default {
     name: "PersonalLog",
     data() {
       return {
         isLoading: false,
-        isTableLoading: false,
         formData: []
       }
     },
@@ -51,11 +50,11 @@
       },
       // 获得个人操作日志
       getLog() {
-        this.isTableLoading = true;
+        this.$refs.Card.start();
         let pagination = this.$refs.Pagination;
         let param = `page=${pagination.current}&size=${pagination.size}`;
         getUserLogApi(param).then(result => {
-          this.isTableLoading = false;
+          this.$refs.Card.stop();
           this.isLoading = false;
           let response = result.resultParam.logIPage;
           this.formData = response.records;

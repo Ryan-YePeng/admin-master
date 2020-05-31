@@ -1,8 +1,8 @@
 <template>
   <el-row :gutter="20">
     <el-col :sm="24" :md="4" class="mb-15">
-      <el-card class="box-card">
-        <div slot="header" class="clearfix">
+      <card ref="TreeCard">
+        <div slot="header">
           <el-input
               clearable
               size="small"
@@ -25,17 +25,17 @@
           >
           </el-tree>
         </div>
-      </el-card>
+      </card>
     </el-col>
     <el-col :sm="24" :md="20" class="mb-15">
-      <el-card class="box-card">
-        <div slot="header" class="clearfix">
+      <card ref="Card">
+        <div slot="header">
           <el-input placeholder="输入用户名搜索" v-model="searchUsername" clearable class="w-200"
                     @keyup.enter.native="searchUserList"/>
           <el-button type="success" class="el-icon-search ml-5" @click="searchUserList">搜索</el-button>
           <el-button class="float-right" type="primary" icon="el-icon-plus" @click="add">新增</el-button>
         </div>
-        <el-table v-loading="isTableLoading" :data="formData">
+        <el-table :data="formData">
           <el-table-column prop="username" label="用户名"></el-table-column>
           <el-table-column prop="nickName" label="昵称"></el-table-column>
           <el-table-column prop="sex" label="性别"></el-table-column>
@@ -68,7 +68,7 @@
           </el-table-column>
         </el-table>
         <pagination ref="Pagination" @update="getUserList"></pagination>
-      </el-card>
+      </card>
     </el-col>
     <add-user ref="AddUser" :dept="dept" @update="getUserList" :roleList="roleList"></add-user>
     <edit-user ref="EditUser" :dept="dept" @update="getUserList" :roleList="roleList"></edit-user>
@@ -91,7 +91,6 @@
         searchUsername: '',
         searchDeptId: '',
         formData: [],
-        isTableLoading: false,
         dept: [],
         deptTree: [],
         searchDeptName: '',
@@ -132,7 +131,7 @@
         this.getUserList();
       },
       getUserList() {
-        this.isTableLoading = true;
+        this.$refs.Card.start();
         let pagination = this.$refs.Pagination;
         let param = {
           current: pagination.current,
@@ -141,7 +140,7 @@
           username: this.searchUsername
         };
         getUserListApi(param).then(result => {
-          this.isTableLoading = false;
+          this.$refs.Card.stop();
           let response = result.resultParam.userList;
           this.formData = response.records;
           pagination.total = response.total;

@@ -2,8 +2,8 @@
   <div class="person">
     <el-row :gutter="20">
       <el-col :xs="24" :sm="24" :md="8" :lg="6" :xl="5">
-        <el-card class="box-card" style="margin-bottom: 20px">
-          <div slot="header" class="clearfix">
+        <card class="mb-20">
+          <div slot="header">
             <span>个人信息</span>
           </div>
           <div style="text-align: center; margin-bottom: 20px">
@@ -37,7 +37,7 @@
               </span>
             </li>
           </ul>
-        </el-card>
+        </card>
       </el-col>
       <el-col :xs="24" :sm="24" :md="16" :lg="18" :xl="19">
         <personal-log/>

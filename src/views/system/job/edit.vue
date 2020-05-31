@@ -13,6 +13,7 @@
         <el-input-number
             v-model="form.sort"
             controls-position="right"
+            :precision="0"
             :min="1">
         </el-input-number>
       </el-form-item>
@@ -21,16 +22,6 @@
           <el-radio :label="true">启用</el-radio>
           <el-radio :label="false">停用</el-radio>
         </el-radio-group>
-      </el-form-item>
-      <el-form-item label="所属部门" prop="deptId">
-        <tree-select
-            v-model="form.deptId"
-            :options="dept"
-            :normalizer="normalizer"
-            :default-expand-level="1"
-            placeholder=""
-            noResultsText="无数据"
-        />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -41,18 +32,10 @@
 </template>
 
 <script>
-  import TreeSelect from '@riophae/vue-treeselect'
   import {editJobApi} from '@/api/job'
 
   export default {
     name: "EditJob",
-    components: {TreeSelect},
-    props: {
-      dept: {
-        type: Array,
-        default: []
-      }
-    },
     data() {
       return {
         normalizer(node) {
@@ -65,13 +48,11 @@
           id: null,
           name: '',
           sort: 999,
-          enabled: true,
-          deptId: null
+          enabled: true
         },
         rules: {
           name: {required: true, message: '请输入名称', trigger: 'blur'},
-          sort: {required: true, message: '请输入排序', trigger: 'blur'},
-          deptId: {required: true, message: '请选择部门', trigger: 'blur'}
+          sort: {required: true, message: '请输入排序', trigger: 'blur'}
         }
       }
     },

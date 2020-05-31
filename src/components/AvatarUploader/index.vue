@@ -124,7 +124,7 @@
               return getUserInfoApi()
             })
             .then(result => {
-              this.$storeSet('setUser', result.resultParam.user);
+              this.$storeSet('setUser', result.resultParam.currentUser.user);
             })
             .catch(() => {
               this.$refs.SubmitButton.stop();

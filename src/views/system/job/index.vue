@@ -1,22 +1,14 @@
 <template>
-  <el-card class="box-card">
-    <div slot="header" class="clearfix">
+  <card ref="Card">
+    <div slot="header">
       <el-input placeholder="输入岗位名称搜索" v-model="searchJobName" clearable class="w-200"
                 @keyup.enter.native="getJobList"/>
       <el-button type="success" class="el-icon-search ml-5" @click="getJobList">搜索</el-button>
       <el-button class="float-right" type="primary" icon="el-icon-plus" @click="add">新增</el-button>
     </div>
     <div>
-      <el-table
-          v-loading="isTableLoading"
-          :data="formData"
-      >
+      <el-table :data="formData">
         <el-table-column prop="name" label="岗位名称"></el-table-column>
-        <el-table-column label="所属部门">
-          <template slot-scope="scope">
-            <span>{{scope.row.dept.name}}</span>
-          </template>
-        </el-table-column>
         <el-table-column prop="sort" label="排序"></el-table-column>
         <el-table-column label="状态">
           <template slot-scope="scope">
@@ -41,14 +33,13 @@
       </el-table>
     </div>
     <pagination ref="Pagination" @update="getJobList"></pagination>
-    <add-job ref="AddJob" :dept="tree" @update="getJobList"></add-job>
-    <edit-job ref="EditJob" :dept="tree" @update="getJobList"></edit-job>
-  </el-card>
+    <add-job ref="AddJob" @update="getJobList"></add-job>
+    <edit-job ref="EditJob" @update="getJobList"></edit-job>
+  </card>
 </template>
 
 <script>
   import {getJobListApi, deleteJobApi} from '@/api/job'
-  import {getDeptTreeApi} from '@/api/dept'
   import AddJob from './add'
   import EditJob from './edit'
   import {objectEvaluate} from "@/utils/common";
@@ -58,21 +49,16 @@
     components: {EditJob, AddJob},
     data() {
       return {
-        isTableLoading: false,
         formData: [],
-        tree: [],
         searchJobName: ''
       }
     },
     mounted() {
-      this.getJobList();
-      getDeptTreeApi({deptName: ''}).then(result => {
-        this.tree = result.resultParam.deptTree
-      })
+      this.getJobList()
     },
     methods: {
       getJobList() {
-        this.isTableLoading = true;
+        this.$refs.Card.start();
         let pagination = this.$refs.Pagination;
         let param = {
           current: pagination.current,
@@ -80,7 +66,7 @@
           jobName: this.searchJobName
         };
         getJobListApi(param).then(result => {
-          this.isTableLoading = false;
+          this.$refs.Card.stop();
           let response = result.resultParam.jobList;
           this.formData = response.records;
           pagination.total = response.total;
