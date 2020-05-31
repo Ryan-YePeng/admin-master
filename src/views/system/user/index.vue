@@ -13,18 +13,16 @@
               v-model="searchDeptName">
           </el-input>
         </div>
-        <div>
-          <el-tree
-              ref="deptTree"
-              :data="deptTree"
-              node-key="id"
-              :props="treeProps"
-              @node-click="searchByDeptId"
-              default-expand-all
-              :expand-on-click-node="false"
-          >
-          </el-tree>
-        </div>
+        <el-tree
+            ref="deptTree"
+            :data="deptTree"
+            node-key="id"
+            :props="treeProps"
+            @node-click="searchByDeptId"
+            default-expand-all
+            :expand-on-click-node="false"
+        >
+        </el-tree>
       </card>
     </el-col>
     <el-col :sm="24" :md="20" class="mb-15">
@@ -41,11 +39,21 @@
           <el-table-column prop="sex" label="性别"></el-table-column>
           <el-table-column prop="phone" label="电话"></el-table-column>
           <el-table-column prop="email" label="邮箱"></el-table-column>
-          <el-table-column label="部门/岗位">
+          <el-table-column label="部门">
             <template slot-scope="scope">
-              {{getDeptNameAndJobName(scope.row)}}
+              {{getDeptName(scope.row)}}
             </template>
           </el-table-column>
+          <el-table-column label="岗位">
+            <template slot-scope="scope">
+            </template>
+            <!--            {{'asdsads' | nameList}}-->
+          </el-table-column>
+          <!--<el-table-column label="角色">-->
+          <!--  <template slot-scope="scope">-->
+          <!--    {{getDeptName(scope.row)}}-->
+          <!--  </template>-->
+          <!--</el-table-column>-->
           <el-table-column label="状态">
             <template slot-scope="scope">
               <el-tag type="info" v-if="scope.row.enabled">正常</el-tag>
@@ -70,8 +78,8 @@
         <pagination ref="Pagination" @update="getUserList"></pagination>
       </card>
     </el-col>
-    <add-user ref="AddUser" :dept="dept" @update="getUserList" :roleList="roleList"></add-user>
-    <edit-user ref="EditUser" :dept="dept" @update="getUserList" :roleList="roleList"></edit-user>
+    <add-user ref="AddUser" :dept="dept" @update="getUserList" :roleList="roleList" :jobList="jobList"></add-user>
+    <edit-user ref="EditUser" :dept="dept" @update="getUserList" :roleList="roleList" :jobList="jobList"></edit-user>
   </el-row>
 </template>
 
@@ -79,6 +87,7 @@
   import {getUserListApi, deleteUserApi} from '@/api/user'
   import {getDeptTreeApi} from '@/api/dept'
   import {getRoleListApi} from '@/api/role'
+  import {getJobListApi} from '@/api/job'
   import AddUser from './add'
   import EditUser from './edit'
   import {objectEvaluate, objectExchange} from "@/utils/common";
@@ -95,6 +104,7 @@
         deptTree: [],
         searchDeptName: '',
         roleList: [],
+        jobList: [],
         treeProps: {
           label: 'name'
         }
@@ -104,21 +114,37 @@
       this.getUserList();
       this.getDeptTree();
       this.getRoleList()
+      this.getJobList()
+    },
+    filters: {
+      nameList: function (value) {
+        console.log(value)
+        return '123123'
+      }
     },
     methods: {
+      getJobList() {
+        getJobListApi({jobName: ''}).then(result => {
+          this.jobList = result.resultParam.jobList.records
+        })
+      },
       getRoleList() {
         getRoleListApi({roleName: ''}).then(result => {
           this.roleList = result.resultParam.roleList;
         })
       },
       getDeptTree() {
+        this.$refs.TreeCard.start();
         getDeptTreeApi({deptName: ''}).then(result => {
+          this.$refs.TreeCard.stop();
           this.dept = result.resultParam.deptTree;
           this.deptTree = result.resultParam.deptTree
         })
       },
       searchDept() {
+        this.$refs.TreeCard.start();
         getDeptTreeApi({deptName: this.searchDeptName}).then(result => {
+          this.$refs.TreeCard.stop();
           this.deptTree = result.resultParam.deptTree
         })
       },
@@ -146,11 +172,18 @@
           pagination.total = response.total;
         })
       },
-      getDeptNameAndJobName(obj) {
-        let dept, job = '';
-        if (obj.hasOwnProperty('dept')) dept = obj.dept.name;
-        if (obj.hasOwnProperty('job')) job = obj.job.name;
-        return `${dept} / ${job}`
+      getDeptName(obj) {
+        if (obj.hasOwnProperty('dept')) return obj.dept.name
+        else return ""
+      },
+      getJobsName(obj) {
+        obj.jobs = [{name: 'wang'}, {name: 'ye'}, {name: 'peng'}]
+        let str = '';
+        obj.jobs.forEach(item => {
+          str = str + item.name + ' / '
+        })
+        console.log(str)
+        return str
       },
       add() {
         let _this = this.$refs.AddUser;
@@ -158,11 +191,10 @@
       },
       edit(obj) {
         let _this = this.$refs.EditUser;
-        delete obj.jobId;
         obj.rolesId = obj.roles.map(item => item.id);
+        obj.jobsId = obj.jobs.map(item => item.id);
         objectEvaluate(_this.form, obj);
         objectExchange(_this.FORM, _this.form);
-        _this.initDept(obj.deptId);
         _this.visible = true
       },
       deleteUser(id) {

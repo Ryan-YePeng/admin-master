@@ -9,6 +9,14 @@
       <el-form-item label="部门名称" prop="name">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
+      <el-form-item label="排序" prop="sort">
+        <el-input-number
+            v-model="form.sort"
+            controls-position="right"
+            :precision="0"
+            :min="1">
+        </el-input-number>
+      </el-form-item>
       <el-form-item label="部门状态">
         <el-radio-group v-model="form.enabled">
           <el-radio :label="true">启用</el-radio>
@@ -56,11 +64,13 @@
         visible: false,
         form: {
           name: '',
+          sort: 999,
           enabled: true,
           pid: null
         },
         rules: {
-          name: {required: true, message: '请输入名称', trigger: 'blur'}
+          name: {required: true, message: '请输入名称', trigger: 'blur'},
+          sort: {required: true, message: '请输入排序', trigger: 'change'}
         }
       }
     },

@@ -16,22 +16,24 @@ export const isEmpty = value => {
 
 /**
  * @param {Date} time
+ * @param {String} formatStr
  * @return {String}
  * @description 格式化时间
  * */
-export const formatDate = time => {
+export const formatDate = (time, formatStr = 'YYYY-MM-DD') => {
   if (!time) return '';
-  return formatTime.format(time, 'YYYY-MM-DD');
+  return formatTime.format(time, formatStr);
 };
 
 /**
  * @param {Date} time
+ * @param {String} formatStr
  * @return {String}
  * @description 格式化时间
  * */
-export const formatDateTime = time => {
+export const formatDateTime = (time, formatStr = 'YYYY-MM-DD HH:mm:ss') => {
   if (!time) return '';
-  return formatTime.format(time, 'YYYY-MM-DD HH:mm:ss');
+  return formatTime.format(time, formatStr);
 };
 
 /**

@@ -4,10 +4,10 @@ import Vue from "vue";
  * @description 按需引入Element-UI组件
  * */
 import {
-  Button, Container, Header, Tooltip, Dropdown, Avatar, DropdownMenu, DropdownItem,
+  Loading, Button, Container, Header, Tooltip, Dropdown, Avatar, DropdownMenu, DropdownItem,
   Main, Form, FormItem, Input, Breadcrumb, BreadcrumbItem, Menu, MenuItem, Pagination,
-  Table, TableColumn, Tag, Scrollbar, Submenu, Dialog, Col, Row, Upload, Card, Popover,
-  Loading, Option, Select, InputNumber, PageHeader, Image, Cascader, TabPane, Tabs, Radio,
+  Table, TableColumn, Tag, Scrollbar, Submenu, Dialog, Col, Row, Upload, Popover,
+  Option, Select, InputNumber, PageHeader, Image, Cascader, TabPane, Tabs, Radio,
   Switch, Drawer, Footer, RadioGroup, RadioButton, MenuItemGroup, Checkbox, Tree, Progress,
   Backtop, Icon, DatePicker
 } from 'element-ui';
@@ -38,7 +38,6 @@ Vue.component('ElDialog', Dialog);
 Vue.component('ElCol', Col);
 Vue.component('ElRow', Row);
 Vue.component('ElUpload', Upload);
-Vue.component('ElCard', Card);
 Vue.component('ElPopover', Popover);
 Vue.component('ElOption', Option);
 Vue.component('ElSelect', Select);
@@ -66,7 +65,7 @@ Vue.use(Loading.directive);
 /**
  * @description 自定义Element-UI组件
  * */
-import MyCard from '@/components/Card'
+import Card from '@/components/Card'
 import RowCol from '@/components/RowCol'
 import ExpandTable from '@/components/ExpandTable'
 import SelectionTable from '@/components/SelectionTable'
@@ -74,7 +73,7 @@ import DeleteButton from '@/components/DeleteButton'
 import SubmitButton from '@/components/SubmitButton'
 import CustomizedPagination from '@/components/Pagination'
 
-Vue.component('Card', MyCard);
+Vue.component('Card', Card);
 Vue.component('RowCol', RowCol);
 Vue.component('ExpandTable', ExpandTable);
 Vue.component('SelectionTable', SelectionTable);

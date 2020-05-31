@@ -23,22 +23,21 @@
         </el-form-item>
       </row-col>
       <row-col>
-        <el-form-item label="部门" prop="deptId">
+        <el-form-item label="部门">
           <tree-select
               v-model="form.deptId"
               :options="dept"
               :normalizer="normalizer"
               :default-expand-level="1"
               sort-value-by="INDEX"
-              @input="changeDept"
               placeholder=""
               noResultsText="无数据"
           />
         </el-form-item>
-        <el-form-item slot="r" label="岗位" prop="jobId">
-          <el-select v-model="form.jobId" placeholder="请先选择部门">
+        <el-form-item slot="r" label="岗位">
+          <el-select v-model="form.jobsId" multiple clearable>
             <el-option
-                v-for="item in options"
+                v-for="item in jobList"
                 :key="item.id"
                 :value="item.id"
                 :label="item.name"/>
@@ -60,7 +59,7 @@
         </el-form-item>
       </row-col>
       <el-form-item label="角色" prop="rolesId">
-        <el-select v-model="form.rolesId" multiple class="w-100">
+        <el-select v-model="form.rolesId" multiple clearable class="w-100">
           <el-option
               v-for="item in roleList"
               :label="item.name"
@@ -77,11 +76,10 @@
 </template>
 
 <script>
-  import TreeSelect from '@riophae/vue-treeselect'
-  import {editUserApi} from '@/api/user'
-  import {getJobByDeptIdApi} from '@/api/job'
-  import {isEmpty, objectObtain} from "@/utils/common";
-  import {validatePhone, validEmail} from '@/utils/validate'
+  import TreeSelect from '@riophae/vue-treeselect';
+  import {editUserApi} from '@/api/user';
+  import {objectObtain} from "@/utils/common";
+  import {validatePhone, validEmail} from '@/utils/validate';
 
   export default {
     name: "EditUser",
@@ -92,6 +90,10 @@
         default: []
       },
       roleList: {
+        type: Array,
+        default: []
+      },
+      jobList: {
         type: Array,
         default: []
       }
@@ -111,42 +113,22 @@
           sex: '男',
           phone: '',
           email: '',
-          deptId: null,
-          jobId: null,
           enabled: true,
+          deptId: null,
+          jobsId: [],
           rolesId: []
         },
         FORM: {
           id: null
         },
-        options: [],
         rules: {
           email: {validator: validEmail, trigger: 'blur'},
           phone: {validator: validatePhone, trigger: 'blur'},
-          deptId: {required: true, message: '请选择部门', trigger: 'change'},
-          jobId: {required: true, message: '请选择岗位', trigger: 'change'},
-          rolesId: {required: true, message: '请选择角色', trigger: 'change'},
-
+          rolesId: {required: true, message: '请选择角色', trigger: 'change'}
         }
       }
     },
     methods: {
-      changeDept(value) {
-        if (isEmpty(value)) {
-          this.options = []
-        } else {
-          getJobByDeptIdApi({deptId: value}).then(result => {
-            this.options = result.resultParam.jobList;
-          })
-        }
-        this.form.jobId = null
-      },
-      initDept(value) {
-        getJobByDeptIdApi({deptId: value}).then(result => {
-          this.options = result.resultParam.jobList;
-          this.form.jobId = value
-        })
-      },
       submitForm() {
         this.$refs['Form'].validate((valid) => {
           if (valid) {
@@ -168,11 +150,8 @@
         this.visible = false;
         Object.assign(this.$data.form, this.$options.data().form);
         this.$refs['Form'].clearValidate();
-        this.FORM = {};
-        Object.assign(this.$data.FORM, this.$options.data().FORM);
+        this.FORM = {id: null};
       }
     }
   }
 </script>
-
-

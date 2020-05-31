@@ -1,9 +1,9 @@
 <template>
-  <div v-loading="isLoading" class="my-card" :class="shadow ? 'is-' + shadow + '-shadow' : 'is-always-shadow'">
+  <div class="my-card" :class="shadow ? 'is-' + shadow + '-shadow' : 'is-hover-shadow'">
     <div class="my-card__header clearfix" v-if="$slots.header || header">
       <slot name="header">{{ header }}</slot>
     </div>
-    <div class="my-card__body" :style="bodyStyle">
+    <div v-loading="isLoading" class="my-card__body" :style="bodyStyle">
       <slot></slot>
     </div>
   </div>
@@ -61,5 +61,15 @@
 
   .my-card__body {
     padding: 10px;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+
+  .clearfix:after {
+    clear: both
   }
 </style>

@@ -7,8 +7,8 @@
       <el-button type="primary" icon="el-icon-plus" @click="add" class="float-right">新增</el-button>
     </div>
     <el-table
-        :data="formData"
         row-key="id"
+        :data="formData"
         :tree-props="{children: 'children'}">
       <el-table-column prop="title" label="菜单名称"></el-table-column>
       <el-table-column prop="icon" label="图标" align="center">
