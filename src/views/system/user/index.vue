@@ -3,8 +3,8 @@
     <div slot="header">
       <tree-select
           v-model="searchDeptId"
-          class="w-200"
-          style="float: left"
+          :class="'tree-select-' + size"
+          style="float: left;width: 200px;"
           :options="dept"
           :normalizer="normalizer"
           :default-expand-level="1"
@@ -100,6 +100,11 @@
       this.getRoleList();
       this.getJobList();
     },
+    computed: {
+      size() {
+        return this.$storeGet.setting.layoutSize
+      }
+    },
     methods: {
       getJobList() {
         getJobListApi({jobName: ''}).then(result => {
@@ -156,3 +161,45 @@
     }
   }
 </script>
+
+<style>
+  .tree-select-default > .vue-treeselect__control {
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .tree-select-default .vue-treeselect__placeholder,
+  .tree-select-default .vue-treeselect__single-value {
+    line-height: 37px;
+  }
+
+  .tree-select-medium > .vue-treeselect__control {
+    height: 36px;
+    font-size: 14px;
+  }
+
+  .tree-select-medium .vue-treeselect__placeholder,
+  .tree-select-medium .vue-treeselect__single-value {
+    line-height: 33px;
+  }
+
+  .tree-select-small > .vue-treeselect__control {
+    height: 32px;
+    font-size: 13px;
+  }
+
+  .tree-select-small .vue-treeselect__placeholder,
+  .tree-select-small .vue-treeselect__single-value {
+    line-height: 29px;
+  }
+
+  .tree-select-mini > .vue-treeselect__control {
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .tree-select-mini .vue-treeselect__placeholder,
+  .tree-select-mini .vue-treeselect__single-value {
+    line-height: 25px;
+  }
+</style>
