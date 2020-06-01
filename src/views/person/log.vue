@@ -8,10 +8,10 @@
     </div>
     <div>
       <el-table :data="formData">
-        <el-table-column prop="description" label="行为"></el-table-column>
-        <el-table-column prop="requestIp" label="IP" :show-overflow-tooltip="true"></el-table-column>
-        <el-table-column prop="address" label="IP来源" :show-overflow-tooltip="true"></el-table-column>
-        <el-table-column prop="browser" label="浏览器"></el-table-column>
+        <el-table-column prop="description" label="行为"/>
+        <el-table-column prop="requestIp" label="IP" :show-overflow-tooltip="true"/>
+        <el-table-column prop="address" label="IP来源" :show-overflow-tooltip="true"/>
+        <el-table-column prop="browser" label="浏览器"/>
         <el-table-column prop="time" label="请求耗时" :show-overflow-tooltip="true">
           <template slot-scope="scope">
             <el-tag>{{ scope.row.time }}ms</el-tag>

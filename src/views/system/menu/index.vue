@@ -10,19 +10,19 @@
         row-key="id"
         :data="formData"
         :tree-props="{children: 'children'}">
-      <el-table-column prop="title" label="菜单名称"></el-table-column>
+      <el-table-column prop="title" label="菜单名称"/>
       <el-table-column prop="icon" label="图标" align="center">
         <template slot-scope="scope">
           <svg-icon slot="prefix" :icon-class="scope.row.icon" class="el-table-column-icon"/>
         </template>
       </el-table-column>
-      <el-table-column prop="sort" label="排序" align="center"></el-table-column>
+      <el-table-column prop="sort" label="排序" align="center"/>
       <el-table-column label="路径名称">
         <template slot-scope="scope">
           <clipboard :text="scope.row.name">{{scope.row.name}}</clipboard>
         </template>
       </el-table-column>
-      <el-table-column prop="permission" label="权限标识"></el-table-column>
+      <el-table-column prop="permission" label="权限标识"/>
       <el-table-column label="外链">
         <template slot-scope="scope">
           <el-tag type="success" v-if="scope.row.iframe">是</el-tag>

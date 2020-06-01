@@ -1,126 +1,104 @@
 <template>
-  <el-row :gutter="20">
-    <el-col :sm="24" :md="4" class="mb-15">
-      <card ref="TreeCard">
-        <div slot="header">
-          <el-input
-              clearable
-              size="small"
-              placeholder="输入部门名称"
-              prefix-icon="el-icon-search"
-              @keyup.enter.native="searchDept"
-              class="w-100"
-              v-model="searchDeptName">
-          </el-input>
-        </div>
-        <el-tree
-            ref="deptTree"
-            :data="deptTree"
-            node-key="id"
-            :props="treeProps"
-            @node-click="searchByDeptId"
-            default-expand-all
-            :expand-on-click-node="false"
-        >
-        </el-tree>
-      </card>
-    </el-col>
-    <el-col :sm="24" :md="20" class="mb-15">
-      <card ref="Card">
-        <div slot="header">
-          <el-input placeholder="输入用户名搜索" v-model="searchUsername" clearable class="w-200"
-                    @keyup.enter.native="searchUserList"/>
-          <el-button type="success" class="el-icon-search ml-5" @click="searchUserList">搜索</el-button>
-          <el-button class="float-right" type="primary" icon="el-icon-plus" @click="add">新增</el-button>
-        </div>
-        <el-table :data="formData">
-          <el-table-column prop="username" label="用户名"></el-table-column>
-          <el-table-column prop="nickName" label="昵称"></el-table-column>
-          <el-table-column prop="sex" label="性别"></el-table-column>
-          <el-table-column prop="phone" label="电话"></el-table-column>
-          <el-table-column prop="email" label="邮箱"></el-table-column>
-          <el-table-column label="部门">
-            <template slot-scope="scope">
-              {{getDeptName(scope.row)}}
-            </template>
-          </el-table-column>
-          <el-table-column label="岗位">
-            <template slot-scope="scope">
-            </template>
-            <!--            {{'asdsads' | nameList}}-->
-          </el-table-column>
-          <!--<el-table-column label="角色">-->
-          <!--  <template slot-scope="scope">-->
-          <!--    {{getDeptName(scope.row)}}-->
-          <!--  </template>-->
-          <!--</el-table-column>-->
-          <el-table-column label="状态">
-            <template slot-scope="scope">
-              <el-tag type="info" v-if="scope.row.enabled">正常</el-tag>
-              <el-tag type="danger" v-else>禁用</el-tag>
-            </template>
-          </el-table-column>
-          <el-table-column label="创建时间">
-            <template slot-scope="scope">
-              <span>{{scope.row.createTime | formatDateTime}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="操作" fixed="right" align="center" width="150">
-            <template slot-scope="scope">
-              <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
-              <delete-button
-                  :ref="scope.row.id"
-                  :id="scope.row.id"
-                  @start="deleteUser"/>
-            </template>
-          </el-table-column>
-        </el-table>
-        <pagination ref="Pagination" @update="getUserList"></pagination>
-      </card>
-    </el-col>
+  <card ref="Card">
+    <div slot="header">
+      <tree-select
+          v-model="searchDeptId"
+          class="w-200"
+          style="float: left"
+          :options="dept"
+          :normalizer="normalizer"
+          :default-expand-level="1"
+          sort-value-by="INDEX"
+          placeholder="选择部门搜索"
+          noResultsText="无数据"
+          @input="getUserList"
+      />
+      <el-input placeholder="输入用户名搜索" v-model="searchUsername" clearable class="w-200 ml-5"
+                @keyup.enter.native="getUserList"/>
+      <el-button type="success" class="el-icon-search ml-5" @click="getUserList">搜索</el-button>
+      <el-button class="float-right" type="primary" icon="el-icon-plus" @click="add">新增</el-button>
+    </div>
+    <el-table :data="formData">
+      <el-table-column prop="username" label="用户名"/>
+      <el-table-column prop="nickName" label="昵称"/>
+      <el-table-column prop="sex" label="性别"/>
+      <el-table-column prop="phone" label="电话" :show-overflow-tooltip="true"/>
+      <el-table-column prop="email" label="邮箱" :show-overflow-tooltip="true"/>
+      <el-table-column label="部门">
+        <template slot-scope="scope">
+          {{scope.row.dept | formatObj}}
+        </template>
+      </el-table-column>
+      <el-table-column label="岗位" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          {{scope.row.jobs | formatArray}}
+        </template>
+      </el-table-column>
+      <el-table-column label="角色" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          {{scope.row.roles | formatArray}}
+        </template>
+      </el-table-column>
+      <el-table-column label="状态">
+        <template slot-scope="scope">
+          <el-tag type="info" v-if="scope.row.enabled">正常</el-tag>
+          <el-tag type="danger" v-else>禁用</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="创建时间" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          <span>{{scope.row.createTime | formatDateTime}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" align="center" width="150">
+        <template slot-scope="scope">
+          <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
+          <delete-button
+              :ref="scope.row.id"
+              :id="scope.row.id"
+              @start="deleteUser"/>
+        </template>
+      </el-table-column>
+    </el-table>
+    <pagination ref="Pagination" @update="getUserList"></pagination>
     <add-user ref="AddUser" :dept="dept" @update="getUserList" :roleList="roleList" :jobList="jobList"></add-user>
     <edit-user ref="EditUser" :dept="dept" @update="getUserList" :roleList="roleList" :jobList="jobList"></edit-user>
-  </el-row>
+  </card>
 </template>
 
 <script>
-  import {getUserListApi, deleteUserApi} from '@/api/user'
-  import {getDeptTreeApi} from '@/api/dept'
-  import {getRoleListApi} from '@/api/role'
-  import {getJobListApi} from '@/api/job'
-  import AddUser from './add'
-  import EditUser from './edit'
-  import {objectEvaluate, objectExchange} from "@/utils/common";
+  import TreeSelect from '@riophae/vue-treeselect';
+  import {getUserListApi, deleteUserApi} from '@/api/user';
+  import {getDeptTreeApi} from '@/api/dept';
+  import {getRoleListApi} from '@/api/role';
+  import {getJobListApi} from '@/api/job';
+  import {objectEvaluate} from "@/utils/common";
+  import AddUser from './add';
+  import EditUser from './edit';
 
   export default {
     name: "User",
-    components: {AddUser, EditUser},
+    components: {TreeSelect, AddUser, EditUser},
     data() {
       return {
+        normalizer(node) {
+          return {
+            label: node.name
+          }
+        },
         searchUsername: '',
-        searchDeptId: '',
+        searchDeptId: null,
         formData: [],
         dept: [],
-        deptTree: [],
-        searchDeptName: '',
         roleList: [],
-        jobList: [],
-        treeProps: {
-          label: 'name'
-        }
+        jobList: []
       }
     },
     mounted() {
       this.getUserList();
       this.getDeptTree();
-      this.getRoleList()
-      this.getJobList()
-    },
-    filters: {
-      nameList: function (value) {
-        console.log(value)
-        return '123123'
-      }
+      this.getRoleList();
+      this.getJobList();
     },
     methods: {
       getJobList() {
@@ -134,27 +112,9 @@
         })
       },
       getDeptTree() {
-        this.$refs.TreeCard.start();
         getDeptTreeApi({deptName: ''}).then(result => {
-          this.$refs.TreeCard.stop();
           this.dept = result.resultParam.deptTree;
-          this.deptTree = result.resultParam.deptTree
         })
-      },
-      searchDept() {
-        this.$refs.TreeCard.start();
-        getDeptTreeApi({deptName: this.searchDeptName}).then(result => {
-          this.$refs.TreeCard.stop();
-          this.deptTree = result.resultParam.deptTree
-        })
-      },
-      searchUserList() {
-        this.searchDeptId = "";
-        this.getUserList();
-      },
-      searchByDeptId(obj) {
-        this.searchDeptId = obj.id;
-        this.getUserList();
       },
       getUserList() {
         this.$refs.Card.start();
@@ -172,19 +132,6 @@
           pagination.total = response.total;
         })
       },
-      getDeptName(obj) {
-        if (obj.hasOwnProperty('dept')) return obj.dept.name
-        else return ""
-      },
-      getJobsName(obj) {
-        obj.jobs = [{name: 'wang'}, {name: 'ye'}, {name: 'peng'}]
-        let str = '';
-        obj.jobs.forEach(item => {
-          str = str + item.name + ' / '
-        })
-        console.log(str)
-        return str
-      },
       add() {
         let _this = this.$refs.AddUser;
         _this.visible = true
@@ -194,7 +141,6 @@
         obj.rolesId = obj.roles.map(item => item.id);
         obj.jobsId = obj.jobs.map(item => item.id);
         objectEvaluate(_this.form, obj);
-        objectExchange(_this.FORM, _this.form);
         _this.visible = true
       },
       deleteUser(id) {
@@ -210,5 +156,3 @@
     }
   }
 </script>
-
-

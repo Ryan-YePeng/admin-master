@@ -6,12 +6,12 @@
       <el-button type="success" class="el-icon-search ml-5" @click="getOnlineUser">搜索</el-button>
     </div>
     <el-table :data="formData">
-      <el-table-column prop="userName" label="用户名"></el-table-column>
-      <el-table-column prop="nickName" label="用户昵称"></el-table-column>
-      <el-table-column prop="dept" label="部门"></el-table-column>
-      <el-table-column prop="ip" label="登陆IP"></el-table-column>
-      <el-table-column prop="address" label="登陆地点"></el-table-column>
-      <el-table-column prop="browser" label="浏览器"></el-table-column>
+      <el-table-column prop="userName" label="用户名"/>
+      <el-table-column prop="nickName" label="用户昵称"/>
+      <el-table-column prop="dept" label="部门"/>
+      <el-table-column prop="ip" label="登陆IP"/>
+      <el-table-column prop="address" label="登陆地点"/>
+      <el-table-column prop="browser" label="浏览器"/>
       <el-table-column prop="loginTime" label="登陆时间">
         <template slot-scope="scope">
           <span>{{scope.row.loginTime | formatDateTime}}</span>

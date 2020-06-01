@@ -13,9 +13,9 @@
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column prop="username" label="用户名"></el-table-column>
-      <el-table-column prop="requestIp" label="IP"></el-table-column>
-      <el-table-column prop="description" label="描述"></el-table-column>
+      <el-table-column prop="username" label="用户名"/>
+      <el-table-column prop="requestIp" label="IP"/>
+      <el-table-column prop="description" label="描述"/>
       <el-table-column label="创建日期">
         <template slot-scope="scope">
           <span>{{ scope.row.createTime | formatDateTime}}</span>

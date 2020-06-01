@@ -115,9 +115,3 @@
     }
   }
 </script>
-
-<style lang="scss">
-  .el-textarea__inner {
-    height: 120px;
-  }
-</style>

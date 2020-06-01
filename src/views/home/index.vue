@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <Clipboard :text='token'>
-      <el-button>点击复制Token</el-button>
+      <el-button size="large">点击复制Token</el-button>
     </Clipboard>
   </div>
 </template>

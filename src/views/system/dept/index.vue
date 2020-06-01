@@ -11,8 +11,8 @@
         :data="formData"
         :default-expand-all="true"
         :tree-props="{children: 'children'}">
-      <el-table-column prop="name" label="部门名称"></el-table-column>
-      <el-table-column prop="sort" label="排序"></el-table-column>
+      <el-table-column prop="name" label="部门名称"/>
+      <el-table-column prop="sort" label="排序"/>
       <el-table-column label="状态">
         <template slot-scope="scope">
           <el-tag type="success" v-if="scope.row.enabled">启用</el-tag>

@@ -24,7 +24,7 @@
             </li>
             <li>
               <span>所属部门</span>
-              <span>{{user.dept}}</span>
+              <span>{{user.dept | formatObj}}</span>
             </li>
             <li>
               <span>创建日期</span>

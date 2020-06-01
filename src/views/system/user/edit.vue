@@ -8,7 +8,7 @@
     <el-form :model="form" :rules="rules" ref="Form" label-width="80px">
       <row-col>
         <el-form-item label="用户名" prop="username">
-          <el-input v-model="form.username"></el-input>
+          <el-input v-model="form.username" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item slot="r" label="电话" prop="phone">
           <el-input v-model="form.phone"></el-input>
@@ -78,7 +78,6 @@
 <script>
   import TreeSelect from '@riophae/vue-treeselect';
   import {editUserApi} from '@/api/user';
-  import {objectObtain} from "@/utils/common";
   import {validatePhone, validEmail} from '@/utils/validate';
 
   export default {
@@ -118,9 +117,6 @@
           jobsId: [],
           rolesId: []
         },
-        FORM: {
-          id: null
-        },
         rules: {
           email: {validator: validEmail, trigger: 'blur'},
           phone: {validator: validatePhone, trigger: 'blur'},
@@ -132,7 +128,8 @@
       submitForm() {
         this.$refs['Form'].validate((valid) => {
           if (valid) {
-            let data = objectObtain(this.form, this.FORM);
+            let data = {...this.form};
+            delete data.username;
             this.$refs.SubmitButton.start();
             editUserApi(data).then(() => {
               this.$refs.SubmitButton.stop();
@@ -150,7 +147,6 @@
         this.visible = false;
         Object.assign(this.$data.form, this.$options.data().form);
         this.$refs['Form'].clearValidate();
-        this.FORM = {id: null};
       }
     }
   }
