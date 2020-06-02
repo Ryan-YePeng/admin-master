@@ -1,35 +1,45 @@
 <template>
   <div id="app">
-    <!--<el-button @click="fun">按钮</el-button>-->
-    <!--<el-button @click="reset">重置</el-button>-->
-    <!--{{form.startTime}} - {{form.endTime}}-->
-    <!--<el-form :model="form" :rules="rules" ref="Form" label-width="80px">-->
-    <!--  <el-form-item label="用户名" prop="endTime">-->
-    <!--    <date-time-picker :start.sync="form.startTime" :end.sync="form.endTime"/>-->
-    <!--  </el-form-item>-->
-    <!--</el-form>-->
+    <el-button @click="fun">按钮</el-button>
+    <el-button @click="reset">重置</el-button>
+    <el-form :model="form" :rules="rules" ref="Form" label-width="80px">
+      <el-form-item label="地区" prop="province">
+        <region-select
+            :province.sync="form.province"
+            :city.sync="form.city"
+            :area.sync="form.area"
+        />
+      </el-form-item>
+    </el-form>
     <router-view/>
   </div>
 </template>
 
 <script>
+  import RegionSelect from '@/components/RegionSelect'
+
   export default {
     name: "App",
+    components: {RegionSelect},
     data() {
       return {
-        // form: {
-        //   startTime: '',
-        //   endTime: ''
-        // },
-        // rules: {
-        //   endTime: {required: true, message: '请选择日期', trigger: 'change'}
-        // }
+        form: {
+          province: '',
+          city: '',
+          area: ''
+        },
+        rules: {
+          province: {required: true, message: '请选择地区', trigger: 'change'}
+        }
       }
     },
     methods: {
       fun() {
-        this.form.startTime = 'Wed Jun 17 2020 00:00:00 GMT+0800 (中国标准时间)';
-        this.form.endTime = 'Wed Jun 20 2020 00:00:00 GMT+0800 (中国标准时间)'
+        this.form = {
+          province: '北京市',
+          city: '市辖区',
+          area: '123'
+        }
       },
       reset() {
         Object.assign(this.$data.form, this.$options.data().form);

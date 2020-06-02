@@ -43,9 +43,13 @@
     methods: {
       textToCode() {
         this.selectedOptions = [];
-        if (this.province) this.selectedOptions.push(TextToCode[this.province].code);
-        if (this.city) this.selectedOptions.push(TextToCode[this.province][this.city].code);
-        if (this.area) this.selectedOptions.push(TextToCode[this.province][this.city][this.area].code);
+        try {
+          if (this.province) this.selectedOptions.push(TextToCode[this.province].code);
+          if (this.city) this.selectedOptions.push(TextToCode[this.province][this.city].code);
+          if (this.area) this.selectedOptions.push(TextToCode[this.province][this.city][this.area].code);
+        } catch (e) {
+          this.selectedOptions = [];
+        }
       },
       codeToText(array) {
         array = array.map(item => CodeToText[item]);

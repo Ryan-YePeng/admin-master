@@ -6,7 +6,7 @@
           RYAN-ADMIN 后台管理系统
         </h3>
         <el-form-item prop="username">
-          <el-input v-model="form.username" type="text" auto-complete="off" placeholder="账号">
+          <el-input v-model="form.username" type="text" auto-complete="off" placeholder="用户名">
             <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon"/>
           </el-input>
         </el-form-item>
@@ -21,7 +21,7 @@
                     @keyup.enter.native="submitForm">
             <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon"/>
           </el-input>
-          <div class="login-code">
+          <div class="login-code" v-loading="isImgLoading" element-loading-background="rgba(255, 255, 255, 0)">
             <img :src="codeUrl" @click="getCode" alt="验证码">
           </div>
         </el-form-item>
@@ -55,6 +55,7 @@
     data() {
       return {
         isLoading: false,
+        isImgLoading: false,
         isRememberMe: false,
         codeUrl: '',
         form: {
@@ -88,10 +89,17 @@
     },
     methods: {
       getCode() {
-        getCodeApi().then(result => {
-          this.codeUrl = result.resultParam.img;
-          this.form.uuid = result.resultParam.uuid
-        })
+        this.isImgLoading = true;
+        getCodeApi()
+          .then(result => {
+            this.form.code = '';
+            this.form.uuid = result.resultParam.uuid
+            this.codeUrl = result.resultParam.img;
+            this.isImgLoading = false;
+          })
+          .catch(() => {
+            this.isImgLoading = false;
+          })
       },
       submitForm() {
         this.$refs['Form'].validate((valid) => {
@@ -101,6 +109,7 @@
             data.password = encrypt(data.password);
             loginApi(data)
               .then(result => {
+                if (result.status !== 200) throw new Error();
                 this.$storeSet('setToken', result.resultParam.token);
                 // 动态拉取路由和菜单
                 return generateRouter();
@@ -114,7 +123,6 @@
               })
               .catch(() => {
                 this.getCode();
-                this.form.code = '';
                 this.isLoading = false;
               })
           } else {
@@ -203,6 +211,3 @@
     }
   }
 </style>
-
-
-
