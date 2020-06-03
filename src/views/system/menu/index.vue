@@ -4,7 +4,7 @@
       <el-input placeholder="输入菜单名称搜索" v-model="searchTitle" clearable class="w-200"
                 @keyup.enter.native="searchMenu"/>
       <el-button type="success" class="el-icon-search ml-5" @click="searchMenu">搜索</el-button>
-      <el-button type="primary" icon="el-icon-plus" @click="add" class="float-right">新增</el-button>
+      <el-button type="primary" icon="el-icon-plus" @click="add()" class="float-right">新增</el-button>
     </div>
     <el-table
         row-key="id"
@@ -41,8 +41,9 @@
           <el-tag type="success" v-else>是</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="操作" fixed="right" align="center" width="150">
+      <el-table-column label="操作" fixed="right" align="center" width="210">
         <template slot-scope="scope">
+          <el-button type="success" icon="el-icon-plus" @click.stop="add(scope.row)"></el-button>
           <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
           <delete-button
               :ref="scope.row.id"
@@ -103,8 +104,9 @@
             this.$refs[id].stop();
           })
       },
-      add() {
+      add(obj) {
         let _this = this.$refs.AddMenu;
+        if (obj) _this.form.pid = obj.id;
         _this.visible = true;
       },
       edit(obj) {

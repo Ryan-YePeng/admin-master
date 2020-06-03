@@ -64,7 +64,8 @@
               v-for="item in roleList"
               :label="item.name"
               :value="item.id"
-              :key="item.id"/>
+              :key="item.id"
+              :disabled="level >= item.level"/>
         </el-select>
       </el-form-item>
     </el-form>
@@ -95,6 +96,9 @@
       jobList: {
         type: Array,
         default: []
+      },
+      level: {
+        type: Number
       }
     },
     data() {

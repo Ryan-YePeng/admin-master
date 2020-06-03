@@ -44,20 +44,23 @@ let layout = {
 
 // 动态路由
 export function generateRouter() {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     getUserInfoApi().then(result => {
       const {user, roles} = result.resultParam.currentUser
       store.dispatch('setUser', user)
       store.dispatch('setRoles', roles)
     });
-    getMenuApi().then(result => {
-      const menu = result.resultParam.content;
-      layout = new TraverseTree(menu, layout).get();
-      store.dispatch('setMenu', menu);
-      store.dispatch('setHasGenerateRouter');
-      router.addRoutes([layout]);
-      router.addRoutes([{path: "*", redirect: "/404"}]);
-      resolve()
+    getMenuApi()
+      .then(result => {
+        const menu = result.resultParam.content;
+        layout = new TraverseTree(menu, layout).get();
+        store.dispatch('setMenu', menu);
+        store.dispatch('setHasGenerateRouter');
+        router.addRoutes([layout]);
+        router.addRoutes([{path: "*", redirect: "/404"}]);
+        resolve()
+      }).catch(() => {
+      reject()
     })
   })
 }

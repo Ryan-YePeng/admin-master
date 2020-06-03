@@ -48,16 +48,16 @@
         <checkbox-tree ref="RoleMenuTree" :ids="menuIds" :tree="tree"/>
       </card>
     </el-col>
-    <add-role ref="AddRole" :dept="dept" :level="level" @update="getRoleList"/>
-    <edit-role ref="EditRole" :dept="dept" :level="level" @update="getRoleList"/>
+    <add-role ref="AddRole" :dept="dept" :level="level+1" @update="getRoleList"/>
+    <edit-role ref="EditRole" :dept="dept" :level="level+1" @update="getRoleList"/>
   </el-row>
 </template>
 
 <script>
-  import {getRoleListApi, deleteRoleApi, getRoleTreeApi} from '@/api/role'
-  import {editRolesMenusApi} from '@/api/menu'
-  import {getUserLevelApi} from '@/api/user'
-  import {getDeptTreeApi} from '@/api/dept'
+  import {getRoleListApi, deleteRoleApi, getRoleTreeApi} from '@/api/role';
+  import {editRolesMenusApi} from '@/api/menu';
+  import {getUserLevelApi} from '@/api/user';
+  import {getDeptTreeApi} from '@/api/dept';
   import {objectEvaluate} from "@/utils/common";
   import AddRole from './add'
   import EditRole from './edit'

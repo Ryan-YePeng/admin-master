@@ -4,7 +4,7 @@
       <el-input placeholder="输入部门名称搜索" v-model="searchName" clearable class="w-200"
                 @keyup.enter.native="searchDept"/>
       <el-button type="success" class="el-icon-search ml-5" @click="searchDept">搜索</el-button>
-      <el-button class="float-right" type="primary" icon="el-icon-plus" @click="add">新增</el-button>
+      <el-button class="float-right" type="primary" icon="el-icon-plus" @click="add()">新增</el-button>
     </div>
     <el-table
         row-key="id"
@@ -24,8 +24,9 @@
           <span>{{scope.row.createTime | formatDateTime}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" fixed="right" align="center" width="150">
+      <el-table-column label="操作" fixed="right" align="center" width="210">
         <template slot-scope="scope">
+          <el-button type="success" icon="el-icon-plus" @click.stop="add(scope.row)"></el-button>
           <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
           <delete-button
               :ref="scope.row.id"
@@ -74,8 +75,9 @@
           this.formData = result.resultParam.deptTree;
         })
       },
-      add() {
+      add(obj) {
         let _this = this.$refs.AddDept;
+        if (obj) _this.form.pid = obj.id;
         _this.visible = true
       },
       edit(obj) {

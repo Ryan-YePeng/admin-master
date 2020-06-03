@@ -56,11 +56,14 @@ service.interceptors.response.use(
     }
     const {status, message} = error.response.data;
     /* 401 */
+    console.log(status)
     if (status === 401) {
       if (errorStatus === status) return;
       errorStatus = status;
       msgBox("登录状态已过期，您可以继续留在该页面，或者重新登录", "重新登录", "系统提示")
-        .then(() => router.push({name: "login"}))
+        .then(() => {
+          store.dispatch('quitLogin')
+        })
         .catch(() => (errorStatus = null))
     } else if (status === 403) {
       /* 403 */

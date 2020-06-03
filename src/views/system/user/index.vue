@@ -61,14 +61,26 @@
       </el-table-column>
     </el-table>
     <pagination ref="Pagination" @update="getUserList"></pagination>
-    <add-user ref="AddUser" :dept="dept" @update="getUserList" :roleList="roleList" :jobList="jobList"></add-user>
-    <edit-user ref="EditUser" :dept="dept" @update="getUserList" :roleList="roleList" :jobList="jobList"></edit-user>
+    <add-user
+        ref="AddUser"
+        :dept="dept"
+        @update="getUserList"
+        :roleList="roleList"
+        :jobList="jobList"
+        :level="level"/>
+    <edit-user
+        ref="EditUser"
+        :dept="dept"
+        @update="getUserList"
+        :roleList="roleList"
+        :jobList="jobList"
+        :level="level"/>
   </card>
 </template>
 
 <script>
   import TreeSelect from '@riophae/vue-treeselect';
-  import {getUserListApi, deleteUserApi} from '@/api/user';
+  import {getUserListApi, deleteUserApi, getUserLevelApi} from '@/api/user';
   import {getDeptTreeApi} from '@/api/dept';
   import {getRoleListApi} from '@/api/role';
   import {getJobListApi} from '@/api/job';
@@ -86,6 +98,7 @@
             label: node.name
           }
         },
+        level: null,
         searchUsername: '',
         searchDeptId: null,
         formData: [],
@@ -95,6 +108,7 @@
       }
     },
     mounted() {
+      this.getUserLevel();
       this.getUserList();
       this.getDeptTree();
       this.getRoleList();
@@ -106,6 +120,11 @@
       }
     },
     methods: {
+      getUserLevel() {
+        getUserLevelApi().then(result => {
+          this.level = result.resultParam.level
+        })
+      },
       getJobList() {
         getJobListApi({jobName: ''}).then(result => {
           this.jobList = result.resultParam.jobList.records

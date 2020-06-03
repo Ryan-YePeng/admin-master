@@ -18,13 +18,13 @@
         slot="reference"
         type="danger"
         icon="el-icon-delete"
-        style="margin-left: 5px;"
+        style="margin-left: 10px;"
         @click.stop/>
     <el-button
         v-else
         slot="reference"
         type="text"
-        style="margin-left: 5px;"
+        style="margin-left: 10px;"
         @click.stop>
       {{text}}
     </el-button>
