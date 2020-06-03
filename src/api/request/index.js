@@ -3,6 +3,23 @@ import qs from "qs";
 
 
 /**
+ * @author 王业鹏
+ * @description {[]}: 对象中可带数组； {}：对象。
+ * @example axiosG   get     {[]} 获取
+ * @example axiosD   delete  {[]} 删除
+ * @example axiosA   post    {[]} 新增
+ * @example axiosM   put     {[]} 修改
+ * @example axiosL   get     {[]} 下载
+ * @example axiosK   post    x-www-form-urlencoded {} 新增
+ * @example axiosP   put     x-www-form-urlencoded {} 修改
+ * @example axiosJ   post    json {} 新增
+ * @example axiosU   put     json {} 修改
+ * @example axiosF   post    form-data FormData() 上传
+ * @example axiosFs  post    form-data {[]} 上传
+ * */
+
+
+/**
  * @param {String} url 请求地址
  * @param {Object=} param 参数
  * @description get

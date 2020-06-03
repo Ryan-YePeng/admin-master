@@ -23,7 +23,7 @@
           <el-tag>{{scope.row.time}}ms</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="创建日期">
+      <el-table-column label="创建日期" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           <span>{{ scope.row.createTime | formatDateTime}}</span>
         </template>

@@ -94,6 +94,7 @@
         this.$refs['Form'].validate((valid) => {
           if (valid) {
             let data = {...this.form};
+            if (data.dataScope !== '自定义') data.deptIds = [];
             this.$refs.SubmitButton.start();
             addRoleApi(data).then(() => {
               this.$refs.SubmitButton.stop();

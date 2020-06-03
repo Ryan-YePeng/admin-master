@@ -22,7 +22,7 @@
               <span>{{scope.row.createTime | formatDateTime}}</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" fixed="right" align="center" width="150">
+          <el-table-column label="操作" align="center" width="150">
             <template slot-scope="scope">
               <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
               <delete-button
@@ -160,5 +160,3 @@
     }
   }
 </script>
-
-

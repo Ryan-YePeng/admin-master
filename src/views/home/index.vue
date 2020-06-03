@@ -66,6 +66,6 @@
   #home {
     box-shadow: 0 0 3px 3px silver;
     background: url('../../assets/home.jpg') no-repeat center center;
-    background-size: contain;
+    background-size: cover;
   }
 </style>

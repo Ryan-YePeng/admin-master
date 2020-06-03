@@ -16,7 +16,7 @@
       <el-table-column prop="username" label="用户名"/>
       <el-table-column prop="requestIp" label="IP"/>
       <el-table-column prop="description" label="描述"/>
-      <el-table-column label="创建日期">
+      <el-table-column label="创建日期" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           <span>{{ scope.row.createTime | formatDateTime}}</span>
         </template>

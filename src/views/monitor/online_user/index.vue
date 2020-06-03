@@ -12,7 +12,7 @@
       <el-table-column prop="ip" label="登陆IP"/>
       <el-table-column prop="address" label="登陆地点"/>
       <el-table-column prop="browser" label="浏览器"/>
-      <el-table-column prop="loginTime" label="登陆时间">
+      <el-table-column prop="loginTime" label="登陆时间" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           <span>{{scope.row.loginTime | formatDateTime}}</span>
         </template>

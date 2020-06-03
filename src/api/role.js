@@ -11,4 +11,3 @@ export const deleteRoleApi = data => axiosD(deleteRole, data);
 export const editRoleApi = data => axiosU(editRole, data);
 export const getRoleListApi = data => axiosG(getRoleList, data);
 export const getRoleTreeApi = () => axiosG(getRoleTree);
-

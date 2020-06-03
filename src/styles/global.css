@@ -19,6 +19,10 @@ html, body, #app, .el-container {
   text-align: left;
 }
 
+.el-textarea__inner {
+  height: 120px;
+}
+
 .float-right {
   float: right;
 }

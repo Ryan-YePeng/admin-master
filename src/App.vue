@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <el-button @click="fun">按钮</el-button>
+    <!--<el-button @click="fun">按钮</el-button>
     <el-button @click="reset">重置</el-button>
     <el-form :model="form" :rules="rules" ref="Form" label-width="80px">
       <el-form-item label="地区" prop="province">
@@ -10,17 +10,14 @@
             :area.sync="form.area"
         />
       </el-form-item>
-    </el-form>
+    </el-form>-->
     <router-view/>
   </div>
 </template>
 
 <script>
-  import RegionSelect from '@/components/RegionSelect'
-
   export default {
     name: "App",
-    components: {RegionSelect},
     data() {
       return {
         form: {
