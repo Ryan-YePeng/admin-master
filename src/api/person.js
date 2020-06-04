@@ -8,5 +8,5 @@ const getUserLog = "log/pageUserLog"; // 个人日志
 export const getUserInfoApi = () => axiosG(getUser);
 export const logoutApi = () => axiosD(logout);
 export const updatePassApi = data => axiosK(updatePass, data);
-export const getUserLogApi = () => axiosG(getUserLog);
+export const getUserLogApi = data => axiosG(getUserLog, data);
 

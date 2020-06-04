@@ -83,16 +83,19 @@
       this.getUserLevel();
     },
     methods: {
+      // 获取部门
       getDeptTree() {
         getDeptTreeApi({deptName: ''}).then(result => {
           this.dept = result.resultParam.deptTree
         })
       },
+      // 获取级别
       getUserLevel() {
         getUserLevelApi().then(result => {
           this.level = result.resultParam.level
         })
       },
+      // 获取角色列表和权限树
       getRoleListAndRoleTree() {
         this.$refs.SubmitButton.ban();
         this.$refs.Card.start();
@@ -108,6 +111,7 @@
             this.tree = result.resultParam.roleTree
           })
       },
+      // 获取角色列表
       getRoleList() {
         this.$refs.Card.start();
         getRoleListApi({roleName: this.searchRoleName}).then(result => {
@@ -137,10 +141,12 @@
           this.$refs.SubmitButton.stop();
         })
       },
+      // 新增
       add() {
         let _this = this.$refs.AddRole;
         _this.visible = true
       },
+      // 编辑
       edit(obj) {
         let _this = this.$refs.EditRole;
         objectEvaluate(_this.form, obj);
@@ -150,6 +156,7 @@
         })
         _this.visible = true
       },
+      // 删除
       deleteRole(id) {
         deleteRoleApi({roleId: id})
           .then(() => {

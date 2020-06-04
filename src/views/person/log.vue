@@ -52,7 +52,10 @@
       getLog() {
         this.$refs.Card.start();
         let pagination = this.$refs.Pagination;
-        let param = `page=${pagination.current}&size=${pagination.size}`;
+        let param = {
+          current: pagination.current,
+          size: pagination.size
+        };
         getUserLogApi(param).then(result => {
           this.$refs.Card.stop();
           this.isLoading = false;

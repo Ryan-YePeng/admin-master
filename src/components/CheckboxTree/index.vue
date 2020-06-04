@@ -45,17 +45,24 @@
       },
       // 统一处理子节点为相同的勾选状态
       uniteChildSame(treeList, isSelected) {
-        this.$refs.CheckboxTree.setChecked(treeList.id, isSelected);
-        if (treeList.children)
+        // 判断是否被禁用
+        if (!treeList.disabled) {
+          this.$refs.CheckboxTree.setChecked(treeList.id, isSelected);
+        }
+        if (treeList.children) {
           for (let i = 0; i < treeList.children.length; i++) {
             this.uniteChildSame(treeList.children[i], isSelected)
           }
+        }
       },
       // 统一处理父节点为选中
       selectedParent(currentObj) {
         let currentNode = this.$refs.CheckboxTree.getNode(currentObj);
         if (currentNode.parent.key !== undefined) {
-          this.$refs.CheckboxTree.setChecked(currentNode.parent, true);
+          // 判断是否被禁用
+          if (!currentNode.parent.disabled) {
+            this.$refs.CheckboxTree.setChecked(currentNode.parent, true);
+          }
           this.selectedParent(currentNode.parent)
         }
       },
