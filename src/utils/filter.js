@@ -42,8 +42,9 @@ Vue.filter("formatArray", function (array, key = 'name') {
   if (isEmpty(array)) return '';
   let str = '';
   array.forEach(item => {
-    str += item[key] + ' / '
+    if (!isEmpty(item) && item.hasOwnProperty(key))
+      str += `${item[key]} / `
   });
-  str = str.substr(0, str.length - 2)
+  str = str.replace(/[\s][/][\s]$/, '');
   return str
 });

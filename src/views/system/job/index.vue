@@ -64,10 +64,10 @@
           jobName: this.searchJobName
         };
         getJobListApi(param).then(result => {
-          this.$refs.Card.stop();
           let response = result.resultParam.jobList;
           this.formData = response.records;
           pagination.total = response.total;
+          this.$refs.Card.stop();
         })
       },
       add() {
@@ -81,7 +81,7 @@
         _this.visible = true
       },
       deleteJob(id) {
-        deleteJobApi({jobId: id})
+        deleteJobApi({id: id})
           .then(() => {
             this.getJobList();
             this.$refs[id].close()

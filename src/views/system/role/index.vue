@@ -1,6 +1,6 @@
 <template>
   <el-row :gutter="20">
-    <el-col :sm="24" :md="17" class="mb-15">
+    <el-col :sm="24" :md="19" class="mb-15">
       <card ref="Card">
         <div slot="header">
           <el-input placeholder="输入角色名称搜索" v-model="searchRoleName" clearable class="w-200"
@@ -34,7 +34,7 @@
         </el-table>
       </card>
     </el-col>
-    <el-col :sm="24" :md="7">
+    <el-col :sm="24" :md="5">
       <card ref="TreeCard">
         <div slot="header">
           <span>菜单分配</span>
@@ -59,9 +59,9 @@
   import {getUserLevelApi} from '@/api/user';
   import {getDeptTreeApi} from '@/api/dept';
   import {objectEvaluate} from "@/utils/common";
-  import AddRole from './add'
-  import EditRole from './edit'
-  import CheckboxTree from '@/components/CheckboxTree'
+  import CheckboxTree from '@/components/CheckboxTree';
+  import AddRole from './add';
+  import EditRole from './edit';
 
   export default {
     name: "Role",
@@ -144,7 +144,10 @@
       edit(obj) {
         let _this = this.$refs.EditRole;
         objectEvaluate(_this.form, obj);
-        _this.form.deptIds = obj.depts.map(item => item.id);
+        _this.form.deptIds = [];
+        obj.depts.forEach(item => {
+          if (item) _this.form.deptIds.push(item.id)
+        })
         _this.visible = true
       },
       deleteRole(id) {

@@ -12,12 +12,12 @@
         <el-table-column prop="requestIp" label="IP" :show-overflow-tooltip="true"/>
         <el-table-column prop="address" label="IP来源" :show-overflow-tooltip="true"/>
         <el-table-column prop="browser" label="浏览器"/>
-        <el-table-column prop="time" label="请求耗时" :show-overflow-tooltip="true">
+        <el-table-column prop="time" label="请求耗时">
           <template slot-scope="scope">
             <el-tag>{{ scope.row.time }}ms</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="创建时间">
+        <el-table-column prop="createTime" label="创建时间" :show-overflow-tooltip="true">
           <template slot-scope="scope">
             <span>{{ scope.row.createTime | formatDateTime}}</span>
           </template>

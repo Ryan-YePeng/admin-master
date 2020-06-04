@@ -42,8 +42,8 @@
 
 <script>
   import {getDeptTreeApi, deleteDeptApi} from '@/api/dept'
-  import AddDept from './add'
   import {objectEvaluate} from "@/utils/common";
+  import AddDept from './add'
   import EditDept from './edit'
 
   export default {
@@ -63,9 +63,9 @@
       getDeptTree() {
         this.$refs.Card.start();
         getDeptTreeApi({deptName: ''}).then(result => {
-          this.$refs.Card.stop();
           this.formData = result.resultParam.deptTree;
           this.dept = result.resultParam.deptTree;
+          this.$refs.Card.stop();
         })
       },
       searchDept() {

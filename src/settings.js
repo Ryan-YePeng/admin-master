@@ -2,7 +2,7 @@ module.exports = {
   /**
    * @description 网站标题
    */
-  title: 'RYAN-ADMIN',
+  title: 'WTeam-ADMIN',
   /**
    * @description 是否启用history
    */

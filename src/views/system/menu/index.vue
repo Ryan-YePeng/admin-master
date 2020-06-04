@@ -11,31 +11,31 @@
         :data="formData"
         :tree-props="{children: 'children'}">
       <el-table-column prop="title" label="菜单名称"/>
-      <el-table-column prop="icon" label="图标" align="center">
+      <el-table-column prop="icon" label="图标">
         <template slot-scope="scope">
           <svg-icon slot="prefix" :icon-class="scope.row.icon" class="el-table-column-icon"/>
         </template>
       </el-table-column>
-      <el-table-column prop="sort" label="排序" align="center"/>
+      <el-table-column prop="sort" label="排序"/>
       <el-table-column label="路径名称">
         <template slot-scope="scope">
           <clipboard :text="scope.row.name">{{scope.row.name}}</clipboard>
         </template>
       </el-table-column>
       <el-table-column prop="permission" label="权限标识"/>
-      <el-table-column label="外链">
+      <el-table-column label="外链" align="center" width="55">
         <template slot-scope="scope">
           <el-tag type="success" v-if="scope.row.iframe">是</el-tag>
           <el-tag type="info" v-else>否</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="缓存">
+      <el-table-column label="缓存" align="center" width="55">
         <template slot-scope="scope">
           <el-tag type="success" v-if="scope.row.cache">是</el-tag>
           <el-tag type="info" v-else>否</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="可见">
+      <el-table-column label="可见" align="center" width="55">
         <template slot-scope="scope">
           <el-tag type="info" v-if="scope.row.hidden">否</el-tag>
           <el-tag type="success" v-else>是</el-tag>
@@ -82,9 +82,11 @@
       getMenu() {
         this.$refs.Card.start();
         getAllMenuApi({title: ''}).then(result => {
-          this.$refs.Card.stop();
           this.formData = result.resultParam.menuList;
           this.menu = result.resultParam.menuList
+          this.$nextTick(() => {
+            this.$refs.Card.stop();
+          })
         })
       },
       searchMenu() {

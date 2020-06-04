@@ -25,7 +25,7 @@
     },
     data() {
       return {
-        title: 'RYAN-后台管理'
+        title: 'WTeam - 后台管理'
       }
     }
   }
@@ -72,12 +72,12 @@
         width: 32px;
         height: 32px;
         vertical-align: middle;
-        margin-right: 9px;
+        margin-right: 10px; // 标志
       }
 
       & .logo-title {
         display: inline-block;
-        margin-right: 36px;
+        margin-right: 17px; // 标志
         font-weight: 600;
         line-height: $horizontal-menu-height;
         font-size: 14px;
