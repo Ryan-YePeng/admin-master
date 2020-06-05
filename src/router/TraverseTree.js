@@ -16,13 +16,9 @@ export class TraverseTree {
     this.run()
   }
 
-  static isEmpty(value) { // 判断数组是否可以继续遍历
-    return (
-      value === undefined ||
-      value === null ||
-      (typeof value === "object" && Object.keys(value).length === 0) ||
-      (typeof value === "string" && value.trim().length === 0)
-    )
+  hasChildren(value) {
+    if (!value || value.length === 0) return false;
+    return value.some(item => !item.hidden)
   }
 
   release() { // 释放内存
@@ -55,12 +51,12 @@ export class TraverseTree {
     this.menu.forEach(fistItem => {
       fistItem.path = `/${fistItem.name}`;
       fistItem.indexPath = [fistItem.title];
-      if (!TraverseTree.isEmpty(fistItem.children)) {
+      if (this.hasChildren(fistItem.children)) {
         // 遍历二级
         fistItem.children.forEach(secondItem => {
           secondItem.path = `/${fistItem.name}/${secondItem.name}`;
           secondItem.indexPath = [fistItem.title, secondItem.title];
-          if (!TraverseTree.isEmpty(secondItem.children)) {
+          if (this.hasChildren(secondItem.children)) {
             // 遍历三级
             secondItem.children.forEach(thirdItem => {
               thirdItem.path = `/${fistItem.name}/${secondItem.name}/${thirdItem.name}`;

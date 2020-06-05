@@ -1,9 +1,9 @@
 <template>
   <div id="nav-bar">
-    <div class="search-menu">
+    <div class="search-menu" v-show="!isSmall">
       <search-menu/>
     </div>
-    <div class="screen-full-button">
+    <div class="screen-full-button" v-show="!isSmall">
       <screen-full/>
     </div>
     <el-dropdown trigger="click">
@@ -47,6 +47,9 @@
     computed: {
       avatarUrl() {
         return process.env.VUE_APP_BASE_API + this.$storeGet.user.avatar
+      },
+      isSmall() {
+        return this.$storeGet.isSmall
       }
     },
     methods: {
