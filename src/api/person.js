@@ -9,4 +9,3 @@ export const getUserInfoApi = () => axiosG(getUser);
 export const logoutApi = () => axiosD(logout);
 export const updatePassApi = data => axiosK(updatePass, data);
 export const getUserLogApi = data => axiosG(getUserLog, data);
-

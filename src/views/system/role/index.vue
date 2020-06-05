@@ -108,7 +108,8 @@
           })
           .then(result => {
             this.$refs.TreeCard.stop();
-            this.tree = result.resultParam.roleTree
+            this.tree = result.resultParam.roleTree;
+            this.filterTree();
           })
       },
       // 获取角色列表
@@ -166,6 +167,41 @@
           .catch(() => {
             this.$refs[id].stop();
           })
+      },
+      // 判断是否为超管
+      filterTree() {
+        let myRoles = this.$storeGet.user.roles.map(item => item.id)
+        let isAdmin = myRoles.some(id => {
+          return this.formData.some(item => {
+            return item.id === id && item.permission === "admin"
+          })
+        })
+        if (isAdmin) return
+        this.getHadRoles(myRoles)
+      },
+      // 获得已有权限
+      getHadRoles(myRoles) {
+        let roleIds = [];
+        myRoles.forEach(id => {
+          this.formData.some(item => {
+            if (item.id === id) {
+              let list = item.menus.map(item => item.id);
+              roleIds = [...roleIds, ...list]
+              return true
+            }
+          })
+        })
+        this.filterAsyncTree(this.tree, roleIds)
+      },
+      // 遍历和禁用
+      filterAsyncTree(nodes, roleIds) {
+        return nodes.filter(node => {
+          node.disabled = !roleIds.includes(node.id);
+          if (node.children && node.children.length) {
+            node.children = this.filterAsyncTree(node.children, roleIds)
+          }
+          return true
+        })
       }
     }
   }

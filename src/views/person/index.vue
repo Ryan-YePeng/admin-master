@@ -27,6 +27,14 @@
               <span>{{user.dept | formatObj}}</span>
             </li>
             <li>
+              <span>岗位</span>
+              <span>{{user.jobs | formatArray}}</span>
+            </li>
+            <li>
+              <span>角色</span>
+              <span>{{user.roles | formatArray}}</span>
+            </li>
+            <li>
               <span>创建日期</span>
               <span>{{user.createTime | formatDate}}</span>
             </li>
