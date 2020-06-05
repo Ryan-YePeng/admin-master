@@ -19,6 +19,8 @@ module.exports = {
   chainWebpack: config => {
     config.resolve.symlinks(true);
     config.resolve.alias.set("@", resolve("src"));
+    config.plugins.delete("preload");
+    config.plugins.delete("prefetch");
     config.module
       .rule("svg")
       .exclude.add(resolve("src/assets/icons"))

@@ -20,12 +20,13 @@ const mutations = {
     else state.user = {}
   },
   [type.QUIT_LOGIN]() {
-    router.push({name: 'login'});
-    store.dispatch('setActive');
-    store.dispatch('clearTags');
-    store.dispatch('setBreadcrumb');
-    store.dispatch('setToken');
-    location.reload();
+    router.push({name: 'login'}).then(() => {
+      store.dispatch('setActive');
+      store.dispatch('clearTags');
+      store.dispatch('setBreadcrumb');
+      store.dispatch('setToken');
+      location.reload();
+    })
   }
 };
 

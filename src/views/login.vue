@@ -115,9 +115,10 @@
                 return generateRouter();
               })
               .then(() => {
-                this.$storeSet('setRememberMe',
-                  {rememberMe: this.isRememberMe, username: this.form.username}
-                );
+                this.$storeSet('setRememberMe', {
+                  rememberMe: this.isRememberMe,
+                  username: this.form.username
+                });
                 this.$router.push({name: 'home'});
                 this.isLoading = false;
               })
