@@ -53,15 +53,17 @@ export function generateRouter() {
     getMenuApi()
       .then(result => {
         const menu = result.resultParam.content;
-        layout = new TraverseTree(menu, layout).get();
+        let tree = new TraverseTree(menu, layout)
         store.dispatch('setMenu', menu);
+        store.dispatch('setSearchMenu', tree.getList());
         store.dispatch('setHasGenerateRouter');
-        router.addRoutes([layout]);
+        router.addRoutes([tree.getLayout()]);
         router.addRoutes([{path: "*", redirect: "/404"}]);
         resolve()
-      }).catch(() => {
-      reject()
-    })
+      })
+      .catch(() => {
+        reject()
+      })
   })
 }
 

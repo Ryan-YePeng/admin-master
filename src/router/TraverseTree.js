@@ -12,7 +12,8 @@ export class TraverseTree {
   constructor(menu, layout) {
     this.menu = menu; // 菜单
     this.layout = layout; // 路由集合
-    this.run() // 启动
+    this.list = []; // 搜索集合
+    this.run()
   }
 
   static isEmpty(value) { // 判断数组是否可以继续遍历
@@ -28,7 +29,17 @@ export class TraverseTree {
     this.menu = null;
   }
 
-  addRouter(item) { // 添加路由
+  operate(item) {
+    // 搜索菜单
+    this.list.push({
+      indexPath: item.indexPath,
+      index: item.title,
+      cache: item.cache,
+      name: item.name,
+      path: item.path,
+      iframe: item.iframe
+    })
+    // 路由
     if (item.iframe) return;
     let obj = {};
     obj.name = item.name;
@@ -43,28 +54,35 @@ export class TraverseTree {
     // 遍及一级
     this.menu.forEach(fistItem => {
       fistItem.path = `/${fistItem.name}`;
+      fistItem.indexPath = [fistItem.title];
       if (!TraverseTree.isEmpty(fistItem.children)) {
         // 遍历二级
         fistItem.children.forEach(secondItem => {
           secondItem.path = `/${fistItem.name}/${secondItem.name}`;
+          secondItem.indexPath = [fistItem.title, secondItem.title];
           if (!TraverseTree.isEmpty(secondItem.children)) {
             // 遍历三级
             secondItem.children.forEach(thirdItem => {
               thirdItem.path = `/${fistItem.name}/${secondItem.name}/${thirdItem.name}`;
-              this.addRouter(thirdItem) // 添加三级
+              thirdItem.indexPath = [fistItem.title, secondItem.title, thirdItem.title];
+              this.operate(thirdItem) // 添加三级
             })
           } else {
-            this.addRouter(secondItem) // 添加二级
+            this.operate(secondItem) // 添加二级
           }
         })
       } else {
-        this.addRouter(fistItem) // 添加一级
+        this.operate(fistItem) // 添加一级
       }
     })
     this.release();
   }
 
-  get() {
+  getLayout() {
     return this.layout;
+  }
+
+  getList() {
+    return this.list;
   }
 }

@@ -1,5 +1,8 @@
 <template>
   <div id="nav-bar">
+    <div class="search-menu">
+      <search-menu/>
+    </div>
     <div class="screen-full-button">
       <screen-full/>
     </div>
@@ -29,12 +32,13 @@
 
 <script>
   import ScreenFull from './ScreenFull'
+  import SearchMenu from './SearchMenu'
   import DrawerSetting from './DrawerSetting'
   import {logoutApi} from '@/api/person'
 
   export default {
     name: "NavBar",
-    components: {ScreenFull, DrawerSetting},
+    components: {ScreenFull, SearchMenu, DrawerSetting},
     data() {
       return {
         drawer: false

@@ -1,5 +1,6 @@
 const type = {
   SET_MENU: 'SET_MENU',
+  SET_SEARCH_MENU: 'SET_SEARCH_MENU',
   SET_SMALL: 'SET_SMALL',
   SET_DRAWER: 'SET_DRAWER',
   SET_COLLAPSED: 'SET_COLLAPSED',
@@ -8,6 +9,7 @@ const type = {
 
 const state = {
   menu: [],
+  searchMenu: [],
   isSmall: false,
   isDrawer: false,
   isCollapsed: false,
@@ -16,6 +18,7 @@ const state = {
 
 const getters = {
   menu: state => state.menu,
+  searchMenu: state => state.searchMenu,
   isSmall: state => state.isSmall,
   isDrawer: state => state.isDrawer,
   isCollapsed: state => state.isCollapsed,
@@ -26,6 +29,10 @@ const mutations = {
   [type.SET_MENU](state, menu) {
     if (menu) state.menu = menu;
     else state.menu = []
+  },
+  [type.SET_SEARCH_MENU](state, searchMenu) {
+    if (searchMenu) state.searchMenu = searchMenu;
+    else state.searchMenu = []
   },
   [type.SET_SMALL](state, isSmall) {
     state.isSmall = isSmall
@@ -44,6 +51,9 @@ const mutations = {
 const actions = {
   setMenu: ({commit}, menu) => {
     commit(type.SET_MENU, menu)
+  },
+  setSearchMenu: ({commit}, searchMenu) => {
+    commit(type.SET_SEARCH_MENU, searchMenu)
   },
   setSmall: ({commit}, isSmall) => {
     commit(type.SET_SMALL, isSmall)
@@ -65,4 +75,3 @@ export default {
   mutations,
   actions
 }
-
