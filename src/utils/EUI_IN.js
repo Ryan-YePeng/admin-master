@@ -5,11 +5,10 @@ import Vue from "vue";
  * */
 import {
   Loading, Button, Container, Header, Tooltip, Dropdown, Avatar, DropdownMenu, DropdownItem,
-  Main, Form, FormItem, Input, Breadcrumb, BreadcrumbItem, Menu, MenuItem, Pagination,
-  Table, TableColumn, Tag, Scrollbar, Submenu, Dialog, Col, Row, Upload, Popover,
-  Option, Select, InputNumber, PageHeader, Image, Cascader, TabPane, Tabs, Radio,
-  Switch, Drawer, Footer, RadioGroup, RadioButton, MenuItemGroup, Checkbox, Tree, Progress,
-  Backtop, Icon, DatePicker
+  Main, Form, FormItem, Input, Breadcrumb, BreadcrumbItem, Menu, MenuItem, Pagination, Table,
+  TableColumn, Tag, Scrollbar, Submenu, Dialog, Col, Row, Upload, Popover, Option, Select,
+  InputNumber, PageHeader, Image, Cascader, TabPane, Tabs, Radio, Switch, Drawer, Footer,
+  RadioGroup, RadioButton, MenuItemGroup, Checkbox, Tree, Progress, Backtop, Icon, DatePicker
 } from 'element-ui';
 
 Vue.component('ElButton', Button);

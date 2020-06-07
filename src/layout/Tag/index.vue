@@ -88,6 +88,7 @@
       },
       // 点击标签
       tabsClick(tag) {
+        if (tag.title === this.$storeGet.active) return;
         this.$storeSet("setBreadcrumb", tag.indexPath);
         this.$storeSet("setActive", tag.title);
       },
@@ -96,15 +97,14 @@
         if (obj.title === '首页') return;
         this.$storeSet("deleteTags", obj.title);
       },
-      // 右键菜单打开回调 (data数据类型为: object)
+      // 右键菜单打开回调 (data: {object})
       show(data) {
         this.clickedTitle = data.title;
         this.selectedTag = data;
       },
       // 刷新路由
       refresh() {
-        let activeTag = this.$storeGet.active;
-        if (activeTag === this.clickedTitle) {
+        if (this.$storeGet.active === this.clickedTitle) {
           this.$storeSet('refreshRouter', this.selectedTag.name)
         } else {
           this.$router.push({name: this.selectedTag.name});
