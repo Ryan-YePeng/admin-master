@@ -1,7 +1,7 @@
 const settings = require("./src/settings");
 const resolve = dir => require("path").join(__dirname, dir);
 const Analyzer = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
-const isOpenAnalyzer = true;
+const isOpenAnalyzer = false;
 module.exports = {
   publicPath: settings.isHistory ? "/" : "./",
   outputDir: "dist",

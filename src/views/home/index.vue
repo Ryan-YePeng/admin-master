@@ -1,8 +1,5 @@
 <template>
-  <div
-      id="home"
-      :style="'height:' + (mainHeight-30) + 'px'"
-      v-show="isShow">
+  <div id="home" :style="'height:' + (mainHeight - 30) + 'px'" v-show="isShow">
     <h1 class="title">WTeam - 后台管理系统</h1>
   </div>
 </template>
@@ -17,10 +14,10 @@
       return {
         mainHeight: 0,
         isShow: false
-      }
+      };
     },
     mounted() {
-      this.addListen()
+      this.addListen();
     },
     methods: {
       addListen() {
@@ -30,23 +27,23 @@
         mainResizeListen.listenTo(main, () => {
           this.$nextTick(() => {
             this.mainHeight = main.offsetHeight;
-          })
-        })
+          });
+        });
       }
     },
     beforeDestroy() {
       let main = document.querySelector(".main");
       mainResizeListen.uninstall(main);
     }
-  }
+  };
 </script>
 
 <style lang="scss">
   #home {
-    -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .3);
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .3);
+    -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.3);
     border-radius: 4px;
-    background: url('../../assets/home.jpg') no-repeat center center;
+    background: url("../../assets/home.jpg") no-repeat center center;
     background-size: cover;
 
     .title {

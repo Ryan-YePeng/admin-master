@@ -1,6 +1,6 @@
 {
   "name": "admin-master",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
@@ -48,5 +48,25 @@
     "svg-sprite-loader": "^4.2.1",
     "vue-template-compiler": "^2.6.10",
     "webpack-bundle-analyzer": "^3.7.0"
-  }
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended",
+      "@vue/prettier"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }

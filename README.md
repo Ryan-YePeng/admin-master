@@ -1,6 +1,6 @@
-<h1 align="center">ADMIN-MASTER</h1>
+<h1 style="text-align: center">ADMIN-MASTER</h1>
 
-版本：`1.0`（日期：2020-05-29）
+版本：`2.0`（日期：2020-06-08）
 
 <br/>
 
@@ -10,7 +10,7 @@
 npm i / cnpm i
 
 # 启动服务 localhost:8088
-npm run dev
+npm run dev / npm run serve
 
 # 构建生产环境
 npm run build
