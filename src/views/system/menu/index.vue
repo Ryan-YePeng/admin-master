@@ -58,11 +58,11 @@
 </template>
 
 <script>
-  import {getAllMenuApi, deleteMenuApi} from '@/api/menu'
+  import {getAllMenuApi, deleteMenuApi} from '@/api/menu';
   import {objectEvaluate} from "@/utils/common";
-  import AddMenu from './add'
-  import EditMenu from './edit'
-  import Clipboard from '@/components/Clipboard'
+  import AddMenu from './add';
+  import EditMenu from './edit';
+  import Clipboard from '@/components/Clipboard';
 
   export default {
     name: "Menu",
