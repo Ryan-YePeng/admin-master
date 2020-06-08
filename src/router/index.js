@@ -1,17 +1,17 @@
-import router from './routers'
-import store from '../store'
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
-import {getMenuApi} from '@/api/menu'
-import {getUserInfoApi} from '@/api/person'
-import {title} from '@/settings'
-import {TraverseTree} from './TraverseTree'
+import router from './routers';
+import store from '../store';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+import {getMenuApi} from '@/api/menu';
+import {getUserInfoApi} from '@/api/person';
+import {title} from '@/settings';
+import {TraverseTree} from './TraverseTree';
 
 NProgress.configure({showSpinner: false});
 
 let layout = {
-  name: 'index',
-  path: '/index',
+  name: 'layout',
+  path: '/layout',
   redirect: "/home",
   component: () => import('@/layout'),
   children: [
