@@ -24,7 +24,7 @@
 </template>
 
 <script>
-  import {updatePassApi} from '../../api/person'
+  import {updatePassApi} from '@/api/person'
   import {encrypt} from "@/utils/encrypt";
 
   export default {

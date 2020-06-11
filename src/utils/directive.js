@@ -1,5 +1,5 @@
 import Vue from "vue";
-import store from '../store'
+import store from '@/store'
 
 /**
  * @description 权限控制

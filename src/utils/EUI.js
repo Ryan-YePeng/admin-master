@@ -91,7 +91,7 @@ export const errorMessage = (msg, time = 3000) => {
  * @description 加载提示
  */
 let LOADING = null;
-const startLoading = (text = '加载中...') => {
+export const startLoading = (text = '加载中...') => {
   LOADING = Loading.service({
     text,
     lock: true,
@@ -101,7 +101,7 @@ const startLoading = (text = '加载中...') => {
   })
 };
 
-const stopLoading = () => {
+export const stopLoading = () => {
   LOADING.close();
 };
 

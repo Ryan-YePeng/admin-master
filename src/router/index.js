@@ -1,9 +1,10 @@
 import router from './routers';
-import store from '../store';
+import store from '@/store';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import {getMenuApi} from '@/api/menu';
 import {getUserInfoApi} from '@/api/person';
+import {startLoading, stopLoading} from '@/utils/EUI';
 import {title} from '@/settings';
 import {TraverseTree} from './TraverseTree';
 
@@ -45,6 +46,7 @@ let layout = {
 // 动态路由
 export function generateRouter() {
   return new Promise((resolve, reject) => {
+    startLoading()
     getUserInfoApi().then(result => {
       const {user, roles} = result.resultParam.currentUser
       store.dispatch('setUser', user)
@@ -59,9 +61,11 @@ export function generateRouter() {
         store.dispatch('setHasGenerateRouter');
         router.addRoutes([tree.getLayout()]);
         router.addRoutes([{path: "*", redirect: "/404"}]);
+        stopLoading()
         resolve()
       })
       .catch(() => {
+        stopLoading()
         reject()
       })
   })
