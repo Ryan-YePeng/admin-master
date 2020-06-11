@@ -23,12 +23,12 @@ module.exports = {
     config.plugins.delete("prefetch");
     config.module
       .rule("svg")
-      .exclude.add(resolve("src/assets/icons"))
+      .exclude.add(resolve("src/icons"))
       .end();
     config.module
       .rule("icons")
       .test(/\.svg$/)
-      .include.add(resolve("src/assets/icons"))
+      .include.add(resolve("src/icons"))
       .end()
       .use("svg-sprite-loader")
       .loader("svg-sprite-loader")

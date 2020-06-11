@@ -96,7 +96,7 @@ export const startLoading = (text = '加载中...') => {
     text,
     lock: true,
     fullscreen: true,
-    background: 'rgba(0, 0, 0, 0.1)',
+    background: 'rgba(0, 0, 0, 0)',
     spinner: 'el-icon-loading'
   })
 };

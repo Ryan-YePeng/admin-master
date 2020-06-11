@@ -8,7 +8,7 @@ import './utils/EUI'; // element-ui
 import './utils/directive'; // 指令
 import './utils/filter'; // 过滤器
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'; // 树状选择器
-import './assets/icons'; // svg
+import './icons'; // svg
 import App from "./App.vue";
 
 Vue.use(EVueContextmenu);
