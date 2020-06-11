@@ -80,10 +80,10 @@
 
 <script>
   import TreeSelect from '@riophae/vue-treeselect';
-  import {getUserListApi, deleteUserApi, getUserLevelApi} from '@/api/user';
-  import {getDeptTreeApi} from '@/api/dept';
-  import {getRoleListApi} from '@/api/role';
-  import {getJobListApi} from '@/api/job';
+  import {getUserListApi, deleteUserApi, getUserLevelApi} from '@/api/system/user';
+  import {getDeptTreeApi} from '@/api/system/dept';
+  import {getRoleListApi} from '@/api/system/role';
+  import {getJobListApi} from '@/api/system/job';
   import {objectEvaluate} from "@/utils/common";
   import AddUser from './add';
   import EditUser from './edit';

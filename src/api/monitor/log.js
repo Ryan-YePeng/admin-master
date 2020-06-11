@@ -1,4 +1,4 @@
-import {axiosG} from "@/api/request";
+import {axiosG} from "@/api";
 
 const getErrorDetailById = "log/getErrorDetail"; // 通过id获得报错信息的详情
 const getErrorLog = "log/pageErrorLog"; // 获得报错日志

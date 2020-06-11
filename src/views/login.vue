@@ -1,7 +1,7 @@
 <template>
-  <div class="login">
-    <div id="el-login-container">
-      <el-form ref="Form" :model="form" :rules="rules" label-position="left" label-width="0px" class="login-form">
+  <div class="index">
+    <div id="el-index-container">
+      <el-form ref="Form" :model="form" :rules="rules" label-position="left" label-width="0px" class="index-form">
         <h3 class="title">
           WTeam-ADMIN 后台管理系统
         </h3>
@@ -21,7 +21,7 @@
                     @keyup.enter.native="submitForm">
             <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon"/>
           </el-input>
-          <div class="login-code" v-loading="isImgLoading" element-loading-background="rgba(255, 255, 255, 0)">
+          <div class="index-code" v-loading="isImgLoading" element-loading-background="rgba(255, 255, 255, 0)">
             <img :src="codeUrl" @click="getCode" alt="验证码">
           </div>
         </el-form-item>
@@ -38,7 +38,7 @@
       </el-form>
     </div>
     <!--  底部  -->
-    <div v-if="isShowFooter" id="el-login-footer">
+    <div v-if="isShowFooter" id="el-index-footer">
       <span>{{footerTxt}} ⋅ {{caseNumber}}</span>
     </div>
   </div>
@@ -136,7 +136,7 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-  .login {
+  .index {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -152,7 +152,7 @@
       color: #ffffff;
     }
 
-    .login-form {
+    .index-form {
       border-radius: 6px;
       background: rgba(0, 0, 0, .15);
       width: 350px;
@@ -178,13 +178,13 @@
       }
     }
 
-    .login-tip {
+    .index-tip {
       font-size: 13px;
       text-align: center;
       color: #bfbfbf;
     }
 
-    .login-code {
+    .index-code {
       width: 33%;
       display: inline-block;
       height: 38px;
@@ -198,7 +198,7 @@
       }
     }
 
-    #el-login-footer {
+    #el-index-footer {
       height: 40px;
       line-height: 40px;
       position: fixed;

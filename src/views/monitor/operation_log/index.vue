@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import {getLogListApi} from '@/api/log'
+  import {getLogListApi} from '@/api/monitor/log'
 
   export default {
     name: "ErrorLog",

@@ -54,10 +54,10 @@
 </template>
 
 <script>
-  import {getRoleListApi, deleteRoleApi, getRoleTreeApi} from '@/api/role';
-  import {editRolesMenusApi} from '@/api/menu';
-  import {getUserLevelApi} from '@/api/user';
-  import {getDeptTreeApi} from '@/api/dept';
+  import {getRoleListApi, deleteRoleApi, getRoleTreeApi} from '@/api/system/role';
+  import {editRolesMenusApi} from '@/api/system/menu';
+  import {getUserLevelApi} from '@/api/system/user';
+  import {getDeptTreeApi} from '@/api/system/dept';
   import {objectEvaluate} from "@/utils/common";
   import CheckboxTree from '@/components/CheckboxTree';
   import AddRole from './add';

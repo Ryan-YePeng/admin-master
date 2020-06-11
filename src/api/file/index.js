@@ -1,4 +1,4 @@
-import {axiosF, axiosFs} from "./request";
+import {axiosF, axiosFs} from "@/api";
 
 /**
  * @module 图片

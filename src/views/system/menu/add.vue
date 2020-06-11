@@ -88,7 +88,7 @@
 <script>
   import IconSelect from '@/components/IconSelect'
   import TreeSelect from '@riophae/vue-treeselect'
-  import {addMenuApi} from '@/api/menu'
+  import {addMenuApi} from '@/api/system/menu'
 
   export default {
     name: "AddMenu",

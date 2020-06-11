@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import {getOnlineUserApi, deleteOnlineUserApi} from "@/api/user";
+  import {getOnlineUserApi, deleteOnlineUserApi} from "@/api/monitor/user";
 
   export default {
     name: "OnlineUser",

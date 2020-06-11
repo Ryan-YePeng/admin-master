@@ -2,7 +2,7 @@ import router from './routers';
 import store from '@/store';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import {getMenuApi} from '@/api/menu';
+import {getMenuApi} from '@/api/system/menu';
 import {getUserInfoApi} from '@/api/person';
 import {startLoading, stopLoading} from '@/utils/EUI';
 import {title} from '@/settings';

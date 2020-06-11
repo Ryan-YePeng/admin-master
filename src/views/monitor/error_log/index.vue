@@ -35,7 +35,7 @@
 </template>
 
 <script>
-  import {getErrorLogApi, getErrorDetailByIdApi} from '@/api/log'
+  import {getErrorLogApi, getErrorDetailByIdApi} from '@/api/monitor/log'
 
   export default {
     name: "OperationLog",

@@ -43,7 +43,7 @@
 
 <script>
   import TreeSelect from '@riophae/vue-treeselect'
-  import {editDeptApi} from '@/api/dept'
+  import {editDeptApi} from '@/api/system/dept'
 
   export default {
     name: "EditDept",

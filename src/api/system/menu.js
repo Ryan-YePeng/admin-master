@@ -1,4 +1,4 @@
-import {axiosD, axiosG, axiosJ, axiosK, axiosP} from "./request";
+import {axiosD, axiosG, axiosJ, axiosK, axiosP} from "@/api";
 
 const addMenu = "admin/menu/addMenu"; // 新增菜单
 const deleteMenu = "admin/menu/delMenu"; // 删除菜单

@@ -37,7 +37,7 @@
 </template>
 
 <script>
-  import {getJobListApi, deleteJobApi} from '@/api/job'
+  import {getJobListApi, deleteJobApi} from '@/api/system/job'
   import AddJob from './add'
   import EditJob from './edit'
   import {objectEvaluate} from "@/utils/common";

@@ -1,4 +1,4 @@
-import {axiosD, axiosG, axiosK, axiosP} from "@/api/request";
+import {axiosD, axiosG, axiosK, axiosP} from "@/api";
 
 const addDept = "admin/dept/addDept"; // 新增部门
 const deleteDept = "admin/dept/delDept"; // 删除部门

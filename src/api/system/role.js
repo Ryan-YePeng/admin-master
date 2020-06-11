@@ -1,4 +1,4 @@
-import {axiosD, axiosG, axiosJ, axiosU} from "./request";
+import {axiosD, axiosG, axiosJ, axiosU} from "@/api";
 
 const addRole = "admin/role/addRole"; // 新增角色
 const deleteRole = "admin/role/delRole"; // 删除角色

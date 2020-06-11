@@ -32,7 +32,7 @@
 </template>
 
 <script>
-  import {editJobApi} from '@/api/job'
+  import {editJobApi} from '@/api/system/job'
 
   export default {
     name: "EditJob",

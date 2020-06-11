@@ -1,4 +1,4 @@
-import {axiosD, axiosG, axiosK, axiosP} from "@/api/request";
+import {axiosD, axiosG, axiosK, axiosP} from "@/api";
 
 const addJob = "admin/job/addJob"; // 新增职业
 const deleteJob = "admin/job/delJob"; // 删除职业

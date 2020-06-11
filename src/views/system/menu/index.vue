@@ -58,7 +58,7 @@
 </template>
 
 <script>
-  import {getAllMenuApi, deleteMenuApi} from '@/api/menu';
+  import {getAllMenuApi, deleteMenuApi} from '@/api/system/menu';
   import {objectEvaluate} from "@/utils/common";
   import AddMenu from './add';
   import EditMenu from './edit';

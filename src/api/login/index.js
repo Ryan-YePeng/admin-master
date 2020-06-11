@@ -1,4 +1,4 @@
-import {axiosG, axiosK} from "./request";
+import {axiosG, axiosK} from "@/api";
 
 const getCode = "admin/login/getCode"; // 获取验证码
 const login = "admin/login/login"; // 登陆

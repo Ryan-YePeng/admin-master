@@ -53,7 +53,7 @@
 
 <script>
   import TreeSelect from '@riophae/vue-treeselect'
-  import {editRoleApi} from '@/api/role'
+  import {editRoleApi} from '@/api/system/role'
 
   export default {
     name: "EditRole",

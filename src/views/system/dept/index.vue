@@ -41,7 +41,7 @@
 </template>
 
 <script>
-  import {getDeptTreeApi, deleteDeptApi} from '@/api/dept'
+  import {getDeptTreeApi, deleteDeptApi} from '@/api/system/dept'
   import {objectEvaluate} from "@/utils/common";
   import AddDept from './add'
   import EditDept from './edit'

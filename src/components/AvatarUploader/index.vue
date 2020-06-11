@@ -52,7 +52,7 @@
 
 <script>
   import {VueCropper} from 'vue-cropper'
-  import {editAvatarApi} from "@/api/user";
+  import {editAvatarApi} from "@/api/system/user";
   import {getUserInfoApi} from "@/api/person"
 
   export default {

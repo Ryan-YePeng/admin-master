@@ -23,7 +23,7 @@
               <span>{{user.email}}</span>
             </li>
             <li>
-              <span>所属部门</span>
+              <span>部门</span>
               <span>{{user.dept | formatObj}}</span>
             </li>
             <li>

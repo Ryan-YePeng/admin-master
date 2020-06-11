@@ -78,7 +78,7 @@
 
 <script>
   import TreeSelect from '@riophae/vue-treeselect';
-  import {editUserApi} from '@/api/user';
+  import {editUserApi} from '@/api/system/user';
   import {validatePhone, validEmail} from '@/utils/validate';
 
   export default {

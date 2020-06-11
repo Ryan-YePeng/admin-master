@@ -88,7 +88,7 @@
 <script>
   import IconSelect from '@/components/IconSelect'
   import TreeSelect from '@riophae/vue-treeselect'
-  import {editMenuApi} from '@/api/menu'
+  import {editMenuApi} from '@/api/system/menu'
 
   export default {
     name: "EditMenu",
