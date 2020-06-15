@@ -8,7 +8,8 @@ import {
   Main, Form, FormItem, Input, Breadcrumb, BreadcrumbItem, Menu, MenuItem, Pagination, Table,
   TableColumn, Tag, Scrollbar, Submenu, Dialog, Col, Row, Upload, Popover, Option, Select,
   InputNumber, PageHeader, Image, Cascader, TabPane, Tabs, Radio, Switch, Drawer, Footer,
-  RadioGroup, RadioButton, MenuItemGroup, Checkbox, Tree, Progress, Backtop, Icon, DatePicker
+  RadioGroup, RadioButton, MenuItemGroup, Checkbox, Tree, Progress, Backtop, Icon, DatePicker,
+  Autocomplete
 } from 'element-ui';
 
 Vue.component('ElButton', Button);
@@ -59,6 +60,7 @@ Vue.component('ElProgress', Progress);
 Vue.component('ElBacktop', Backtop);
 Vue.component('ElIcon', Icon);
 Vue.component('ElDatePicker', DatePicker);
+Vue.component('ElAutocomplete', Autocomplete);
 Vue.use(Loading.directive);
 
 /**

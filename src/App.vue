@@ -1,41 +1,36 @@
 <template>
   <div id="app">
-    <!--<el-button @click="fun">按钮</el-button>
-    <el-button @click="reset">重置</el-button>
-    <el-form :model="form" :rules="rules" ref="Form" label-width="80px">
-      <el-form-item label="地区" prop="province">
-        <region-select
-            :province.sync="form.province"
-            :city.sync="form.city"
-            :area.sync="form.area"
-        />
-      </el-form-item>
-    </el-form>-->
+    <!--<el-button @click="fun">按钮</el-button>-->
+    <!--<el-button @click="reset">重置</el-button>-->
+    <!--<el-form :model="form" :rules="rules" ref="Form" label-width="80px">-->
+    <!--  <el-form-item label="名称" prop="name">-->
+    <!--    <input-search v-model="form.name"/>-->
+    <!--  </el-form-item>-->
+    <!--</el-form>-->
     <router-view/>
   </div>
 </template>
 
 <script>
+  // import InputSearch from '@/components/InputSearch'
+
   export default {
     name: "App",
+    // components: {InputSearch},
     data() {
       return {
         form: {
-          province: '',
-          city: '',
-          area: ''
+          name: ''
         },
         rules: {
-          province: {required: true, message: '请选择地区', trigger: 'change'}
+          name: {required: true, message: '请选择职业名称', trigger: 'change'}
         }
       }
     },
     methods: {
       fun() {
         this.form = {
-          province: '北京市',
-          city: '市辖区',
-          area: '123'
+          name: '北京市'
         }
       },
       reset() {
