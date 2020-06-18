@@ -15,13 +15,13 @@ const constantRouterMap = [
     name: 'error404',
     path: '/404',
     meta: {title: '404'},
-    component: () => import('@/views/error/error404')
+    component: (resolve) => require(['@/views/error/error404'], resolve)
   },
   {
     name: 'login',
     path: '/login',
     meta: {title: '登录'},
-    component: () => import('@/views/login')
+    component: (resolve) => require(['@/views/login'], resolve)
   }
 ];
 

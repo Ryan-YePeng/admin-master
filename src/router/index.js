@@ -14,31 +14,31 @@ let layout = {
   name: 'layout',
   path: '/layout',
   redirect: "/home",
-  component: () => import('@/layout'),
+  component: (resolve) => require(['@/layout'], resolve),
   children: [
     {
       name: 'home',
       path: '/home',
       meta: {title: '首页'},
-      component: () => import('@/views/home')
+      component: (resolve) => require(['@/views/home'], resolve)
     },
     {
       name: 'person',
       path: '/person',
       meta: {title: '个人中心'},
-      component: () => import('@/views/person')
+      component: (resolve) => require(['@/views/person'], resolve)
     },
     {
       name: 'error403',
       path: '/403',
       meta: {title: '403'},
-      component: () => import('@/views/error/error403')
+      component: (resolve) => require(['@/views/error/error403'], resolve)
     },
     {
       name: 'redirect',
       path: '/redirect',
       meta: {title: ""},
-      component: () => import('@/views/redirect')
+      component: (resolve) => require(['@/views/redirect'], resolve)
     }
   ]
 };

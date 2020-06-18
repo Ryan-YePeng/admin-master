@@ -1,5 +1,5 @@
 <template>
-  <div id="index">
+  <div id="layout">
     <el-container>
       <!-- 菜单 -->
       <admin-menu v-if="isVertical" v-show="!isSmall" :isCollapsed="isCollapsed"/>
@@ -134,7 +134,7 @@
 <style lang="scss">
   @import './scss/index';
 
-  #index {
+  #layout {
     width: 100%;
     height: 100%;
 

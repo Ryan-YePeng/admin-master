@@ -37,13 +37,12 @@ export class TraverseTree {
     })
     // 路由
     if (item.iframe) return;
-    let obj = {};
-    obj.name = item.name;
-    obj.path = item.path;
-    obj.meta = {};
-    obj.meta.title = item.title;
-    obj.component = () => import(`@/views${item.path}`);
-    this.layout.children.push(obj)
+    this.layout.children.push({
+      name: item.name,
+      path: item.path,
+      meta: {title: item.title},
+      component: (resolve) => require([`@/views${item.path}`], resolve)
+    })
   }
 
   run() {
