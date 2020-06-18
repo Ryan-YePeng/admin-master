@@ -55,6 +55,7 @@
     methods: {
       // 进入个人中心
       goPerson() {
+        if (this.$route.name === 'person') return;
         this.$storeSet('setBreadcrumb', ['个人中心']);
         this.$storeSet('addTags', {title: '个人中心', name: 'person', indexPath: ['个人中心']});
         this.$storeSet('setActive', '个人中心');

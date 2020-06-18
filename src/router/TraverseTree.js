@@ -41,7 +41,7 @@ export class TraverseTree {
       name: item.name,
       path: item.path,
       meta: {title: item.title},
-      component: (resolve) => require([`@/views${item.path}`], resolve)
+      component: () => import(`@/views${item.path}`)
     })
   }
 
