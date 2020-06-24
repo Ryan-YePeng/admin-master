@@ -3,15 +3,10 @@
     <div slot="header">
       <tree-select
           v-model="searchDeptId"
-          :class="'tree-select-' + size"
           style="float: left;width: 200px;"
-          :options="dept"
-          :normalizer="normalizer"
-          :default-expand-level="1"
-          sort-value-by="INDEX"
+          :tree="dept"
           placeholder="选择部门搜索"
-          noResultsText="无数据"
-          @input="getUserList"
+          @get="getUserList"
       />
       <el-input placeholder="输入用户名搜索" v-model="searchUsername" clearable class="w-200 ml-5"
                 @keyup.enter.native="getUserList"/>
@@ -79,7 +74,7 @@
 </template>
 
 <script>
-  import TreeSelect from '@riophae/vue-treeselect';
+  import TreeSelect from '@/components/TreeSelect';
   import {getUserListApi, deleteUserApi, getUserLevelApi} from '@/api/system/user';
   import {getDeptTreeApi} from '@/api/system/dept';
   import {getRoleListApi} from '@/api/system/role';
@@ -93,11 +88,6 @@
     components: {TreeSelect, AddUser, EditUser},
     data() {
       return {
-        normalizer(node) {
-          return {
-            label: node.name
-          }
-        },
         level: null,
         searchUsername: '',
         searchDeptId: null,
@@ -186,45 +176,3 @@
     }
   }
 </script>
-
-<style>
-  .tree-select-default > .vue-treeselect__control {
-    height: 40px;
-    font-size: 14px;
-  }
-
-  .tree-select-default .vue-treeselect__placeholder,
-  .tree-select-default .vue-treeselect__single-value {
-    line-height: 37px;
-  }
-
-  .tree-select-medium > .vue-treeselect__control {
-    height: 36px;
-    font-size: 14px;
-  }
-
-  .tree-select-medium .vue-treeselect__placeholder,
-  .tree-select-medium .vue-treeselect__single-value {
-    line-height: 33px;
-  }
-
-  .tree-select-small > .vue-treeselect__control {
-    height: 32px;
-    font-size: 13px;
-  }
-
-  .tree-select-small .vue-treeselect__placeholder,
-  .tree-select-small .vue-treeselect__single-value {
-    line-height: 29px;
-  }
-
-  .tree-select-mini > .vue-treeselect__control {
-    height: 28px;
-    font-size: 12px;
-  }
-
-  .tree-select-mini .vue-treeselect__placeholder,
-  .tree-select-mini .vue-treeselect__single-value {
-    line-height: 25px;
-  }
-</style>

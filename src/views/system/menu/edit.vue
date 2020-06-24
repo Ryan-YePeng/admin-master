@@ -70,11 +70,9 @@
       <el-form-item label="上级类目">
         <tree-select
             v-model="form.pid"
-            :options="menu"
+            :tree="menu"
             :normalizer="normalizer"
-            :default-expand-level="1"
             placeholder="默认顶级菜单"
-            noResultsText="无数据"
         />
       </el-form-item>
     </el-form>
@@ -86,9 +84,10 @@
 </template>
 
 <script>
-  import IconSelect from '@/components/IconSelect'
-  import TreeSelect from '@riophae/vue-treeselect'
-  import {editMenuApi} from '@/api/system/menu'
+  import IconSelect from '@/components/IconSelect';
+  import TreeSelect from '@/components/TreeSelect';
+  import {editMenuApi} from '@/api/system/menu';
+  import {resetForm} from "@/utils/common";
 
   export default {
     name: "EditMenu",
@@ -149,9 +148,7 @@
         });
       },
       cancel() {
-        this.visible = false;
-        Object.assign(this.$data.form, this.$options.data().form);
-        this.$refs['Form'].clearValidate()
+        resetForm(this)
       }
     }
   }

@@ -101,7 +101,7 @@ export const objectObtain = (current, original) => {
 /**
  * @author xuanzai
  * @description json美化(配合pre标签使用)
- * @param {JSON | Object} json json字符串或对象
+ * @param {JSON|Object} json json字符串或对象
  * @param {Number} tab 空格的个数
  * @returns {JSON|Object} 返回美化好的JSON
  **/
@@ -115,4 +115,20 @@ export const jsonPretty = (json, tab = 2) => {
   } catch (e) {
     return json
   }
+};
+
+/**
+ * @author 王业鹏
+ * @param {Object} _this 组件this
+ * @param {String} key 重置对象的键
+ * @param {String|Object } ref 表单的ref
+ * @description 重置表单
+ **/
+export const resetForm = (_this, key = '', ref = 'Form') => {
+  if (key) Object.assign(_this.$data[key], _this.$options.data()[key])
+  else Object.assign(_this.$data, _this.$options.data());
+  if (!ref) return;
+  _this.$nextTick(() => {
+    _this.$refs[ref].clearValidate()
+  })
 };

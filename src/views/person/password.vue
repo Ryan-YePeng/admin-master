@@ -24,8 +24,9 @@
 </template>
 
 <script>
-  import {updatePassApi} from '@/api/person'
+  import {updatePassApi} from '@/api/person';
   import {encrypt} from "@/utils/encrypt";
+  import {resetForm} from "@/utils/common";
 
   export default {
     name: "PasswordDialog",
@@ -73,9 +74,7 @@
         })
       },
       cancel() {
-        this.visible = false;
-        Object.assign(this.$data.form, this.$options.data().form);
-        this.$refs['Form'].clearValidate()
+        resetForm(this)
       }
     }
   }

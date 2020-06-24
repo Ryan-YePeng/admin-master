@@ -1,6 +1,5 @@
 <template>
   <el-select
-      v-if="has"
       v-model="val"
       placeholder="输入搜索"
       clearable
@@ -32,7 +31,6 @@
     data() {
       return {
         val: null,
-        has: true,
         searchLoading: false,
         selectOptions: []
       }
@@ -41,11 +39,7 @@
       value(val) {
         if (!val && this.val) { // 只有外边重置才执行
           this.selectOptions = [];
-          this.has = false;
-          this.$nextTick(() => {
-            this.val = null;
-            this.has = true
-          })
+          this.val = null
         }
       }
     },

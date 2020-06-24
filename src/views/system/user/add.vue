@@ -26,12 +26,7 @@
         <el-form-item label="部门">
           <tree-select
               v-model="form.deptId"
-              :options="dept"
-              :normalizer="normalizer"
-              :default-expand-level="1"
-              sort-value-by="INDEX"
-              placeholder=""
-              noResultsText="无数据"
+              :tree="dept"
           />
         </el-form-item>
         <el-form-item slot="r" label="岗位">
@@ -77,9 +72,10 @@
 </template>
 
 <script>
-  import TreeSelect from '@riophae/vue-treeselect';
+  import TreeSelect from '@/components/TreeSelect';
   import {addUserApi} from '@/api/system/user';
   import {validatePhone, validateUsername, validEmail} from '@/utils/validate';
+  import {resetForm} from "@/utils/common";
 
   export default {
     name: "AddUser",
@@ -103,11 +99,6 @@
     },
     data() {
       return {
-        normalizer(node) {
-          return {
-            label: node.name
-          }
-        },
         visible: false,
         form: {
           username: '',
@@ -150,9 +141,7 @@
         });
       },
       cancel() {
-        this.visible = false;
-        Object.assign(this.$data.form, this.$options.data().form);
-        this.$refs['Form'].clearValidate()
+        resetForm(this)
       }
     }
   }

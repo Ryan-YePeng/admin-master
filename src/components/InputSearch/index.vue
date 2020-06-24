@@ -1,6 +1,5 @@
 <template>
   <el-autocomplete
-      v-if="has"
       v-model="val"
       placeholder="搜索"
       clearable
@@ -22,8 +21,7 @@
     },
     data() {
       return {
-        val: '',
-        has: true
+        val: ''
       }
     },
     watch: {
@@ -32,11 +30,7 @@
           this.val = val
         }
         if (!val && this.val) { // 只有外边清空才执行
-          this.has = false;
-          this.$nextTick(() => {
-            this.val = '';
-            this.has = true
-          })
+          this.val = '';
         }
       }
     },

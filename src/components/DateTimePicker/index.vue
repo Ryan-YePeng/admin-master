@@ -1,6 +1,5 @@
 <template>
   <el-date-picker
-      v-if="has"
       v-model="value"
       clearable
       type="datetimerange"
@@ -26,23 +25,15 @@
     },
     data() {
       return {
-        value: null,
-        flag: true,
-        has: true
+        value: null
       }
     },
     watch: {
       start() {
         this.setTime()
       },
-      end(val) {
-        this.setTime();
-        if (!val && this.flag) {
-          this.has = false;
-          this.$nextTick(() => {
-            this.has = true
-          })
-        }
+      end() {
+        this.setTime()
       }
     },
     methods: {
@@ -56,7 +47,6 @@
           this.value[1] = this.format(this.end);
           this.$emit('update:start', this.value[0]);
           this.$emit('update:end', this.value[1]);
-          this.flag = true
         } else {
           this.value = null;
         }
@@ -65,7 +55,6 @@
         if (!value) {
           this.$emit('update:start', '');
           this.$emit('update:end', '');
-          this.flag = false
         } else {
           this.$emit('update:start', value[0]);
           this.$emit('update:end', value[1]);

@@ -32,17 +32,13 @@
 </template>
 
 <script>
-  import {editJobApi} from '@/api/system/job'
+  import {editJobApi} from '@/api/system/job';
+  import {resetForm} from "@/utils/common";
 
   export default {
     name: "EditJob",
     data() {
       return {
-        normalizer(node) {
-          return {
-            label: node.name
-          }
-        },
         visible: false,
         form: {
           id: null,
@@ -75,9 +71,7 @@
         });
       },
       cancel() {
-        this.visible = false;
-        Object.assign(this.$data.form, this.$options.data().form);
-        this.$refs['Form'].clearValidate()
+        resetForm(this)
       }
     }
   }

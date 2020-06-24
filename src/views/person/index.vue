@@ -56,7 +56,7 @@
 </template>
 
 <script>
-  import PasswordDialog from './passwordDialog'
+  import PasswordDialog from './password'
   import PersonalLog from './log'
   import AvatarUploader from '@/components/AvatarUploader'
 

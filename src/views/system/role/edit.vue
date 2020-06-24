@@ -29,15 +29,9 @@
       <el-form-item label="数据权限" v-if="form.dataScope==='自定义'">
         <tree-select
             v-model="form.deptIds"
-            :multiple="true"
-            :options="dept"
-            :normalizer="normalizer"
-            :flat="true"
-            :autoSelectDescendants="true"
-            :default-expand-level="1"
-            sort-value-by="INDEX"
+            :keys="1"
+            :tree="dept"
             placeholder="请选择部门"
-            noResultsText="无数据"
         />
       </el-form-item>
       <el-form-item label="描述">
@@ -52,8 +46,9 @@
 </template>
 
 <script>
-  import TreeSelect from '@riophae/vue-treeselect'
-  import {editRoleApi} from '@/api/system/role'
+  import TreeSelect from '@/components/TreeSelect';
+  import {editRoleApi} from '@/api/system/role';
+  import {resetForm} from "@/utils/common";
 
   export default {
     name: "EditRole",
@@ -69,11 +64,6 @@
     },
     data() {
       return {
-        normalizer(node) {
-          return {
-            label: node.name
-          }
-        },
         visible: false,
         form: {
           id: null,
@@ -110,9 +100,7 @@
         });
       },
       cancel() {
-        this.visible = false;
-        Object.assign(this.$data.form, this.$options.data().form);
-        this.$refs['Form'].clearValidate()
+        resetForm(this)
       }
     }
   }

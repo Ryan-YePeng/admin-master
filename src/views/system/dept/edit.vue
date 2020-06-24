@@ -26,11 +26,8 @@
       <el-form-item label="上级部门">
         <tree-select
             v-model="form.pid"
-            :options="dept"
-            :normalizer="normalizer"
-            :default-expand-level="1"
+            :tree="dept"
             placeholder="默认顶级部门"
-            noResultsText="无数据"
         />
       </el-form-item>
     </el-form>
@@ -42,8 +39,9 @@
 </template>
 
 <script>
-  import TreeSelect from '@riophae/vue-treeselect'
-  import {editDeptApi} from '@/api/system/dept'
+  import TreeSelect from '@/components/TreeSelect';
+  import {editDeptApi} from '@/api/system/dept';
+  import {resetForm} from "@/utils/common";
 
   export default {
     name: "EditDept",
@@ -56,11 +54,6 @@
     },
     data() {
       return {
-        normalizer(node) {
-          return {
-            label: node.name
-          }
-        },
         visible: false,
         form: {
           id: '',
@@ -95,12 +88,8 @@
         });
       },
       cancel() {
-        this.visible = false;
-        Object.assign(this.$data.form, this.$options.data().form);
-        this.$refs['Form'].clearValidate()
+        resetForm(this)
       }
     }
   }
 </script>
-
-
