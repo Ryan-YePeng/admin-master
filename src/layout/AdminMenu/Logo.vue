@@ -3,7 +3,9 @@
        :id="isVertical ? '' : 'logo-horizontal'"
        :class="['logo-container', isNight ? 'logo-night' : 'logo-light']">
     <div class="logo-box">
-      <img src="../../assets/admin-logo.png" class="logo" alt="logo">
+      <div class="logo">
+        <img src="../../assets/logo.png" alt="logo">
+      </div>
       <h1 class="logo-title">{{title}}</h1>
     </div>
   </div>
@@ -61,23 +63,24 @@
 
   .logo-container {
     & .logo-box {
-      position: relative;
       width: $menu-width;
       height: $horizontal-menu-height;
-      line-height: $horizontal-menu-height;
-      text-align: center;
-      overflow: hidden;
 
       & .logo {
-        width: 32px;
-        height: 32px;
-        vertical-align: middle;
-        margin-right: 10px; // 标志
+        display: inline-block;
+        width: $menu-collapse-width;
+        height: $horizontal-menu-height;
+        text-align: center;
+
+        & img {
+          width: 50%;
+          margin-top: $horizontal-menu-height / 4;
+        }
       }
 
       & .logo-title {
         display: inline-block;
-        margin-right: 17px; // 标志
+        width: $menu-width - $menu-collapse-width;
         font-weight: 600;
         line-height: $horizontal-menu-height;
         font-size: 14px;

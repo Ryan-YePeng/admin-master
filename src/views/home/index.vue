@@ -1,4 +1,4 @@
-<!--<template>
+<template>
   <div id="home" :style="'height:' + (mainHeight - 30) + 'px'" v-show="isShow">
     <h1 class="title">WTeam - 后台管理系统</h1>
   </div>
@@ -54,7 +54,7 @@
       text-align: center;
     }
   }
-</style>-->
+</style>
 
 <!--<template>
   <div id="home">
@@ -78,7 +78,7 @@
   }
 </script>-->
 
-<template>
+<!--<template>
   <div id="home">
     <el-button @click="fun">按钮</el-button>
     <el-button @click="reset">重置</el-button>
@@ -124,4 +124,4 @@
       }
     }
   };
-</script>
+</script>-->
