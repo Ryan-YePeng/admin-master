@@ -120,15 +120,20 @@ export const jsonPretty = (json, tab = 2) => {
 /**
  * @author 王业鹏
  * @param {Object} _this 组件this
- * @param {String} key 重置对象的键
+ * @param {String|Object} key 重置对象的键
  * @param {String|Object } ref 表单的ref
  * @description 重置表单
  **/
-export const resetForm = (_this, key = '', ref = 'Form') => {
-  if (key) Object.assign(_this.$data[key], _this.$options.data()[key])
-  else Object.assign(_this.$data, _this.$options.data());
-  if (!ref) return;
-  _this.$nextTick(() => {
-    _this.$refs[ref].clearValidate()
+export const resetForm = (_this, key = null, ref = 'Form') => {
+  return new Promise(resolve => {
+    if (key) Object.assign(_this.$data[key], _this.$options.data()[key])
+    else Object.assign(_this.$data, _this.$options.data());
+    if (!ref) {
+      return resolve()
+    }
+    _this.$nextTick(() => {
+      _this.$refs[ref].clearValidate();
+      resolve()
+    })
   })
 };
