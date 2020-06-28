@@ -1,5 +1,5 @@
 <template>
-  <div id="tags-view-container">
+  <div id="tags-view-container" v-show="isShowTag">
     <tag-scroll-pane ref="TagScrollPane" class="tags-view-wrapper">
       <router-link
           v-for="tag in tags"
@@ -47,6 +47,9 @@
       }
     },
     computed: {
+      isShowTag() {
+        return this.$storeGet.setting.isShowTag
+      },
       tags() {
         return this.$storeGet.tags
       }

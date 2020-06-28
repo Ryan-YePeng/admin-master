@@ -68,7 +68,7 @@
             this.$storeSet('quitLogin');
           })
         })
-      },
+      }
     }
   }
 </script>

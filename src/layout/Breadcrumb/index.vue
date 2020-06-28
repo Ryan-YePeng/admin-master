@@ -26,11 +26,17 @@
       breadcrumb() {
         return this.$storeGet.breadcrumb;
       },
-      isShowTag() {
-        return this.$storeGet.setting.isShowTag
+      isSmall() {
+        return this.$storeGet.isSmall
+      },
+      isDrawer() {
+        return this.$storeGet.isDrawer
       },
       isCollapsed() {
         return this.$storeGet.isCollapsed;
+      },
+      isShowTag() {
+        return this.$storeGet.setting.isShowTag
       },
       isVertical() {
         return this.$storeGet.setting.isVertical
@@ -54,9 +60,13 @@
         this.jumpToHome();
         this.$router.push({name: 'home'})
       },
-      // 打开抽屉菜单
+      // 抽屉菜单
       showDrawerMenu() {
-        this.$emit('showDrawerMenu')
+        if (this.isSmall) {
+          this.$storeSet('setDrawer', !this.isDrawer);
+        } else {
+          this.$storeSet('setCollapsed', !this.isCollapsed);
+        }
       }
     }
   };

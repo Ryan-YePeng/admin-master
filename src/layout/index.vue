@@ -1,63 +1,52 @@
 <template>
-  <div id="layout">
+  <el-container id="layout">
+    <!-- 左侧菜单 -->
+    <admin-menu v-if="isVertical" v-show="!isSmall" :isCollapsed="isCollapsed"/>
+    <!-- 抽屉菜单 -->
+    <el-drawer
+        v-if="isVertical"
+        :class="[isNight ? 'night-drawer-menu' : 'light-drawer-menu']"
+        :destroy-on-close="true"
+        :visible.sync="isDrawer"
+        direction="ltr"
+        :with-header="false">
+      <admin-menu :isCollapsed="false"/>
+    </el-drawer>
     <el-container>
-      <!-- 菜单 -->
-      <admin-menu v-if="isVertical" v-show="!isSmall" :isCollapsed="isCollapsed"/>
-      <el-drawer
-          v-if="isVertical"
-          :class="[isNight ? 'night-drawer-menu' : 'light-drawer-menu']"
-          :destroy-on-close="true"
-          :visible.sync="isDrawer"
-          direction="ltr"
-          :with-header="false">
-        <admin-menu :isCollapsed="false"/>
-      </el-drawer>
-      <el-container>
-        <!-- 菜单 -->
-        <admin-menu v-if="!isVertical"/>
-        <!-- 头部 -->
-        <el-header class="header">
-          <!-- 上 -->
-          <div class="header-up">
-            <!-- 上左 -->
-            <breadcrumb @showDrawerMenu="showDrawerMenu"/>
-            <!-- 上右侧 -->
-            <nav-bar/>
-          </div>
-          <!-- 下 -->
-          <div class="header-down" v-show="isShowTag">
-            <tag/>
-          </div>
-        </el-header>
-        <!-- 内容 -->
-        <el-main class="main">
-          <transition name="Ryan-animation" mode="out-in">
-            <keep-alive :include="cache">
-              <router-view :key="key"/>
-            </keep-alive>
-          </transition>
-        </el-main>
-        <el-backtop target=".main" :right="16"/>
-        <el-footer class="footer" v-show="isShowFooter">
-          <div class="footer-text">
-            <span>{{footerTxt}} - {{caseNumber}}</span>
-          </div>
-        </el-footer>
-      </el-container>
+      <!-- 顶部菜单 -->
+      <admin-menu v-if="!isVertical"/>
+      <!-- 头部 -->
+      <el-header class="header">
+        <div>
+          <!-- 上左 -->
+          <breadcrumb/>
+          <!-- 上右 -->
+          <nav-bar/>
+        </div>
+        <!-- 标签页 -->
+        <tag/>
+      </el-header>
+      <!-- 内容 -->
+      <admin-main/>
+      <!-- 底部 -->
+      <admin-footer/>
+      <!-- 返回顶部 -->
+      <el-backtop target=".main"/>
     </el-container>
-  </div>
+  </el-container>
 </template>
 
 <script>
-  import AdminMenu from './AdminMenu'
+  import AdminFooter from './Footer'
   import Breadcrumb from './Breadcrumb'
+  import AdminMenu from './Menu'
+  import AdminMain from './Main'
   import NavBar from './NavBar'
   import Tag from './Tag'
-  import {footerTxt, caseNumber} from '@/settings'
 
   export default {
     name: 'Layout',
-    components: {NavBar, AdminMenu, Breadcrumb, Tag},
+    components: {AdminFooter, AdminMain, NavBar, AdminMenu, Breadcrumb, Tag},
     computed: {
       isDrawer: {
         get() {
@@ -73,29 +62,11 @@
       isCollapsed() {
         return this.$storeGet.isCollapsed
       },
-      key() {
-        return this.$route.name
-      },
-      cache() {
-        return this.$storeGet.cache
-      },
-      isShowTag() {
-        return this.$storeGet.setting.isShowTag
-      },
-      isShowFooter() {
-        return this.$storeGet.setting.isShowFooter
-      },
       isVertical() {
         return this.$storeGet.setting.isVertical
       },
       isNight() {
         return this.$storeGet.setting.isNight
-      },
-      footerTxt() {
-        return footerTxt
-      },
-      caseNumber() {
-        return caseNumber
       }
     },
     mounted() {
@@ -117,14 +88,6 @@
         } else {
           this.$storeSet('setSmall', false);
           this.$storeSet('setDrawer', false);
-        }
-      },
-      // 显示抽屉菜单
-      showDrawerMenu() {
-        if (this.isSmall) {
-          this.$storeSet('setDrawer', !this.isDrawer);
-        } else {
-          this.$storeSet('setCollapsed', !this.isCollapsed);
         }
       }
     }
@@ -165,57 +128,11 @@
       height: auto !important;
       padding: 0;
 
-      .header-up {
+      & > div:first-child {
         display: flex;
         justify-content: space-between;
         padding: 0 20px;
         border-bottom: 1px solid rgb(233, 235, 239);
-      }
-
-      .header-bottom {
-        height: 37px;
-      }
-    }
-
-    .main {
-      padding: 15px;
-      background-color: $main-bg-color;
-      overflow-y: auto;
-      overflow-x: hidden;
-
-      .Ryan-animation-enter-active {
-        transition: all .3s;
-      }
-
-      .Ryan-animation-leave-active {
-        transition: all .3s;
-      }
-
-      .Ryan-animation-enter {
-        opacity: 0;
-      }
-
-      .Ryan-animation-leave-to {
-        opacity: 0;
-      }
-    }
-
-    .footer {
-      padding: 0;
-      height: $footer-height !important;
-      overflow-y: hidden;
-      overflow-x: auto;
-      background-color: $footer-bg-color;
-
-      .footer-text {
-        position: relative;
-        line-height: 30px;
-        border-top: 1px solid #dcdfe6;
-        color: #666;
-        white-space: nowrap;
-        text-indent: 1.3rem;
-        letter-spacing: 1px;
-        font-size: 0.7rem;
       }
     }
   }

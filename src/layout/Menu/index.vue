@@ -81,7 +81,7 @@
   import {isEmpty} from "@/utils/common";
 
   export default {
-    name: 'AdminMenu',
+    name: 'Menu',
     components: {Logo, Item},
     props: ['isCollapsed'],
     computed: {
