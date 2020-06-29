@@ -2,6 +2,7 @@ import defaultSettings from '@/settings'
 import {objectEvaluate} from "@/utils/common";
 
 const {
+  isFixHeader,
   isShowLogo,
   isShowTag,
   isShowBreadcrumb,
@@ -19,15 +20,16 @@ const type = {
 };
 
 const state = {
-  isShowLogo: isShowLogo,
-  isShowTag: isShowTag,
-  isShowBreadcrumb: isShowBreadcrumb,
-  isShowFooter: isShowFooter,
-  isNight: isNight,
-  isVertical: isVertical,
-  isUniqueOpened: isUniqueOpened,
-  layoutSize: layoutSize,
-  pagingSize: pagingSize
+  isFixHeader,
+  isShowLogo,
+  isShowTag,
+  isShowBreadcrumb,
+  isShowFooter,
+  isNight,
+  isVertical,
+  isUniqueOpened,
+  layoutSize,
+  pagingSize
 };
 
 const getters = {
@@ -60,4 +62,3 @@ export default {
   mutations,
   actions
 }
-

@@ -33,7 +33,7 @@
     },
     methods: {
       addListen() {
-        let main = document.querySelector(".main");
+        let main = document.querySelector(".el-main");
         this.mainHeight = main.offsetHeight;
         this.isShow = true;
         mainResizeListen.listenTo(main, () => {
@@ -44,7 +44,7 @@
       }
     },
     beforeDestroy() {
-      let main = document.querySelector(".main");
+      let main = document.querySelector(".el-main");
       mainResizeListen.uninstall(main);
     }
   }

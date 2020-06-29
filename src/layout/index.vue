@@ -25,7 +25,6 @@
       <el-footer>
         <admin-footer/>
       </el-footer>
-      <el-backtop target=".el-main"/>
     </el-container>
   </el-container>
 </template>
@@ -115,6 +114,11 @@
       }
     }
 
+    .el-container {
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
     .el-header {
       height: auto !important;
       padding: 0;
@@ -130,14 +134,11 @@
     .el-main {
       padding: 15px;
       background-color: $main-bg-color;
-      overflow-y: auto;
-      overflow-x: hidden;
     }
 
     .el-footer {
       padding: 0;
       height: auto !important;
-      background-color: $footer-bg-color;
     }
   }
 </style>

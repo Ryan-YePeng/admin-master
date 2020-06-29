@@ -81,6 +81,10 @@
       padding-right: 15px;
     }
 
+    .el-dropdown {
+      height: $header-height;
+    }
+
     .el-dropdown-link {
       display: flex;
       justify-items: center;

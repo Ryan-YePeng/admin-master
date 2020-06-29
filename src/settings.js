@@ -8,6 +8,10 @@ module.exports = {
    */
   isHistory: true,
   /**
+   * @description 是否固定头部
+   */
+  isFixHeader: true,
+  /**
    * @description 是否显示logo
    */
   isShowLogo: true,

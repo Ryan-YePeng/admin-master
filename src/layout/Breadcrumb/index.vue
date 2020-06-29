@@ -6,14 +6,16 @@
     <div class="clear-button" v-show="isShowTag">
       <i class="el-icon-circle-close" @click="removeAllTags"></i>
     </div>
-    <el-breadcrumb separator="/" v-show="isShowBreadcrumb">
+    <el-breadcrumb separator="" v-show="isShowBreadcrumb">
       <transition-group name="bread-list">
         <el-breadcrumb-item key="首页">
           <router-link :to="{name: 'home'}">
             <span @click="jumpToHome">首页</span>
           </router-link>
         </el-breadcrumb-item>
-        <el-breadcrumb-item v-for="item in breadcrumb" :key="item">{{item}}</el-breadcrumb-item>
+        <el-breadcrumb-item v-for="item in breadcrumb" :key="item">
+          <span class="separator">/</span>{{item}}
+        </el-breadcrumb-item>
       </transition-group>
     </el-breadcrumb>
   </div>
@@ -111,13 +113,19 @@
     }
 
     .bread-list-enter {
-      transform: translateX(25px);
+      transform: translateX(-25px);
       opacity: 0;
     }
 
     .bread-list-leave-to {
-      transform: translateX(-25px);
+      transform: translateX(25px);
       opacity: 0;
+    }
+
+    .separator {
+      margin: 0 9px 0 -9px;
+      font-weight: 700;
+      color: #C0C4CC;
     }
   }
 </style>
