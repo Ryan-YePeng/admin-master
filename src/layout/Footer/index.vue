@@ -1,8 +1,8 @@
 <template>
-  <div class="footer-box">
+  <el-footer>
     <span v-show="isShowFooter">{{footerTxt}} - {{caseNumber}}</span>
-    <el-backtop v-if="flag" target=".top"/>
-  </div>
+    <el-backtop v-if="flag" target=".back-top"/>
+  </el-footer>
 </template>
 
 <script>
@@ -42,13 +42,13 @@
         let main = document.querySelector('.el-main');
         let container = document.querySelectorAll('.el-container')[1];
         if (this.isFixHeader) {
-          container.classList.remove('top');
+          container.classList.remove('back-top');
           main.style.overflow = 'auto';
-          main.classList.add('top')
+          main.classList.add('back-top')
         } else {
-          container.classList.add('top');
+          container.classList.add('back-top');
           main.style.overflow = 'visible';
-          main.classList.remove('top')
+          main.classList.remove('back-top')
         }
         this.flag = false;
         this.$nextTick(() => {
@@ -58,19 +58,3 @@
     }
   }
 </script>
-
-<style lang="scss">
-  @import '../scss/index';
-
-  .footer-box {
-    > span {
-      display: block;
-      line-height: $footer-height !important;
-      border-top: 1px solid #dcdfe6;
-      color: #666;
-      text-indent: 1rem;
-      letter-spacing: 1px;
-      font-size: 0.7rem;
-    }
-  }
-</style>

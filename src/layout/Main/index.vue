@@ -1,9 +1,11 @@
 <template>
-  <transition name="Ryan-animation" mode="out-in">
-    <keep-alive :include="cache">
-      <router-view :key="key"/>
-    </keep-alive>
-  </transition>
+  <el-main>
+    <transition name="Ryan-animation" mode="out-in">
+      <keep-alive :include="cache">
+        <router-view :key="key"/>
+      </keep-alive>
+    </transition>
+  </el-main>
 </template>
 
 <script>

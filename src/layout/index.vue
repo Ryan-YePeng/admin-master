@@ -19,12 +19,8 @@
         </div>
         <tag/>
       </el-header>
-      <el-main>
-        <admin-main/>
-      </el-main>
-      <el-footer>
-        <admin-footer/>
-      </el-footer>
+      <admin-main/>
+      <admin-footer/>
     </el-container>
   </el-container>
 </template>
@@ -139,6 +135,16 @@
     .el-footer {
       padding: 0;
       height: auto !important;
+
+      > span {
+        display: block;
+        line-height: $footer-height !important;
+        border-top: 1px solid #dcdfe6;
+        color: #666;
+        text-indent: 1rem;
+        letter-spacing: 1px;
+        font-size: 0.7rem;
+      }
     }
   }
 </style>
