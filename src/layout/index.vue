@@ -1,37 +1,31 @@
 <template>
   <el-container id="layout">
-    <!-- 左侧菜单 -->
     <admin-menu v-if="isVertical" v-show="!isSmall"/>
-    <!-- 抽屉菜单 -->
     <el-drawer
         v-if="isVertical"
         :class="[isNight ? 'night-drawer-menu' : 'light-drawer-menu']"
         :destroy-on-close="true"
         :visible.sync="isDrawer"
-        direction="ltr"
-        :with-header="false">
+        :with-header="false"
+        direction="ltr">
       <admin-menu/>
     </el-drawer>
     <el-container>
-      <!-- 顶部菜单 -->
       <admin-menu v-if="!isVertical"/>
-      <!-- 头部 -->
-      <el-header class="header">
+      <el-header>
         <div>
-          <!-- 面包屑…… -->
           <breadcrumb/>
-          <!-- 设置…… -->
           <nav-bar/>
         </div>
-        <!-- 标签页 -->
         <tag/>
       </el-header>
-      <!-- 内容 -->
-      <admin-main/>
-      <!-- 底部 -->
-      <admin-footer/>
-      <!-- 返回顶部 -->
-      <el-backtop target=".main"/>
+      <el-main>
+        <admin-main/>
+      </el-main>
+      <el-footer>
+        <admin-footer/>
+      </el-footer>
+      <el-backtop target=".el-main"/>
     </el-container>
   </el-container>
 </template>
@@ -88,7 +82,7 @@
         }
       }
     }
-  };
+  }
 </script>
 
 <style lang="scss">
@@ -121,16 +115,29 @@
       }
     }
 
-    .header {
+    .el-header {
       height: auto !important;
       padding: 0;
 
       & > div:first-child {
         display: flex;
         justify-content: space-between;
-        padding: 0 20px;
+        padding: 0 15px;
         border-bottom: 1px solid rgb(233, 235, 239);
       }
+    }
+
+    .el-main {
+      padding: 15px;
+      background-color: $main-bg-color;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .el-footer {
+      padding: 0;
+      height: auto !important;
+      background-color: $footer-bg-color;
     }
   }
 </style>

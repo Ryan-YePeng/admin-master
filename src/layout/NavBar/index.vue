@@ -18,15 +18,12 @@
         <el-dropdown-item icon="el-icon-s-promotion" divided @click.native='logout'>退出登录</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
-    <div class="setting">
-      <el-drawer
-          :visible.sync="drawer"
-          :show-close="false"
-          :with-header="false"
-          :destroy-on-close="true">
-        <drawer-setting/>
-      </el-drawer>
-    </div>
+    <el-drawer
+        :visible.sync="drawer"
+        :with-header="false"
+        :destroy-on-close="true">
+      <drawer-setting/>
+    </el-drawer>
   </div>
 </template>
 
@@ -91,14 +88,12 @@
       cursor: pointer;
     }
 
-    .setting {
-      .el-drawer__body {
-        height: 0;
-      }
+    .el-drawer__body {
+      height: 0;
+    }
 
-      .el-drawer {
-        width: 350px !important;
-      }
+    .el-drawer {
+      width: 350px !important;
     }
   }
 </style>

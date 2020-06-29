@@ -1,9 +1,7 @@
 <template>
-  <el-footer class="admin-footer" v-show="isShowFooter">
-    <div class="footer-text">
-      <span>{{footerTxt}} - {{caseNumber}}</span>
-    </div>
-  </el-footer>
+  <div class="footer-text" v-show="isShowFooter">
+    <span>{{footerTxt}} - {{caseNumber}}</span>
+  </div>
 </template>
 
 <script>
@@ -28,22 +26,12 @@
 <style lang="scss">
   @import '../scss/index';
 
-  .admin-footer {
-    padding: 0;
-    height: $footer-height !important;
-    overflow-y: hidden;
-    overflow-x: auto;
-    background-color: $footer-bg-color;
-
-    .footer-text {
-      position: relative;
-      line-height: 30px;
-      border-top: 1px solid #dcdfe6;
-      color: #666;
-      white-space: nowrap;
-      text-indent: 1.3rem;
-      letter-spacing: 1px;
-      font-size: 0.7rem;
-    }
+  .footer-text {
+    line-height: $footer-height !important;
+    border-top: 1px solid #dcdfe6;
+    color: #666;
+    text-indent: 1rem;
+    letter-spacing: 1px;
+    font-size: 0.7rem;
   }
 </style>
