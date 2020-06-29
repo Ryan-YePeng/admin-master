@@ -5,7 +5,7 @@
     <el-menu
         :default-active="active"
         :class="isVertical ? 'el-menu-vertical-demo' : 'el-menu-demo'"
-        :collapse="isVertical ? isCollapsed : null"
+        :collapse="isCollapsed"
         :unique-opened="isUniqueOpened"
         :mode="isVertical ? 'vertical' : 'horizontal'"
         :text-color="isNight ? '#bfcbd9' : '#444444'"
@@ -83,13 +83,23 @@
   export default {
     name: 'Menu',
     components: {Logo, Item},
-    props: ['isCollapsed'],
     computed: {
       menu() {
         return this.$storeGet.menu
       },
       active() {
         return this.$storeGet.active
+      },
+      isDrawer() {
+        return this.$storeGet.isDrawer
+      },
+      isCollapsed() {
+        if (this.isDrawer) return false;
+        if (this.isVertical) {
+          return this.$storeGet.isCollapsed
+        } else {
+          return null
+        }
       },
       isShowLogo() {
         return this.$storeGet.setting.isShowLogo

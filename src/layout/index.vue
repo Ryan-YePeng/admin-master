@@ -1,7 +1,7 @@
 <template>
   <el-container id="layout">
     <!-- 左侧菜单 -->
-    <admin-menu v-if="isVertical" v-show="!isSmall" :isCollapsed="isCollapsed"/>
+    <admin-menu v-if="isVertical" v-show="!isSmall"/>
     <!-- 抽屉菜单 -->
     <el-drawer
         v-if="isVertical"
@@ -10,7 +10,7 @@
         :visible.sync="isDrawer"
         direction="ltr"
         :with-header="false">
-      <admin-menu :isCollapsed="false"/>
+      <admin-menu/>
     </el-drawer>
     <el-container>
       <!-- 顶部菜单 -->
@@ -18,9 +18,9 @@
       <!-- 头部 -->
       <el-header class="header">
         <div>
-          <!-- 上左 -->
+          <!-- 面包屑…… -->
           <breadcrumb/>
-          <!-- 上右 -->
+          <!-- 设置…… -->
           <nav-bar/>
         </div>
         <!-- 标签页 -->
@@ -58,9 +58,6 @@
       },
       isSmall() {
         return this.$storeGet.isSmall
-      },
-      isCollapsed() {
-        return this.$storeGet.isCollapsed
       },
       isVertical() {
         return this.$storeGet.setting.isVertical
