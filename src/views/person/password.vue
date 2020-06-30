@@ -6,7 +6,7 @@
       @close="cancel"
       :close-on-click-modal="false">
     <el-form :model="form" :rules="rules" ref="Form" label-width="120px">
-      <el-form-item label="旧密码:" prop="oldPass">
+      <el-form-item label="当前密码:" prop="oldPass">
         <el-input type="password" v-model="form.oldPass" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="新密码:" prop="newPass">
@@ -48,7 +48,7 @@
           checkPass: ''
         },
         rules: {
-          oldPass: {required: true, message: '请输入旧密码', trigger: 'blur'},
+          oldPass: {required: true, message: '请输入当前密码', trigger: 'blur'},
           newPass: {required: true, message: '请输入新密码', trigger: 'blur'},
           checkPass: {required: true, validator: validatePass, trigger: 'blur'}
         }
@@ -62,9 +62,10 @@
             data.oldPass = encrypt(this.form.oldPass);
             data.newPass = encrypt(this.form.newPass);
             this.$refs.SubmitButton.start();
-            updatePassApi(data).then(() => {
+            updatePassApi(data).then(result => {
               this.$refs.SubmitButton.stop();
-              this.$storeSet('quitLogin')
+              if (result.status === 200)
+                this.$storeSet('quitLogin')
             }).catch(() => {
               this.$refs.SubmitButton.stop();
             })
