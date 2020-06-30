@@ -113,12 +113,10 @@
     }
 
     .bread-list-enter {
-      transform: translateX(-25px);
       opacity: 0;
     }
 
     .bread-list-leave-to {
-      transform: translateX(25px);
       opacity: 0;
     }
 

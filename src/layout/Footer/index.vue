@@ -58,3 +58,21 @@
     }
   }
 </script>
+
+<style lang="scss">
+  .el-backtop {
+    background-color: #409eff;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .5);
+    transition: .3s;
+    opacity: .5;
+
+    &:hover {
+      background-color: #409eff;
+      opacity: 1;
+    }
+
+    .el-icon-caret-top {
+      color: #fff;
+    }
+  }
+</style>

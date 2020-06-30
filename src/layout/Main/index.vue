@@ -25,19 +25,21 @@
 <style lang="scss">
   @import '../scss/index';
 
-  .Ryan-animation-enter-active {
-    transition: all .3s;
-  }
+  .el-main {
+    .Ryan-animation-enter-active {
+      transition: all .3s;
+    }
 
-  .Ryan-animation-leave-active {
-    transition: all .3s;
-  }
+    .Ryan-animation-leave-active {
+      transition: all .3s;
+    }
 
-  .Ryan-animation-enter {
-    opacity: 0;
-  }
+    .Ryan-animation-enter {
+      opacity: 0;
+    }
 
-  .Ryan-animation-leave-to {
-    opacity: 0;
+    .Ryan-animation-leave-to {
+      opacity: 0;
+    }
   }
 </style>
