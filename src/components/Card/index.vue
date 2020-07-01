@@ -29,7 +29,9 @@
         this.isLoading = true
       },
       stop() {
-        this.isLoading = false
+        this.$nextTick(() => {
+          this.isLoading = false
+        })
       }
     }
   }

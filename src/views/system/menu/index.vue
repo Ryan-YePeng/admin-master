@@ -83,10 +83,8 @@
         this.$refs.Card.start();
         getAllMenuApi({title: ''}).then(result => {
           this.formData = result.resultParam.menuList;
-          this.menu = result.resultParam.menuList
-          this.$nextTick(() => {
-            this.$refs.Card.stop();
-          })
+          this.menu = result.resultParam.menuList;
+          this.$refs.Card.stop()
         })
       },
       searchMenu() {
