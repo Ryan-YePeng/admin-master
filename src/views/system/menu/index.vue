@@ -13,7 +13,7 @@
       <el-table-column prop="title" label="菜单名称"/>
       <el-table-column prop="icon" label="图标">
         <template slot-scope="scope">
-          <svg-icon slot="prefix" :icon-class="scope.row.icon" class="el-table-column-icon"/>
+          <svg-icon slot="prefix" :icon-class="scope.row.icon"/>
         </template>
       </el-table-column>
       <el-table-column prop="sort" label="排序"/>

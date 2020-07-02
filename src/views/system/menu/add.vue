@@ -1,7 +1,7 @@
 <template>
   <el-dialog
       title="新增菜单"
-      width="620px"
+      width="650px"
       @close="cancel"
       :close-on-click-modal="false"
       :visible.sync="visible">
@@ -14,8 +14,8 @@
             @show="$refs['iconSelect'].reset()"
         >
           <icon-select ref="iconSelect" @selected="selected"/>
-          <el-input slot="reference" v-model="form.icon" style="width: 450px;" placeholder="点击选择图标" readonly>
-            <svg-icon v-if="form.icon" slot="prefix" :icon-class="form.icon" class="el-input-icon"/>
+          <el-input slot="reference" v-model="form.icon" placeholder="点击选择图标" readonly>
+            <svg-icon v-if="form.icon" slot="prefix" :icon-class="form.icon"/>
             <i v-else slot="prefix" class="el-icon-search el-input__icon"></i>
           </el-input>
         </el-popover>
@@ -152,10 +152,3 @@
     }
   }
 </script>
-
-<style lang="scss" scoped>
-  .el-input-icon {
-    height: 32px;
-    width: 16px;
-  }
-</style>

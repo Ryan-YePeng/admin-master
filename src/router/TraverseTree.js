@@ -21,28 +21,25 @@ export class TraverseTree {
     return value.some(item => !item.hidden)
   }
 
-  release() { // 释放内存
-    this.menu = null;
-  }
-
   operate(item) {
     // 搜索菜单
-    this.list.push({
-      indexPath: item.indexPath,
-      index: item.title,
-      cache: item.cache,
-      name: item.name,
-      path: item.path,
-      iframe: item.iframe
-    })
+    if (item.hidden === false)
+      this.list.push({
+        indexPath: item.indexPath,
+        index: item.title,
+        cache: item.cache,
+        name: item.name,
+        path: item.path,
+        iframe: item.iframe
+      })
     // 路由
-    if (item.iframe) return;
-    this.layout.children.push({
-      name: item.name,
-      path: item.path,
-      meta: {title: item.title},
-      component: () => import(`@/views${item.path}`)
-    })
+    if (item.iframe === false)
+      this.layout.children.push({
+        name: item.name,
+        path: item.path,
+        meta: {title: item.title},
+        component: () => import(`@/views${item.path}`)
+      })
   }
 
   run() {
@@ -70,7 +67,7 @@ export class TraverseTree {
         this.operate(fistItem) // 添加一级
       }
     })
-    this.release();
+    this.menu = null;
   }
 
   getLayout() {
