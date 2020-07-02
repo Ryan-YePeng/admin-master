@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import {searchSiteApi} from '@/api/site'
+  import {getJobListApi} from '@/api/system/job'
 
   export default {
     name: "SearchSelect",
@@ -60,10 +60,10 @@
       remoteMethod(query) {
         if (query) {
           this.searchLoading = true;
-          searchSiteApi(query)
+          getJobListApi({jobName: query})
             .then(result => {
               this.searchLoading = false;
-              this.selectOptions = result.data.message
+              this.selectOptions = result.resultParam.jobList.records
             })
             .catch(() => {
               this.searchLoading = false;
