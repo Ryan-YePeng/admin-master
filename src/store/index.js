@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import Cookies from "js-cookie";
-import {tokenCookieExpires} from '@/settings'
+import {tokenCookieExpires, prefix} from '@/settings'
 
 Vue.use(Vuex);
 
@@ -18,22 +18,22 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
 // vuex持久化
 const plugins = [
   createPersistedState({
-    key: 'WTeam-ADMIN-INFO',
+    key: `${prefix}-INFO`,
     storage: window.localStorage,
     reducer: val => ({info: val.info})
   }),
   createPersistedState({
-    key: 'WTeam-ADMIN-SETTINGS',
+    key: `${prefix}-SETTINGS`,
     storage: window.localStorage,
     reducer: val => ({settings: val.settings})
   }),
   createPersistedState({
-    key: 'WTeam-ADMIN-LAYOUT',
+    key: `${prefix}-LAYOUT`,
     storage: window.sessionStorage,
     reducer: val => ({layout: val.layout})
   }),
   createPersistedState({
-    key: 'WTeam-ADMIN-TOKEN',
+    key: `${prefix}-TOKEN`,
     storage: {
       getItem: key => Cookies.get(key),
       setItem: (key, value) =>
@@ -53,5 +53,3 @@ Vue.prototype.$storeGet = store.getters;
 Vue.prototype.$storeSet = store.dispatch;
 
 export default store
-
-

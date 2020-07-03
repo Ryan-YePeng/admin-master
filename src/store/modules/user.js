@@ -1,5 +1,6 @@
 import router from '@/router'
-import store from '@/store'
+import {prefix} from '@/settings'
+import {removeSessionStorage, removeCookiesStorage} from '@/utils/storage'
 
 const type = {
   SET_USER: 'SET_USER',
@@ -21,11 +22,9 @@ const mutations = {
   },
   [type.QUIT_LOGIN]() {
     router.push({name: 'login'}).then(() => {
-      store.dispatch('setActive');
-      store.dispatch('clearTags');
-      store.dispatch('setBreadcrumb');
-      store.dispatch('setToken');
-      location.reload();
+      removeSessionStorage(`${prefix}-LAYOUT`);
+      removeCookiesStorage(`${prefix}-TOKEN`);
+      location.reload()
     })
   }
 };

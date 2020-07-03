@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import Cookies from "js-cookie"
 
 /**
@@ -48,13 +47,3 @@ const clearSessionStorage = () => {
 export const removeCookiesStorage = (key) => {
   Cookies.remove(key);
 };
-
-Vue.prototype.$setLocalStorage = setLocalStorage;
-Vue.prototype.$getLocalStorage = getLocalStorage;
-Vue.prototype.$removeLocalStorage = removeLocalStorage;
-Vue.prototype.$clearLocalStorage = clearLocalStorage;
-Vue.prototype.$setSessionStorage = setSessionStorage;
-Vue.prototype.$getSessionStorage = getSessionStorage;
-Vue.prototype.$removeSessionStorage = removeSessionStorage;
-Vue.prototype.$clearSessionStorage = clearSessionStorage;
-Vue.prototype.$removeCookiesStorage = removeCookiesStorage;
