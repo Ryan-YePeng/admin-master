@@ -4,7 +4,6 @@ import router from '@/router'
 /**
  * @param {String} value
  * @description 下划线转大驼峰 edit_form => EditForm
- *
  * */
 const transformName = value =>
   value.replace(/[_](\w)|\b(\w)/g, name =>
