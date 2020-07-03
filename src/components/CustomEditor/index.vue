@@ -16,7 +16,6 @@
   import "tinymce/plugins/textcolor"; //文本颜色插件
   import "tinymce/plugins/fullscreen"; //全屏
   import "tinymce/plugins/help"; // 帮助
-  // import "tinymce/plugins/paste"; // 粘贴图片
   import "tinymce/plugins/searchreplace"; // 全屏
   import "tinymce/plugins/insertdatetime"; // 插入时间
   import "tinymce/plugins/toc"; // 内容列表
@@ -45,25 +44,25 @@
         flag: true,
         DefaultInit: {
           language_url: "/assets/tinymce/langs/zh_CN.js", //导入语言文件
-          language: "zh_CN", //语言设置
           skin_url: "/assets/tinymce/skins/ui/oxide", //主题样式
-          height: 500, //高度
+          language: "zh_CN", //语言设置
+          height: 300, //高度
           menubar: false, // 最上方menu菜单
           browser_spellcheck: true, // 拼写检查
           branding: false, // 去水印
           statusbar: false, // 隐藏编辑器底部的状态栏
           elementpath: false, // 禁用下角的当前标签路径
-          paste_data_images: true, // 允许粘贴图像
+          powerpaste_allow_local_images: true,
+          powerpaste_word_import: 'prompt',
+          powerpaste_html_import: 'prompt',
           toolbar: [
-            "bold italic underline |formatselect | fontsizeselect | alignleft aligncenter alignright alignjustify | outdent indent |codeformat blockformats | removeformat undo redo ",
-            "bullist numlist toc pastetext|lists image table | searchreplace fullscreen"
+            "bold italic underline | formatselect | fontsizeselect | alignleft aligncenter alignright alignjustify | outdent indent | codeformat blockformats | removeformat undo redo",
+            "bullist numlist toc pastetext | image table | searchreplace fullscreen"
           ],
           plugins: "lists image table wordcount fullscreen help codesample toc searchreplace",
-          external_plugins: {
-            'powerpaste': '/assets/tinymce/plugins/powerpaste/plugin.min.js',
-          }
+          external_plugins: {'powerpaste': '/assets/tinymce/plugins/powerpaste/plugin.min.js'}
         }
-      };
+      }
     },
     mounted() {
       this.init();

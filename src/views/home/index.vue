@@ -1,11 +1,14 @@
 <!--<template>
-  <card id="home" ref="Card">
+  <card ref="Card">
     <div slot="header">
       <el-button type="success" @click="objectEvaluate">赋值</el-button>
       <el-button type="danger" @click="reset">重置</el-button>
-      <el-button type="primary" @click="submit">提交</el-button>
+      <submit-button ref="SubmitButton" @submit="submit"/>
       <el-button class="float-right" @click="stop">停止</el-button>
       <el-button class="float-right" @click="start">旋转</el-button>
+      <Clipboard :text='token' class="float-right">
+        <el-button type="warning">点击复制Token</el-button>
+      </Clipboard>
     </div>
     <el-form :model="form" :rules="rules" ref="Form" label-width="150px">
       <row-col>
@@ -55,16 +58,17 @@
 </template>
 
 <script>
-  import ImageUploader from '@/components/ImageUploader'
-  import ImageUploaderPlus from '@/components/ImageUploaderPlus'
-  import ImageUploaderBatch from '@/components/ImageUploaderBatch'
-  import VideoUploader from '@/components/VideoUploader'
-  import DateTimePicker from '@/components/DateTimePicker'
-  import RegionSelect from '@/components/RegionSelect'
-  import TreeSelect from '@/components/TreeSelect'
-  import InputSearch from '@/components/InputSearch'
-  import SearchSelect from '@/components/SearchSelect'
-  import CustomEditor from '@/components/CustomEditor'
+  import ImageUploader from '@/components/ImageUploader';
+  import ImageUploaderPlus from '@/components/ImageUploaderPlus';
+  import ImageUploaderBatch from '@/components/ImageUploaderBatch';
+  import VideoUploader from '@/components/VideoUploader';
+  import DateTimePicker from '@/components/DateTimePicker';
+  import RegionSelect from '@/components/RegionSelect';
+  import TreeSelect from '@/components/TreeSelect';
+  import InputSearch from '@/components/InputSearch';
+  import SearchSelect from '@/components/SearchSelect';
+  import CustomEditor from '@/components/CustomEditor';
+  import Clipboard from "@/components/Clipboard";
   import {objectEvaluate, resetForm} from "@/utils/common";
 
   export default {
@@ -72,7 +76,7 @@
     components: {
       ImageUploader, ImageUploaderPlus, ImageUploaderBatch,
       VideoUploader, DateTimePicker, RegionSelect, TreeSelect,
-      InputSearch, SearchSelect, CustomEditor
+      InputSearch, SearchSelect, CustomEditor, Clipboard
     },
     data() {
       return {
@@ -127,6 +131,11 @@
         }
       }
     },
+    computed: {
+      token() {
+        return this.$storeGet.token
+      }
+    },
     methods: {
       start() {
         this.$refs.Card.start();
@@ -140,8 +149,13 @@
       submit() {
         this.$refs['Form'].validate((valid) => {
           if (valid) {
-            console.log(this.form)
-            this.$successMsg('提交成功')
+            this.$refs.SubmitButton.start();
+            setTimeout(() => {
+              this.$refs.SubmitButton.stop();
+              console.log(this.form);
+              this.reset();
+              this.$successMsg('提交成功')
+            }, 2000)
           } else {
             return false;
           }
@@ -152,29 +166,6 @@
       }
     }
   };
-</script>-->
-
-
-<!--<template>
-  <div id="home">
-    <Clipboard :text='token'>
-      <el-button size="large">点击复制Token</el-button>
-    </Clipboard>
-  </div>
-</template>
-
-<script>
-  import Clipboard from "@/components/Clipboard/index";
-
-  export default {
-    name: "Home",
-    components: {Clipboard},
-    computed: {
-      token() {
-        return this.$storeGet.token
-      }
-    }
-  }
 </script>-->
 
 
