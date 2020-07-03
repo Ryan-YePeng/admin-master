@@ -171,11 +171,12 @@
 
 <template>
   <div id="home" :style="'height:' + (mainHeight - 30) + 'px'" v-show="isShow">
-    <h1 class="title">WTeam - 后台管理系统</h1>
+    <h1 class="title">{{title}} - 后台管理系统</h1>
   </div>
 </template>
 
 <script>
+  const {title} = require("@/settings");
   const elementResizeDetectorMaker = require("element-resize-detector");
   let mainResizeListen = elementResizeDetectorMaker();
 
@@ -186,6 +187,11 @@
         mainHeight: 0,
         isShow: false
       };
+    },
+    computed: {
+      title() {
+        return title
+      }
     },
     mounted() {
       this.addListen();
@@ -221,7 +227,6 @@
       padding-top: 50px;
       color: beige;
       font-size: 50px;
-      font-style: italic;
       text-align: center;
     }
   }

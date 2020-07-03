@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <el-form ref="Form" :model="form" :rules="rules" label-position="left" label-width="0px" class="login-form">
-      <h3 class="title">WTeam-ADMIN 后台管理系统</h3>
+      <h3 class="title">{{title}} 后台管理系统</h3>
       <el-form-item prop="username">
         <el-input v-model="form.username" type="text" auto-complete="off" placeholder="用户名">
           <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon"/>
@@ -38,10 +38,10 @@
 </template>
 
 <script>
-  import {loginApi, getCodeApi} from '@/api/login'
-  import {encrypt} from '@/utils/encrypt'
+  import {loginApi, getCodeApi} from '@/api/login';
+  import {encrypt} from '@/utils/encrypt';
   import {generateRouter} from "@/router";
-  import {footerTxt, caseNumber} from '@/settings'
+  import {title, footerTxt, caseNumber} from '@/settings';
 
   export default {
     name: "Login",
@@ -65,6 +65,9 @@
       }
     },
     computed: {
+      title() {
+        return title
+      },
       footerTxt() {
         return footerTxt
       },

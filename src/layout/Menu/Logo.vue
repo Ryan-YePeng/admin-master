@@ -6,15 +6,20 @@
       <div class="logo">
         <img src="../../assets/logo.png" alt="logo">
       </div>
-      <h1 class="logo-title">{{title}}</h1>
+      <h1 class="logo-title">{{menuTitle}}</h1>
     </div>
   </div>
 </template>
 
 <script>
+  import {menuTitle} from "@/settings";
+
   export default {
     name: "Logo",
     computed: {
+      menuTitle() {
+        return menuTitle
+      },
       isShowLogo() {
         return this.$storeGet.setting.isShowLogo
       },
@@ -23,11 +28,6 @@
       },
       isVertical() {
         return this.$storeGet.setting.isVertical
-      }
-    },
-    data() {
-      return {
-        title: 'WTeam - 后台管理'
       }
     }
   }

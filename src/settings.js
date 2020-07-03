@@ -4,10 +4,13 @@ module.exports = {
    * */
   // 网站标题
   title: 'WTeam-ADMIN',
+  // 菜单标题
+  menuTitle: 'WTeam - 后台管理',
   // 底部文字
   footerTxt: '© 2020 Wang YePeng Wteam.All rights reserved',
   // 备案号
   caseNumber: '粤ICP备23001351号',
+
   /**
    * @description 系统设置
    * */
@@ -21,6 +24,7 @@ module.exports = {
   isHistory: true,
   // 分页条数设置
   pagingSize: 10,
+
   /**
    * @description 样式设置
    * */
