@@ -20,8 +20,8 @@
   export default {
     name: "DateTimePicker",
     props: {
-      start: {type: String | Number | Date},
-      end: {type: String | Number | Date}
+      start: [String, Number, Date],
+      end: [String, Number, Date]
     },
     data() {
       return {

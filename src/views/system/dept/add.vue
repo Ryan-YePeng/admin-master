@@ -49,7 +49,7 @@
     props: {
       dept: {
         type: Array,
-        default: []
+        default: () => []
       }
     },
     data() {

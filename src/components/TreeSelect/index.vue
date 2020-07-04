@@ -25,10 +25,10 @@
     components: {VueTreeSelect},
     props: {
       value: {
-        type: Number | Array | Object
+        type: [Number, Array, Object]
       },
       tree: { // 数据
-        type: Number | Array,
+        type: [Number, Array],
         required: true
       },
       placeholder: {

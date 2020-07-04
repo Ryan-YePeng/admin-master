@@ -2,8 +2,9 @@
   <el-table
       :data="data"
       :row-key="rowKey"
-      @row-click="rowClick"
       :expand-row-keys="expands"
+      @row-click="rowClick"
+      @selection-change="getSelected"
   >
     <slot/>
   </el-table>
@@ -15,7 +16,11 @@
     props: {
       data: {
         type: Array,
-        default: []
+        default: () => []
+      },
+      keys: {
+        type: Array,
+        default: () => []
       },
       rowKey: {
         type: String,
@@ -40,6 +45,12 @@
         } else {
           this.expands.remove(row[this.rowKey]);
         }
+      },
+      getSelected(array) {
+        this.$emit(
+          "update:keys",
+          array.map(item => item[this.rowKey])
+        )
       }
     }
   }

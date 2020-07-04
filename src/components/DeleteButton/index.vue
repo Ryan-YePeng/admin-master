@@ -36,7 +36,7 @@
     name: "DeleteButton",
     props: {
       id: {
-        type: Number | String,
+        type: [Number, String],
         required: true
       },
       msg: { // 提示文字

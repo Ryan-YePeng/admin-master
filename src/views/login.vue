@@ -41,7 +41,7 @@
   import {loginApi, getCodeApi} from '@/api/login';
   import {encrypt} from '@/utils/encrypt';
   import {generateRouter} from "@/router";
-  import {title, footerTxt, caseNumber} from '@/settings';
+  import {title, footerTxt, caseNumber, hasCode} from '@/settings';
 
   export default {
     name: "Login",
@@ -74,6 +74,9 @@
       caseNumber() {
         return caseNumber
       },
+      hasCode() {
+        return hasCode
+      },
       isShowFooter() {
         return this.$storeGet.setting.isShowFooter
       }
@@ -85,6 +88,7 @@
     },
     methods: {
       getCode() {
+        if (!this.hasCode) return;
         this.isImgLoading = true;
         getCodeApi()
           .then(result => {

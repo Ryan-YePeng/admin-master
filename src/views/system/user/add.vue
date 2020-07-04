@@ -83,15 +83,15 @@
     props: {
       dept: {
         type: Array,
-        default: []
+        default: () => []
       },
       roleList: {
         type: Array,
-        default: []
+        default: () => []
       },
       jobList: {
         type: Array,
-        default: []
+        default: () => []
       },
       level: {
         type: Number

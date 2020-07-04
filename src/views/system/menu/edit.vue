@@ -95,7 +95,7 @@
     props: {
       menu: {
         type: Array,
-        default: []
+        default: () => []
       }
     },
     data() {

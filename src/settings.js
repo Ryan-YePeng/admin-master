@@ -3,20 +3,22 @@ module.exports = {
    * @description 网站设置
    * */
   // 网站标题
-  title: 'WTeam-ADMIN',
+  title: "WTeam-ADMIN",
   // 菜单标题
-  menuTitle: 'WTeam - 后台管理',
+  menuTitle: "WTeam - 后台管理",
   // 底部文字
-  footerTxt: '© 2020 Wang YePeng Wteam.All rights reserved',
+  footerTxt: "© 2020 Wang YePeng Wteam.All rights reserved",
   // 备案号
-  caseNumber: '粤ICP备23001351号',
+  caseNumber: "粤ICP备23001351号",
 
   /**
    * @description 系统设置
    * */
   // store key的前缀
-  prefix: 'ADMIN',
-  // 记住密码状态下的token在Cookies中存储的天数
+  prefix: "ADMIN",
+  // 是否开启验证码
+  hasCode: true,
+  // 记住密码时token的存储时间(天)
   tokenCookieExpires: 7,
   // 请求超时时间(s)
   timeout: 20 * 1000,
@@ -45,5 +47,5 @@ module.exports = {
   // 是否只保持一个子菜单的展开
   isUniqueOpened: true,
   // 组件大小设置
-  layoutSize: 'small'
+  layoutSize: "small"
 };

@@ -18,7 +18,7 @@
     props: {
       ids: {
         type: Array,
-        default: []
+        default: () => []
       },
       tree: {
         type: Array,

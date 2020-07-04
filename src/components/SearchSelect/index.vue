@@ -25,7 +25,7 @@
     name: "SearchSelect",
     props: {
       value: {
-        type: String | Number
+        type: [String, Number]
       }
     },
     data() {

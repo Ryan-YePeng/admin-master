@@ -56,7 +56,7 @@
     props: {
       dept: {
         type: Array,
-        default: []
+        default: () => []
       },
       level: {
         type: Number

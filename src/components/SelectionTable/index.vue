@@ -1,8 +1,5 @@
 <template>
-  <el-table
-      :data="data"
-      @selection-change="getSelected"
-  >
+  <el-table :data="data" @selection-change="getSelected">
     <el-table-column type="selection" width="55"/>
     <slot/>
   </el-table>
@@ -12,26 +9,25 @@
   export default {
     name: "SelectionTable",
     props: {
+      keys: {
+        type: Array,
+        default: () => []
+      },
       data: {
         type: Array,
-        default: []
+        default: () => []
       },
       rowKey: {
         type: String,
         default: "id"
       }
     },
-    data() {
-      return {
-        keys: []
-      }
-    },
     methods: {
       getSelected(array) {
-        this.keys = array.map(item => item[this.rowKey])
-      },
-      get() {
-        return this.keys
+        this.$emit(
+          "update:keys",
+          array.map(item => item[this.rowKey])
+        )
       }
     }
   }
