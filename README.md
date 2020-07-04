@@ -6,6 +6,8 @@
 
 #### Build Setup
 ``` bash
+# 安装node.js
+
 # 安装依赖
 npm i / cnpm i
 
