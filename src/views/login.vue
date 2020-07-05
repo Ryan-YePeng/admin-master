@@ -9,13 +9,13 @@
       </el-form-item>
       <el-form-item prop="password">
         <el-input v-model="form.password" type="password" auto-complete="off" placeholder="密码"
-                  @keyup.enter.native="submitForm">
+                  @keyup.enter.native="submit">
           <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon"/>
         </el-input>
       </el-form-item>
       <el-form-item prop="code">
         <el-input v-model="form.code" auto-complete="off" placeholder="验证码" style="width: 63%"
-                  @keyup.enter.native="submitForm">
+                  @keyup.enter.native="submit">
           <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon"/>
         </el-input>
         <div class="login-code" v-loading="isImgLoading" element-loading-background="rgba(255, 255, 255, 0)">
@@ -24,7 +24,7 @@
       </el-form-item>
       <el-checkbox v-model="isRememberMe" style="margin:0 0 25px 0;">记住我</el-checkbox>
       <el-form-item class="w-100">
-        <el-button :loading="isLoading" type="primary" class="w-100" @click.native.prevent="submitForm">
+        <el-button :loading="isLoading" type="primary" class="w-100" @click.native.prevent="submit">
           <span v-if="!isLoading">登 录</span>
           <span v-else>登 录 中...</span>
         </el-button>
