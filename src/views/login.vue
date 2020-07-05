@@ -101,7 +101,7 @@
             this.isImgLoading = false;
           })
       },
-      submitForm() {
+      submit() {
         this.$refs['Form'].validate((valid) => {
           if (valid) {
             this.isLoading = true;

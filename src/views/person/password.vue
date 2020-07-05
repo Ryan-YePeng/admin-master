@@ -18,7 +18,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="cancel">取 消</el-button>
-      <submit-button ref="SubmitButton" @submit="submitForm"/>
+      <submit-button ref="Submit" @submit="submit"/>
     </div>
   </el-dialog>
 </template>
@@ -55,19 +55,19 @@
       }
     },
     methods: {
-      submitForm() {
+      submit() {
         this.$refs["Form"].validate((valid) => {
           if (valid) {
             let data = {};
             data.oldPass = encrypt(this.form.oldPass);
             data.newPass = encrypt(this.form.newPass);
-            this.$refs.SubmitButton.start();
+            this.$refs.Submit.start();
             updatePassApi(data).then(result => {
-              this.$refs.SubmitButton.stop();
+              this.$refs.Submit.stop();
               if (result.status === 200)
                 this.$storeSet('quitLogin')
             }).catch(() => {
-              this.$refs.SubmitButton.stop();
+              this.$refs.Submit.stop();
             })
           } else {
             return false;

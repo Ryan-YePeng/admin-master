@@ -39,7 +39,7 @@
         <div slot="header">
           <span>菜单分配</span>
           <submit-button
-              ref="SubmitButton"
+              ref="Submit"
               icon="el-icon-check"
               class="float-right"
               @submit="update"
@@ -97,7 +97,7 @@
       },
       // 获取角色列表和权限树
       getRoleListAndRoleTree() {
-        this.$refs.SubmitButton.ban();
+        this.$refs.Submit.ban();
         this.$refs.Card.start();
         this.$refs.TreeCard.start();
         getRoleListApi({roleName: ''})
@@ -119,12 +119,12 @@
           this.$refs.Card.stop();
           this.formData = result.resultParam.roleList;
           this.$refs.RoleMenuTree.clear();
-          this.$refs.SubmitButton.ban();
+          this.$refs.Submit.ban();
         })
       },
       // 点击行
       getTreeChecked(row) {
-        this.$refs.SubmitButton.cancelBan();
+        this.$refs.Submit.cancelBan();
         this.$refs.RoleMenuTree.clear();
         this.menuIds = row.menus.map(item => item.id);
         this.id = row.id
@@ -134,18 +134,17 @@
         let data = {};
         data.roleId = this.id;
         data.menuIds = this.$refs.RoleMenuTree.get();
-        this.$refs.SubmitButton.start();
+        this.$refs.Submit.start();
         editRolesMenusApi(data).then(() => {
-          this.$refs.SubmitButton.stop();
+          this.$refs.Submit.stop();
           this.getRoleList()
         }).catch(() => {
-          this.$refs.SubmitButton.stop();
+          this.$refs.Submit.stop();
         })
       },
       // 新增
       add() {
-        let _this = this.$refs.AddRole;
-        _this.visible = true
+        this.$refs.AddRole.visible = true
       },
       // 编辑
       edit(obj) {

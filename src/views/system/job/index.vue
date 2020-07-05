@@ -71,8 +71,7 @@
         })
       },
       add() {
-        let _this = this.$refs.AddJob;
-        _this.visible = true
+        this.$refs.AddJob.visible = true
       },
       edit(obj) {
         let _this = this.$refs.EditJob;

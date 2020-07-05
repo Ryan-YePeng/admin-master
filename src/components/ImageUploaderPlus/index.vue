@@ -43,7 +43,7 @@
       </div>
       <div slot="footer" class="dialog-footer">
         <el-button @click="closeUpload">取 消</el-button>
-        <submit-button ref="SubmitButton" @submit="submit"/>
+        <submit-button ref="Submit" @submit="submit"/>
       </div>
     </el-dialog>
   </div>
@@ -129,17 +129,17 @@
           let formData = new FormData();
           formData.append('file', data, this.fileName);
           formData.append('typePath', this.typePath);
-          this.$refs.SubmitButton.start();
+          this.$refs.Submit.start();
           uploadPictureApi(formData)
             .then(result => {
               this.url = URL.createObjectURL(data);
               this.$emit('input', result.resultParam.uploadFilePath);
               this.$parent.$emit('el.form.change');
-              this.$refs.SubmitButton.stop();
+              this.$refs.Submit.stop();
               this.closeUpload();
             })
             .catch(() => {
-              this.$refs.SubmitButton.stop();
+              this.$refs.Submit.stop();
             })
         })
       },
@@ -157,7 +157,7 @@
       // 清理文件
       clearFiles() {
         this.url = "";
-        this.$refs.SubmitButton.stop();
+        this.$refs.Submit.stop();
         this.$refs.ImageUploaderPlus.clearFiles();
       }
     }

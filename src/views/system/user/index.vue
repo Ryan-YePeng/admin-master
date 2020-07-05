@@ -147,8 +147,7 @@
         })
       },
       add() {
-        let _this = this.$refs.AddUser;
-        _this.visible = true
+        this.$refs.AddUser.visible = true
       },
       edit(obj) {
         let _this = this.$refs.EditUser;

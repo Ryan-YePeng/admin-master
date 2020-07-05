@@ -44,7 +44,7 @@
       </div>
       <div slot="footer" class="dialog-footer">
         <el-button @click="closeUpload">取 消</el-button>
-        <submit-button ref="SubmitButton" @submit="submit"/>
+        <submit-button ref="Submit" @submit="submit"/>
       </div>
     </el-dialog>
   </div>
@@ -116,10 +116,10 @@
         this.$refs.cropper.getCropBlob(data => {
           let formData = new FormData();
           formData.append('avatar', data, this.fileName);
-          this.$refs.SubmitButton.start();
+          this.$refs.Submit.start();
           editAvatarApi(formData)
             .then(() => {
-              this.$refs.SubmitButton.stop();
+              this.$refs.Submit.stop();
               this.closeUpload();
               return getUserInfoApi()
             })
@@ -127,7 +127,7 @@
               this.$storeSet('setUser', result.resultParam.currentUser.user);
             })
             .catch(() => {
-              this.$refs.SubmitButton.stop();
+              this.$refs.Submit.stop();
             })
         })
       },

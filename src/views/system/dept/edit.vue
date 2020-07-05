@@ -33,7 +33,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="visible = false">取 消</el-button>
-      <submit-button ref="SubmitButton" @submit="submitForm"/>
+      <submit-button ref="Submit" @submit="submit"/>
     </div>
   </el-dialog>
 </template>
@@ -69,18 +69,18 @@
       }
     },
     methods: {
-      submitForm() {
+      submit() {
         this.$refs['Form'].validate((valid) => {
           if (valid) {
             let data = {...this.form};
             if (!data.pid) data.pid = 0;
-            this.$refs.SubmitButton.start();
+            this.$refs.Submit.start();
             editDeptApi(data).then(() => {
-              this.$refs.SubmitButton.stop();
+              this.$refs.Submit.stop();
               this.$emit('update');
               this.cancel()
             }).catch(() => {
-              this.$refs.SubmitButton.stop();
+              this.$refs.Submit.stop();
             })
           } else {
             return false;
