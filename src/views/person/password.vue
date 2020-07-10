@@ -75,7 +75,8 @@
         })
       },
       cancel() {
-        resetForm(this)
+        this.visible = false;
+        resetForm(this, 'form')
       }
     }
   }

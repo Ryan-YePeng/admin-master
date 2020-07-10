@@ -1,5 +1,24 @@
 export default {
   /**
+   * @description 模板
+   * */
+  tree:
+    `/**
+   * @description 
+   * */
+  {
+    id: '', name: '',
+    children: [
+      {
+        id: '', name: '',
+        children: [
+          {id: '', name: '', unit: '', price: , tax: ''},
+        ]
+      },
+    ]
+  },`,
+
+  /**
    * @description 表单
    * */
   timePicker:

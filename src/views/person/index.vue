@@ -62,7 +62,7 @@
 
   export default {
     components: {PasswordDialog, PersonalLog, AvatarUploader},
-    name: 'person',
+    name: 'Person',
     computed: {
       user() {
         return this.$storeGet.user

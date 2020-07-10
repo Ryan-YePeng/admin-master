@@ -1,5 +1,10 @@
 <template>
   <card>
+    <div slot="header">
+      <clipboard class="float-right"  :text="code.tree">
+        <el-button type="warning">树形</el-button>
+      </clipboard>
+    </div>
     <el-form>
       <!--表单-->
       <el-form-item label="表单:">

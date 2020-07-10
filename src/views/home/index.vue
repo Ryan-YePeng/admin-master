@@ -1,9 +1,9 @@
 <template>
-  <div id="home" :style="'height:' + (mainHeight - 30) + 'px'" v-show="isShow">
-    <h1 class="title">{{title}} - 后台管理系统</h1>
-  </div>
+  <!--  <div id="home" :style="'height:' + (mainHeight - 30) + 'px'" v-show="isShow">-->
+  <!--    <h1 class="title">{{title}} - 后台管理系统</h1>-->
+  <!--  </div>-->
   <!--  <example></example>-->
-  <!--  <copy-code></copy-code>-->
+  <copy-code></copy-code>
 </template>
 
 <script>
@@ -13,10 +13,10 @@
 
   export default {
     name: "Home",
-    // components: {
-    //   Example: () => import('./Example'),
-    //   CopyCode: () => import('./CopyCode')
-    // },
+    components: {
+      Example: () => import('./Example'),
+      CopyCode: () => import('./CopyCode')
+    },
     data() {
       return {
         mainHeight: 0,

@@ -1,16 +1,15 @@
 <template>
-  <div class="pagination">
-    <el-pagination
-        v-if="total > 0"
-        :page-sizes="page_sizes"
-        :page-size="size"
-        :layout="layout"
-        :total="total"
-        :current-page.sync="current"
-        @current-change="handleCurrentChange"
-        @size-change="handleSizeChange">
-    </el-pagination>
-  </div>
+  <el-pagination
+      v-if="total > 0"
+      class="pagination"
+      :page-sizes="pageSizes"
+      :page-size="size"
+      :layout="layout"
+      :total="total"
+      :current-page.sync="current"
+      @current-change="handleCurrentChange"
+      @size-change="handleSizeChange">
+  </el-pagination>
 </template>
 
 <script>
@@ -21,7 +20,7 @@
         current: 1,
         total: 0,
         size: 10,
-        page_sizes: [10, 20, 50, 100, 200],
+        pageSizes: [10, 20, 50, 100, 200],
         layout: "total, sizes, prev, pager, next, jumper"
       }
     },
@@ -55,9 +54,9 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .pagination {
     background-color: #fff;
-    padding: 10px 0 0 2px;
+    padding-top: 10px;
   }
 </style>
