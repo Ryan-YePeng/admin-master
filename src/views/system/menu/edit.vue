@@ -11,8 +11,7 @@
             placement="bottom-start"
             width="450"
             trigger="click"
-            @show="$refs['iconSelect'].reset()"
-        >
+            @show="$refs['iconSelect'].reset()">
           <icon-select ref="iconSelect" @selected="selected"/>
           <el-input slot="reference" v-model="form.icon" placeholder="点击选择图标" readonly>
             <svg-icon v-if="form.icon" slot="prefix" :icon-class="form.icon"/>
@@ -90,7 +89,7 @@
   import {resetForm} from "@/utils/common";
 
   export default {
-    name: "EditMenu",
+    name: "Edit",
     components: {IconSelect, TreeSelect},
     props: {
       menu: {

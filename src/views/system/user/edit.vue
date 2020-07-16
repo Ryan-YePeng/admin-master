@@ -78,7 +78,7 @@
   import {resetForm} from "@/utils/common";
 
   export default {
-    name: "EditUser",
+    name: "Edit",
     components: {TreeSelect},
     props: {
       dept: {

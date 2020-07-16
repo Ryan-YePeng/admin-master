@@ -3,16 +3,14 @@
     <el-col :sm="24" :md="19" class="mb-15">
       <card ref="Card">
         <div slot="header">
-          <el-input placeholder="输入角色名称搜索" v-model="searchRoleName" clearable class="w-200"
-                    @keyup.enter.native="getRoleList"/>
-          <el-button type="success" class="el-icon-search ml-5" @click="getRoleList">搜索</el-button>
+          <el-input placeholder="输入角色名称搜索" v-model="searchRoleName" clearable class="w-200" @keyup.enter.native="getData"/>
+          <el-button type="success" class="el-icon-search ml-5" @click="getData">搜索</el-button>
           <el-button type="primary" icon="el-icon-plus" @click="add" class="float-right">新增</el-button>
         </div>
         <el-table
             :data="formData"
             @row-click="getTreeChecked"
-            :highlight-current-row="true"
-        >
+            :highlight-current-row="true">
           <el-table-column prop="name" label="名称"/>
           <el-table-column prop="dataScope" label="数据权限"/>
           <el-table-column prop="level" label="角色级别"/>
@@ -25,10 +23,7 @@
           <el-table-column label="操作" align="center" width="150">
             <template slot-scope="scope">
               <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
-              <delete-button
-                  :ref="scope.row.id"
-                  :id="scope.row.id"
-                  @start="deleteRole"/>
+              <delete-button :ref="scope.row.id" :id="scope.row.id" @start="delData"/>
             </template>
           </el-table-column>
         </el-table>
@@ -48,8 +43,8 @@
         <checkbox-tree ref="RoleMenuTree" :ids="menuIds" :tree="tree"/>
       </card>
     </el-col>
-    <add-role ref="AddRole" :dept="dept" :level="level+1" @update="getRoleList"/>
-    <edit-role ref="EditRole" :dept="dept" :level="level+1" @update="getRoleList"/>
+    <add ref="Add" :dept="dept" :level="level+1" @update="getData"/>
+    <edit ref="Edit" :dept="dept" :level="level+1" @update="getData"/>
   </el-row>
 </template>
 
@@ -60,12 +55,12 @@
   import {getDeptTreeApi} from '@/api/system/dept';
   import {objectEvaluate} from "@/utils/common";
   import CheckboxTree from '@/components/CheckboxTree';
-  import AddRole from './add';
-  import EditRole from './edit';
+  import Add from './add';
+  import Edit from './edit';
 
   export default {
     name: "Role",
-    components: {AddRole, EditRole, CheckboxTree},
+    components: {Add, Edit, CheckboxTree},
     data() {
       return {
         formData: [],
@@ -79,18 +74,18 @@
     },
     mounted() {
       this.getRoleListAndRoleTree();
-      this.getDeptTree();
-      this.getUserLevel();
+      this.getDept();
+      this.getLevel();
     },
     methods: {
       // 获取部门
-      getDeptTree() {
+      getDept() {
         getDeptTreeApi({deptName: ''}).then(result => {
           this.dept = result.resultParam.deptTree
         })
       },
       // 获取级别
-      getUserLevel() {
+      getLevel() {
         getUserLevelApi().then(result => {
           this.level = result.resultParam.level
         })
@@ -113,7 +108,7 @@
           })
       },
       // 获取角色列表
-      getRoleList() {
+      getData() {
         this.$refs.Card.start();
         getRoleListApi({roleName: this.searchRoleName}).then(result => {
           this.$refs.Card.stop();
@@ -137,18 +132,18 @@
         this.$refs.Submit.start();
         editRolesMenusApi(data).then(() => {
           this.$refs.Submit.stop();
-          this.getRoleList()
+          this.getData()
         }).catch(() => {
           this.$refs.Submit.stop();
         })
       },
       // 新增
       add() {
-        this.$refs.AddRole.visible = true
+        this.$refs.Add.visible = true
       },
       // 编辑
       edit(obj) {
-        let _this = this.$refs.EditRole;
+        let _this = this.$refs.Edit;
         objectEvaluate(_this.form, obj);
         _this.form.deptIds = [];
         obj.depts.forEach(item => {
@@ -157,10 +152,10 @@
         _this.visible = true
       },
       // 删除
-      deleteRole(id) {
+      delData(id) {
         deleteRoleApi({roleId: id})
           .then(() => {
-            this.getRoleList();
+            this.getData();
             this.$refs[id].close()
           })
           .catch(() => {

@@ -1,9 +1,8 @@
 <template>
   <card ref="Card">
     <div slot="header">
-      <el-input placeholder="输入菜单名称搜索" v-model="searchTitle" clearable class="w-200"
-                @keyup.enter.native="searchMenu"/>
-      <el-button type="success" class="el-icon-search ml-5" @click="searchMenu">搜索</el-button>
+      <el-input placeholder="输入菜单名称搜索" v-model="searchTitle" clearable class="w-200" @keyup.enter.native="searchData"/>
+      <el-button type="success" class="el-icon-search ml-5" @click="searchData">搜索</el-button>
       <el-button type="primary" icon="el-icon-plus" @click="add()" class="float-right">新增</el-button>
     </div>
     <el-table
@@ -43,30 +42,27 @@
       </el-table-column>
       <el-table-column label="操作" fixed="right" align="center" width="210">
         <template slot-scope="scope">
-          <el-button type="success" icon="el-icon-plus" @click.stop="add(scope.row)"></el-button>
-          <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
-          <delete-button
-              :ref="scope.row.id"
-              :id="scope.row.id"
-              @start="deleteMenu"/>
+          <el-button type="success" icon="el-icon-plus" @click.stop="add(scope.row)"/>
+          <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"/>
+          <delete-button :ref="scope.row.id" :id="scope.row.id" @start="delData"/>
         </template>
       </el-table-column>
     </el-table>
-    <add-menu ref="AddMenu" :menu="menu" @update="getMenu"/>
-    <edit-menu ref="EditMenu" :menu="menu" @update="getMenu"/>
+    <add ref="Add" :menu="menu" @update="getData"/>
+    <edit ref="Edit" :menu="menu" @update="getData"/>
   </card>
 </template>
 
 <script>
   import {getAllMenuApi, deleteMenuApi} from '@/api/system/menu';
   import {objectEvaluate} from "@/utils/common";
-  import AddMenu from './add';
-  import EditMenu from './edit';
+  import Add from './add';
+  import Edit from './edit';
   import Clipboard from '@/components/Clipboard';
 
   export default {
     name: "Menu",
-    components: {AddMenu, EditMenu, Clipboard},
+    components: {Add, Edit, Clipboard},
     data() {
       return {
         isDeleteLoading: false,
@@ -76,10 +72,10 @@
       }
     },
     mounted() {
-      this.getMenu()
+      this.getData()
     },
     methods: {
-      getMenu() {
+      getData() {
         this.$refs.Card.start();
         getAllMenuApi({title: ''}).then(result => {
           this.formData = result.resultParam.menuList;
@@ -87,33 +83,33 @@
           this.$refs.Card.stop()
         })
       },
-      searchMenu() {
+      searchData() {
         this.$refs.Card.start();
         getAllMenuApi({title: this.searchTitle}).then(result => {
           this.$refs.Card.stop();
           this.formData = result.resultParam.menuList;
         })
       },
-      deleteMenu(id) {
+      add(obj) {
+        let _this = this.$refs.Add;
+        if (obj) _this.form.pid = obj.id;
+        _this.visible = true;
+      },
+      edit(obj) {
+        let _this = this.$refs.Edit;
+        if (obj.pid === 0) obj.pid = null;
+        objectEvaluate(_this.form, obj);
+        _this.visible = true;
+      },
+      delData(id) {
         deleteMenuApi({menuId: id})
           .then(() => {
-            this.getMenu();
+            this.getData();
             this.$refs[id].close()
           })
           .catch(() => {
             this.$refs[id].stop();
           })
-      },
-      add(obj) {
-        let _this = this.$refs.AddMenu;
-        if (obj) _this.form.pid = obj.id;
-        _this.visible = true;
-      },
-      edit(obj) {
-        let _this = this.$refs.EditMenu;
-        if (obj.pid === 0) obj.pid = null;
-        objectEvaluate(_this.form, obj);
-        _this.visible = true;
       }
     }
   }

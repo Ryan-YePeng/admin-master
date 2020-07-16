@@ -36,7 +36,7 @@
   import {resetForm} from "@/utils/common";
 
   export default {
-    name: "AddJob",
+    name: "Add",
     data() {
       return {
         visible: false,

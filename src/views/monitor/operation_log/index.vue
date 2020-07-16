@@ -29,7 +29,7 @@
         </template>
       </el-table-column>
     </expand-table>
-    <pagination ref="Pagination" @update="getLogList"></pagination>
+    <pagination ref="Pagination" @update="getData"></pagination>
   </card>
 </template>
 
@@ -44,10 +44,10 @@
       }
     },
     mounted() {
-      this.getLogList()
+      this.getData()
     },
     methods: {
-      getLogList() {
+      getData() {
         this.$refs.Card.start();
         let pagination = this.$refs.Pagination;
         let param = {

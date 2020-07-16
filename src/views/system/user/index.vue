@@ -2,15 +2,13 @@
   <card ref="Card">
     <div slot="header">
       <tree-select
-          v-model="searchDeptId"
+          v-model="searchByDept"
           style="float: left;width: 200px;"
           :tree="dept"
           placeholder="选择部门搜索"
-          @get="getUserList"
-      />
-      <el-input placeholder="输入用户名搜索" v-model="searchUsername" clearable class="w-200 ml-5"
-                @keyup.enter.native="getUserList"/>
-      <el-button type="success" class="el-icon-search ml-5" @click="getUserList">搜索</el-button>
+          @get="getData"/>
+      <el-input placeholder="输入用户名搜索" v-model="searchName" clearable class="w-200 ml-5" @keyup.enter.native="getData"/>
+      <el-button type="success" class="el-icon-search ml-5" @click="getData">搜索</el-button>
       <el-button class="float-right" type="primary" icon="el-icon-plus" @click="add">新增</el-button>
     </div>
     <el-table :data="formData">
@@ -48,25 +46,22 @@
       <el-table-column label="操作" align="center" width="150">
         <template slot-scope="scope">
           <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
-          <delete-button
-              :ref="scope.row.id"
-              :id="scope.row.id"
-              @start="deleteUser"/>
+          <delete-button :ref="scope.row.id" :id="scope.row.id" @start="delData"/>
         </template>
       </el-table-column>
     </el-table>
-    <pagination ref="Pagination" @update="getUserList"></pagination>
-    <add-user
-        ref="AddUser"
+    <pagination ref="Pagination" @update="getData"></pagination>
+    <add
+        ref="Add"
         :dept="dept"
-        @update="getUserList"
+        @update="getData"
         :roleList="roleList"
         :jobList="jobList"
         :level="level"/>
-    <edit-user
-        ref="EditUser"
+    <edit
+        ref="Edit"
         :dept="dept"
-        @update="getUserList"
+        @update="getData"
         :roleList="roleList"
         :jobList="jobList"
         :level="level"/>
@@ -80,17 +75,17 @@
   import {getRoleListApi} from '@/api/system/role';
   import {getJobListApi} from '@/api/system/job';
   import {objectEvaluate} from "@/utils/common";
-  import AddUser from './add';
-  import EditUser from './edit';
+  import Add from './add';
+  import Edit from './edit';
 
   export default {
     name: "User",
-    components: {TreeSelect, AddUser, EditUser},
+    components: {TreeSelect, Add, Edit},
     data() {
       return {
         level: null,
-        searchUsername: '',
-        searchDeptId: null,
+        searchName: '',
+        searchByDept: null,
         formData: [],
         dept: [],
         roleList: [],
@@ -98,46 +93,41 @@
       }
     },
     mounted() {
-      this.getUserLevel();
-      this.getUserList();
-      this.getDeptTree();
-      this.getRoleList();
-      this.getJobList();
-    },
-    computed: {
-      size() {
-        return this.$storeGet.setting.layoutSize
-      }
+      this.getData();
+      this.getLevel();
+      this.getDept();
+      this.getRole();
+      this.getJob();
     },
     methods: {
-      getUserLevel() {
+      getLevel() {
         getUserLevelApi().then(result => {
           this.level = result.resultParam.level
         })
       },
-      getJobList() {
+      getJob() {
         getJobListApi({jobName: ''}).then(result => {
           this.jobList = result.resultParam.jobList.records
         })
       },
-      getRoleList() {
+      getRole() {
         getRoleListApi({roleName: ''}).then(result => {
           this.roleList = result.resultParam.roleList;
         })
       },
-      getDeptTree() {
+      getDept() {
         getDeptTreeApi({deptName: ''}).then(result => {
           this.dept = result.resultParam.deptTree;
         })
       },
-      getUserList() {
+      getData() {
         this.$refs.Card.start();
         let pagination = this.$refs.Pagination;
         let param = {
           current: pagination.current,
           size: pagination.size,
-          deptId: this.searchDeptId,
-          username: this.searchUsername
+          deptId: this.searchByDept,
+          username: this.searchName
         };
         getUserListApi(param).then(result => {
           this.$refs.Card.stop();
@@ -147,10 +137,10 @@
         })
       },
       add() {
-        this.$refs.AddUser.visible = true
+        this.$refs.Add.visible = true
       },
       edit(obj) {
-        let _this = this.$refs.EditUser;
+        let _this = this.$refs.Edit;
         objectEvaluate(_this.form, obj);
         _this.form.rolesId = [];
         obj.roles.forEach(item => {
@@ -162,10 +152,10 @@
         })
         _this.visible = true
       },
-      deleteUser(id) {
+      delData(id) {
         deleteUserApi({ids: id})
           .then(() => {
-            this.getUserList();
+            this.getData();
             this.$refs[id].close()
           })
           .catch(() => {

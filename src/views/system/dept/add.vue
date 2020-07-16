@@ -44,7 +44,7 @@
   import {resetForm} from "@/utils/common";
 
   export default {
-    name: "AddDept",
+    name: "Add",
     components: {TreeSelect},
     props: {
       dept: {

@@ -1,9 +1,8 @@
 <template>
   <card ref="Card">
     <div slot="header">
-      <el-input placeholder="输入部门名称搜索" v-model="searchName" clearable class="w-200"
-                @keyup.enter.native="searchDept"/>
-      <el-button type="success" class="el-icon-search ml-5" @click="searchDept">搜索</el-button>
+      <el-input placeholder="输入部门名称搜索" v-model="searchName" clearable class="w-200" @keyup.enter.native="searchData"/>
+      <el-button type="success" class="el-icon-search ml-5" @click="searchData">搜索</el-button>
       <el-button class="float-right" type="primary" icon="el-icon-plus" @click="add()">新增</el-button>
     </div>
     <el-table
@@ -28,27 +27,24 @@
         <template slot-scope="scope">
           <el-button type="success" icon="el-icon-plus" @click.stop="add(scope.row)"></el-button>
           <el-button type="primary" icon="el-icon-edit" @click.stop="edit(scope.row)"></el-button>
-          <delete-button
-              :ref="scope.row.id"
-              :id="scope.row.id"
-              @start="deleteDept"/>
+          <delete-button :ref="scope.row.id" :id="scope.row.id" @start="delData"/>
         </template>
       </el-table-column>
     </el-table>
-    <add-dept ref="AddDept" :dept="dept" @update="getDeptTree"/>
-    <edit-dept ref="EditDept" :dept="dept" @update="getDeptTree"/>
+    <add ref="Add" :dept="dept" @update="getData"/>
+    <edit ref="Edit" :dept="dept" @update="getData"/>
   </card>
 </template>
 
 <script>
   import {getDeptTreeApi, deleteDeptApi} from '@/api/system/dept'
   import {objectEvaluate} from "@/utils/common";
-  import AddDept from './add'
-  import EditDept from './edit'
+  import Add from './add'
+  import Edit from './edit'
 
   export default {
     name: "Dept",
-    components: {AddDept, EditDept},
+    components: {Add, Edit},
     data() {
       return {
         formData: [],
@@ -57,10 +53,10 @@
       }
     },
     mounted() {
-      this.getDeptTree()
+      this.getData()
     },
     methods: {
-      getDeptTree() {
+      getData() {
         this.$refs.Card.start();
         getDeptTreeApi({deptName: ''}).then(result => {
           this.formData = result.resultParam.deptTree;
@@ -68,7 +64,7 @@
           this.$refs.Card.stop();
         })
       },
-      searchDept() {
+      searchData() {
         this.$refs.Card.start();
         getDeptTreeApi({deptName: this.searchName}).then(result => {
           this.$refs.Card.stop();
@@ -76,20 +72,20 @@
         })
       },
       add(obj) {
-        let _this = this.$refs.AddDept;
+        let _this = this.$refs.Add;
         if (obj) _this.form.pid = obj.id;
         _this.visible = true
       },
       edit(obj) {
-        let _this = this.$refs.EditDept;
+        let _this = this.$refs.Edit;
         if (obj.pid === 0) obj.pid = null;
         objectEvaluate(_this.form, obj);
         _this.visible = true
       },
-      deleteDept(id) {
+      delData(id) {
         deleteDeptApi({deptId: id})
           .then(() => {
-            this.getDeptTree();
+            this.getData();
             this.$refs[id].close()
           })
           .catch(() => {
@@ -99,5 +95,3 @@
     }
   }
 </script>
-
-

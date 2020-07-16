@@ -2,8 +2,8 @@
   <card ref="Card">
     <div slot="header">
       <el-input placeholder="全表模糊搜索" v-model="searchText" clearable class="w-200"
-                @keyup.enter.native="getOnlineUser"/>
-      <el-button type="success" class="el-icon-search ml-5" @click="getOnlineUser">搜索</el-button>
+                @keyup.enter.native="getData"/>
+      <el-button type="success" class="el-icon-search ml-5" @click="getData">搜索</el-button>
     </div>
     <el-table :data="formData">
       <el-table-column prop="userName" label="用户名"/>
@@ -25,11 +25,11 @@
               :msg="'确定强制退出该用户吗？'"
               type="text"
               text="强退"
-              @start="deleteOnlineUserApi"/>
+              @start="delData"/>
         </template>
       </el-table-column>
     </el-table>
-    <pagination ref="Pagination" @update="getOnlineUser"></pagination>
+    <pagination ref="Pagination" @update="getData"></pagination>
   </card>
 </template>
 
@@ -45,10 +45,10 @@
       }
     },
     mounted() {
-      this.getOnlineUser()
+      this.getData()
     },
     methods: {
-      getOnlineUser() {
+      getData() {
         this.$refs.Card.start();
         let pagination = this.$refs.Pagination;
         let param = {
@@ -63,10 +63,10 @@
           pagination.total = response.total;
         })
       },
-      deleteOnlineUserApi(key) {
+      delData(key) {
         deleteOnlineUserApi({keys: key})
           .then(() => {
-            this.getOnlineUser();
+            this.getData();
             this.$refs[key].close()
           })
           .catch(() => {
@@ -76,5 +76,3 @@
     }
   }
 </script>
-
-
