@@ -31,8 +31,9 @@
     },
     data() {
       return {
-        isLoading: false,
+        limitSize: 2,
         accept: ".jpg, .png",
+        isLoading: false,
         url: ""
       };
     },
@@ -56,11 +57,11 @@
         const size = file.size / 1024 / 1024;
         if (!this.accept.includes(type)) {
           let accept = this.accept.replace(/[.]|[,]/g, "");
-          this.$errorMsg(`上传视屏封面只能是 ${accept} 格式!`);
+          this.$errorMsg(`上传图片只能是 ${accept} 格式!`);
           return;
         }
-        if (size > 2) {
-          this.$errorMsg("上传视屏封面大小不能超过 2MB!");
+        if (size > this.limitSize) {
+          this.$errorMsg(`上传图片大小不能超过 ${this.limitSize}MB!`);
           return;
         }
         this.isLoading = true;

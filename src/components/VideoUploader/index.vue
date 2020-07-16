@@ -42,6 +42,7 @@
     },
     data() {
       return {
+        limitSize: 40,
         isLoading: false,
         source: null,
         url: "",
@@ -80,8 +81,8 @@
           this.$errorMsg(`上传视屏只能是 ${accept} 格式!`);
           return;
         }
-        if (size > 40) {
-          this.$errorMsg("上传视屏大小不能超过 40MB!");
+        if (size > this.limitSize) {
+          this.$errorMsg(`上传视屏大小不能超过 ${this.limitSize}MB!`);
           return;
         }
         this.isLoading = true;

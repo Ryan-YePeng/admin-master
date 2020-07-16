@@ -68,8 +68,9 @@
     },
     data() {
       return {
-        url: "",
         accept: ".jpg, .png",
+        limitSize: 2,
+        url: "",
         fileName: '',
         visible: false,
         options: {
@@ -115,8 +116,8 @@
           this.$errorMsg(`上传头像只能是 ${accept} 格式!`);
           return;
         }
-        if (size > 2) {
-          this.$errorMsg("上传头像大小不能超过 2MB!");
+        if (size > this.limitSize) {
+          this.$errorMsg(`上传图片大小不能超过 ${this.limitSize}MB!`);
           return;
         }
         this.$nextTick(() => {

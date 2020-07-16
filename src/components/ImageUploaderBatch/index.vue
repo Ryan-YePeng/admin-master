@@ -34,6 +34,7 @@
     data() {
       return {
         limit: 9,
+        limitSize: 2,
         accept: ".jpg, .png",
         fileList: [],
         hasUpload: false
@@ -63,8 +64,8 @@
           param.onError();
           return;
         }
-        if (size > 2) {
-          this.$errorMsg("上传视屏封面大小不能超过 2MB!");
+        if (size > this.limitSize) {
+          this.$errorMsg(`上传图片大小不能超过 ${this.limitSize}MB!`);
           param.onError();
           return;
         }
