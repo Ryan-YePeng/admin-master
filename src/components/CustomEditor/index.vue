@@ -55,6 +55,8 @@
           powerpaste_allow_local_images: true,
           powerpaste_word_import: 'prompt',
           powerpaste_html_import: 'prompt',
+          relative_urls: false, // 绝对路径
+          remove_script_host: true, // 禁止加上http
           toolbar: [
             "bold italic underline | formatselect | fontsizeselect | alignleft aligncenter alignright alignjustify | outdent indent | codeformat blockformats | removeformat undo redo",
             "bullist numlist toc pastetext | image table | searchreplace fullscreen"
@@ -93,7 +95,7 @@
             data.typePath = this.typePath;
             uploadPicturePlusApi(data)
               .then(result => {
-                let url = process.env.VUE_APP_BASE_URL + result.resultParam.uploadFilePath;
+                let url = process.env.VUE_APP_BASE_API + result.resultParam.uploadFilePath;
                 success(url)
               })
           },
