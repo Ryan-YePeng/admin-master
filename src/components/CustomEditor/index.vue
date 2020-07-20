@@ -1,5 +1,5 @@
 <template>
-  <textarea :class="'custom-editor-' + editorKey"></textarea>
+  <textarea :id="`custom-editor-${editorKey}`"></textarea>
 </template>
 
 <script>
@@ -85,7 +85,7 @@
       init() {
         tinymce.init({
           // 挂载的DOM对象
-          selector: `.custom-editor-${this.editorKey}`,
+          selector: `#custom-editor-${this.editorKey}`,
           // 默认配置
           ...this.DefaultInit,
           // 图片上传
@@ -115,12 +115,12 @@
       },
       // 设置富文本内容
       set(value = "") {
-        tinymce.editors[this.editorKey].setContent(value)
+        tinymce.editors[`custom-editor-${this.editorKey}`].setContent(value)
       }
     },
     // 退出销毁
     beforeDestroy() {
-      let element = document.querySelector('.custom-editor-' + this.editorKey);
+      let element = document.getElementById(`custom-editor-${this.editorKey}`);
       element.style.visibility = 'hidden'
       tinymce.remove();
     }
