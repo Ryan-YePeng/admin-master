@@ -89,20 +89,17 @@ export default {
    * */
   dialogSubmit:
     `submit() {
-        this.$refs['Form'].validate((valid) => {
-          if (valid) {
-            let data = {...this.form};
-            this.$refs.Submit.start();
-            addApi(data).then(() => {
-              this.$refs.Submit.stop();
-              this.$emit('update');
-              this.cancel()
-            }).catch(() => {
-              this.$refs.Submit.stop();
-            })
-          } else {
-            return false;
-          }
+        this.$refs['Form'].validate(valid => {
+          if (!valid) return false;
+          let data = {...this.form};
+          this.$refs.Submit.start();
+          addApi(data).then(() => {
+            this.$refs.Submit.stop();
+            this.$emit('update');
+            this.cancel()
+          }).catch(() => {
+            this.$refs.Submit.stop();
+          })
         });
       }`,
   dialogRules:
@@ -196,20 +193,17 @@ export default {
     },
     methods: {
       submit() {
-        this.$refs['Form'].validate((valid) => {
-          if (valid) {
-            let data = {...this.form};
-            this.$refs.Submit.start();
-            addApi(data).then(() => {
-              this.$refs.Submit.stop();
-              this.$emit('update');
-              this.cancel()
-            }).catch(() => {
-              this.$refs.Submit.stop();
-            })
-          } else {
-            return false;
-          }
+        this.$refs['Form'].validate(valid => {
+          if (!valid) return false;
+          let data = {...this.form};
+          this.$refs.Submit.start();
+          addApi(data).then(() => {
+            this.$refs.Submit.stop();
+            this.$emit('update');
+            this.cancel()
+          }).catch(() => {
+            this.$refs.Submit.stop();
+          })
         });
       },
       cancel() {

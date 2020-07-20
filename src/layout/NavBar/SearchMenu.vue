@@ -107,6 +107,7 @@
   @import '../scss/index';
 
   .header-search {
+    height: $header-height;
     line-height: $header-height;
     font-size: 22px;
 

@@ -69,21 +69,18 @@
     },
     methods: {
       submit() {
-        this.$refs['Form'].validate((valid) => {
-          if (valid) {
-            let data = {...this.form};
-            if (!data.pid) data.pid = 0;
-            this.$refs.Submit.start();
-            addDeptApi(data).then(() => {
-              this.$refs.Submit.stop();
-              this.$emit('update');
-              this.cancel()
-            }).catch(() => {
-              this.$refs.Submit.stop();
-            })
-          } else {
-            return false;
-          }
+        this.$refs['Form'].validate(valid => {
+          if (!valid) return false;
+          let data = {...this.form};
+          if (!data.pid) data.pid = 0;
+          this.$refs.Submit.start();
+          addDeptApi(data).then(() => {
+            this.$refs.Submit.stop();
+            this.$emit('update');
+            this.cancel()
+          }).catch(() => {
+            this.$refs.Submit.stop();
+          })
         });
       },
       cancel() {

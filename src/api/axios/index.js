@@ -56,7 +56,6 @@ service.interceptors.response.use(
     }
     const {status, message} = error.response.data;
     /* 401 */
-    console.log(status)
     if (status === 401) {
       if (errorStatus === status) return;
       errorStatus = status;

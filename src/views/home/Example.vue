@@ -147,18 +147,15 @@
         objectEvaluate(this.form, this.obj) // 对象赋值
       },
       submit() {
-        this.$refs['Form'].validate((valid) => {
-          if (valid) {
-            this.$refs.Submit.start();
-            setTimeout(() => {
-              this.$refs.Submit.stop();
-              console.log(this.form);
-              this.reset();
-              this.$successMsg('提交成功')
-            }, 2000)
-          } else {
-            return false;
-          }
+        this.$refs['Form'].validate(valid => {
+          if (!valid) return false;
+          this.$refs.Submit.start();
+          setTimeout(() => {
+            this.$refs.Submit.stop();
+            console.log(this.form);
+            this.reset();
+            this.$successMsg('提交成功')
+          }, 2000)
         });
       },
       reset() {

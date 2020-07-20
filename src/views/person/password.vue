@@ -56,22 +56,19 @@
     },
     methods: {
       submit() {
-        this.$refs["Form"].validate((valid) => {
-          if (valid) {
-            let data = {};
-            data.oldPass = encrypt(this.form.oldPass);
-            data.newPass = encrypt(this.form.newPass);
-            this.$refs.Submit.start();
-            updatePassApi(data).then(result => {
-              this.$refs.Submit.stop();
-              if (result.status === 200)
-                this.$storeSet('quitLogin')
-            }).catch(() => {
-              this.$refs.Submit.stop();
-            })
-          } else {
-            return false;
-          }
+        this.$refs['Form'].validate(valid => {
+          if (!valid) return false;
+          let data = {};
+          data.oldPass = encrypt(this.form.oldPass);
+          data.newPass = encrypt(this.form.newPass);
+          this.$refs.Submit.start();
+          updatePassApi(data).then(result => {
+            this.$refs.Submit.stop();
+            if (result.status === 200)
+              this.$storeSet('quitLogin')
+          }).catch(() => {
+            this.$refs.Submit.stop();
+          })
         })
       },
       cancel() {

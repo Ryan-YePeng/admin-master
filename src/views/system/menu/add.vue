@@ -127,22 +127,19 @@
         this.form.icon = name
       },
       submit() {
-        this.$refs['Form'].validate((valid) => {
-          if (valid) {
-            let data = {...this.form};
-            if (!data.pid) data.pid = 0;
-            data.name = data.name.trim();
-            this.$refs.Submit.start();
-            addMenuApi(data).then(() => {
-              this.$refs.Submit.stop();
-              this.$emit('update');
-              this.cancel()
-            }).catch(() => {
-              this.$refs.Submit.stop();
-            })
-          } else {
-            return false;
-          }
+        this.$refs['Form'].validate(valid => {
+          if (!valid) return false;
+          let data = {...this.form};
+          if (!data.pid) data.pid = 0;
+          data.name = data.name.trim();
+          this.$refs.Submit.start();
+          addMenuApi(data).then(() => {
+            this.$refs.Submit.stop();
+            this.$emit('update');
+            this.cancel()
+          }).catch(() => {
+            this.$refs.Submit.stop();
+          })
         });
       },
       cancel() {

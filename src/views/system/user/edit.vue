@@ -121,21 +121,18 @@
     },
     methods: {
       submit() {
-        this.$refs['Form'].validate((valid) => {
-          if (valid) {
-            let data = {...this.form};
-            delete data.username;
-            this.$refs.Submit.start();
-            editUserApi(data).then(() => {
-              this.$refs.Submit.stop();
-              this.$emit('update');
-              this.cancel()
-            }).catch(() => {
-              this.$refs.Submit.stop();
-            })
-          } else {
-            return false;
-          }
+        this.$refs['Form'].validate(valid => {
+          if (!valid) return false;
+          let data = {...this.form};
+          delete data.username;
+          this.$refs.Submit.start();
+          editUserApi(data).then(() => {
+            this.$refs.Submit.stop();
+            this.$emit('update');
+            this.cancel()
+          }).catch(() => {
+            this.$refs.Submit.stop();
+          })
         });
       },
       cancel() {

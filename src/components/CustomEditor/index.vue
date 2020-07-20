@@ -120,9 +120,9 @@
     },
     // 退出销毁
     beforeDestroy() {
+      tinymce.remove();
       let element = document.getElementById(`custom-editor-${this.editorKey}`);
       element.style.visibility = 'hidden'
-      tinymce.remove();
     }
   };
 </script>

@@ -102,33 +102,30 @@
           })
       },
       submit() {
-        this.$refs['Form'].validate((valid) => {
-          if (valid) {
-            this.isLoading = true;
-            const data = {...this.form};
-            data.password = encrypt(data.password);
-            loginApi(data)
-              .then(result => {
-                if (result.status !== 200) throw new Error();
-                this.$storeSet('setToken', result.resultParam.token);
-                // 动态拉取路由和菜单
-                return generateRouter();
-              })
-              .then(() => {
-                this.$storeSet('setRememberMe', {
-                  rememberMe: this.isRememberMe,
-                  username: this.form.username
-                });
-                this.$router.push({name: 'home'});
-                this.isLoading = false;
-              })
-              .catch(() => {
-                this.getCode();
-                this.isLoading = false;
-              })
-          } else {
-            return false;
-          }
+        this.$refs['Form'].validate(valid => {
+          if (!valid) return false;
+          this.isLoading = true;
+          const data = {...this.form};
+          data.password = encrypt(data.password);
+          loginApi(data)
+            .then(result => {
+              if (result.status !== 200) throw new Error();
+              this.$storeSet('setToken', result.resultParam.token);
+              // 动态拉取路由和菜单
+              return generateRouter();
+            })
+            .then(() => {
+              this.$storeSet('setRememberMe', {
+                rememberMe: this.isRememberMe,
+                username: this.form.username
+              });
+              this.$router.push({name: 'home'});
+              this.isLoading = false;
+            })
+            .catch(() => {
+              this.getCode();
+              this.isLoading = false;
+            })
         });
       }
     }

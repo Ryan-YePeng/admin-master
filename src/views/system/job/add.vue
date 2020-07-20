@@ -53,20 +53,17 @@
     },
     methods: {
       submit() {
-        this.$refs['Form'].validate((valid) => {
-          if (valid) {
-            let data = {...this.form};
-            this.$refs.Submit.start();
-            addJobApi(data).then(() => {
-              this.$refs.Submit.stop();
-              this.$emit('update');
-              this.cancel()
-            }).catch(() => {
-              this.$refs.Submit.stop();
-            })
-          } else {
-            return false;
-          }
+        this.$refs['Form'].validate(valid => {
+          if (!valid) return false;
+          let data = {...this.form};
+          this.$refs.Submit.start();
+          addJobApi(data).then(() => {
+            this.$refs.Submit.stop();
+            this.$emit('update');
+            this.cancel()
+          }).catch(() => {
+            this.$refs.Submit.stop();
+          })
         });
       },
       cancel() {
