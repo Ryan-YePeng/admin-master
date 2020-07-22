@@ -1,7 +1,7 @@
 <template>
   <el-footer>
     <span v-show="isShowFooter">{{footerTxt}} - {{caseNumber}}</span>
-    <el-backtop v-if="flag" target=".back-top"/>
+    <el-backtop ref="BackTop" v-if="flag" :bottom="100" target=".back-top"/>
   </el-footer>
 </template>
 
@@ -33,6 +33,9 @@
       this.fixHeader();
     },
     watch: {
+      '$route.path'() {
+        this.$refs.BackTop.scrollToTop()
+      },
       isFixHeader() {
         this.fixHeader()
       }
