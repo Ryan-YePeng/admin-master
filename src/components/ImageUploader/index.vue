@@ -17,7 +17,7 @@
       <div
           class="el-icon-delete"
           :style="{marginTop: styleMargin}"
-          @click.stop="delFile"/>
+          @click.stop="deleteFile"/>
     </div>
     <img
         v-if="url"
@@ -87,7 +87,7 @@
       },
       styleMargin() {
         return `${this.height / 2 - 15}px`;
-      },
+      }
     },
     watch: {
       value(val) {
@@ -98,9 +98,7 @@
       /* 自定义上传 */
       uploadFile(param) {
         const {file} = param;
-        const type = file.name
-          .substring(file.name.lastIndexOf(".") + 1)
-          .toLowerCase();
+        const type = file.name.substring(file.name.lastIndexOf(".") + 1).toLowerCase();
         const size = file.size / 1024 / 1024;
         if (!this.accept.includes(type)) {
           let accept = this.accept.replace(/[.]|[,]/g, "");
@@ -127,7 +125,7 @@
           });
       },
       /* 删除文件 */
-      delFile() {
+      deleteFile() {
         this.clearFiles();
         this.$emit("input", '');
         this.$parent.$emit('el.form.change');

@@ -93,9 +93,7 @@
       changeUpload(result) {
         let file = result.raw;
         this.fileName = file.name;
-        const type = file.name
-          .substring(file.name.lastIndexOf(".") + 1)
-          .toLowerCase();
+        const type = file.name.substring(file.name.lastIndexOf(".") + 1).toLowerCase();
         const size = file.size / 1024 / 1024;
         if (!this.accept.includes(type)) {
           let accept = this.accept.replace(/[.]|[,]/g, "");
