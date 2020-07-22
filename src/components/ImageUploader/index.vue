@@ -163,16 +163,12 @@
       opacity: 0;
       background-color: rgba(0, 0, 0, .5);
       text-align: center;
-      transition: all .5s;
+      transition: all .3s;
     }
 
     .delete-mask:hover {
       opacity: 1;
-      transition: all .5s;
-    }
-
-    .delete-mask {
-      position: absolute;
+      transition: all .3s;
     }
 
     .el-icon-delete {

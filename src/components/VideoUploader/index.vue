@@ -1,26 +1,52 @@
 <template>
-  <div class="video-uploader-plus">
+  <div class="video-uploader" :style="{width: styleWidth}">
     <el-upload
         v-loading="isLoading"
+        element-loading-background="rgba(255, 255, 255, 0)"
         ref="VideoUploader"
-        class="video-uploader"
-        action="video-upload"
+        action="action"
         :accept="accept"
         :http-request="uploadFile"
-        :show-file-list="false">
-      <i v-show="isLoading"
-         class="el-icon-close close-uploader-icon"
-         @click.stop="cancelUpload"
-      ></i>
-      <video v-if="url && !isLoading" :src="url" class="custom-video"></video>
-      <video v-else-if="value && !isLoading" :src="baseUrl + value" class="custom-video"></video>
-      <i v-else :class="['el-icon-plus', 'video-uploader-icon', isLoading ? 'hidden' : 'visible']"></i>
+        :show-file-list="false"
+        :disabled="disabled"
+        :style="{width: styleWidth,height:styleHeight}">
+      <div
+          v-show="isLoading"
+          class="close-mask"
+          :style="{width: styleWidth,height: styleHeight}">
+        <div
+            class="el-icon-close"
+            :style="{marginTop: styleMargin}"
+            @click.stop="cancelUpload"/>
+      </div>
+      <div
+          v-show="value"
+          class="delete-mask"
+          :style="{width: styleWidth,height: styleHeight}">
+        <div
+            class="el-icon-delete"
+            :style="{marginTop: styleMargin}"
+            @click.stop="deleteFile"/>
+      </div>
+      <video
+          v-if="url && !isLoading"
+          class="upload-video"
+          :src="url"
+          :style="{width: styleWidth,height:styleHeight}"/>
+      <video
+          v-else-if="value && !isLoading"
+          class="upload-video"
+          :src="baseUrl + value"
+          :style="{width: styleWidth,height:styleHeight}"/>
+      <i
+          v-else
+          class="el-icon-plus"
+          :style="{width: styleWidth,lineHeight: styleHeight}"/>
     </el-upload>
     <el-progress
         v-show="isLoading"
         :percentage="percentage"
-        :color="customColor"
-    ></el-progress>
+        :color="customColor"/>
   </div>
 </template>
 
@@ -35,14 +61,25 @@
         type: String,
         default: ""
       },
-      typePath: {
+      typePath: { // 上传路径
         type: String,
         default: 'video'
+      },
+      width: { // 宽度
+        type: Number,
+        default: 178
+      },
+      height: { // 高度
+        type: Number,
+        default: 178
+      },
+      size: { // 大小限制(MB)
+        type: Number,
+        default: 40
       }
     },
     data() {
       return {
-        limitSize: 40,
         isLoading: false,
         source: null,
         url: "",
@@ -58,6 +95,18 @@
     computed: {
       baseUrl() {
         return process.env.VUE_APP_BASE_API
+      },
+      disabled() {
+        return this.isLoading || !!this.value
+      },
+      styleWidth() {
+        return `${this.width}px`;
+      },
+      styleHeight() {
+        return `${this.height}px`;
+      },
+      styleMargin() {
+        return `${this.height / 2 - 15}px`;
       }
     },
     watch: {
@@ -69,7 +118,7 @@
       this.reset();
     },
     methods: {
-      /* 自定义上传 */
+      // 自定义上传
       uploadFile(param) {
         const {file} = param;
         const type = file.name
@@ -81,8 +130,8 @@
           this.$errorMsg(`上传视屏只能是 ${accept} 格式!`);
           return;
         }
-        if (size > this.limitSize) {
-          this.$errorMsg(`上传视屏大小不能超过 ${this.limitSize}MB!`);
+        if (size > this.size) {
+          this.$errorMsg(`上传视屏大小不能超过 ${this.size}MB!`);
           return;
         }
         this.isLoading = true;
@@ -121,6 +170,12 @@
       cancelUpload() {
         this.source.cancel("Request Interruption");
       },
+      // 删除文件
+      deleteFile() {
+        this.$emit("input", '');
+        this.$parent.$emit('el.form.change');
+        this.clearFiles()
+      },
       // 清理文件
       clearFiles() {
         this.url = "";
@@ -134,8 +189,8 @@
 </script>
 
 <style lang="scss">
-  .video-uploader-plus {
-    .video-uploader .el-upload {
+  .video-uploader {
+    .el-upload {
       border: 1px dashed #d9d9d9;
       border-radius: 6px;
       cursor: pointer;
@@ -143,45 +198,58 @@
       overflow: hidden;
     }
 
-    .video-uploader .el-upload:hover {
+    .el-upload:hover {
       border-color: #409eff;
     }
 
-    .close-uploader-icon {
+    .close-mask,
+    .delete-mask {
       position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      text-align: center;
+      transition: all .3s;
       z-index: 2500;
     }
 
-    .close-uploader-icon,
-    .video-uploader-icon {
+    .close-mask {
+      background-color: #fbfdff;
+    }
+
+    .delete-mask {
+      background-color: rgba(0, 0, 0, .5);
+    }
+
+    .close-mask:hover,
+    .delete-mask:hover {
+      opacity: 1;
+      transition: all .3s;
+    }
+
+    .el-icon-close,
+    .el-icon-plus {
       font-size: 28px;
       color: #8c939d;
-      width: 178px;
-      height: 178px;
-      line-height: 178px;
+    }
+
+    .el-icon-delete {
+      font-size: 28px;
+      color: white;
+    }
+
+    .el-icon-plus {
+      background-color: #fbfdff;
       text-align: center;
     }
 
-    .visible {
-      visibility: visible;
-    }
-
-    .hidden {
-      visibility: hidden;
-    }
-
-    .custom-video {
-      width: 178px;
-      height: 178px;
+    .upload-video {
       display: block;
+      object-fit: contain;
     }
 
-    .video-uploader {
-      .el-loading-mask {
-        width: 168px;
-        height: 168px;
-        margin: 5px;
-      }
+    .el-progress {
+      margin-top: 10px;
     }
   }
 </style>
