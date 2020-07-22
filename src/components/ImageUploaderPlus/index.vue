@@ -88,11 +88,11 @@
       },
       width: { // 宽度
         type: Number,
-        default: 300
+        default: 178
       },
       height: { // 高度
         type: Number,
-        default: 100
+        default: 178
       },
       size: { // 大小限制(MB)
         type: Number,
