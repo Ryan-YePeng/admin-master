@@ -4,13 +4,37 @@
       element-loading-background="rgba(255, 255, 255, 0)"
       ref="ImageUploader"
       class="image-uploader"
-      action="image-upload"
+      action="action"
+      :disabled="disabled"
       :accept="accept"
       :http-request="uploadFile"
-      :show-file-list="false">
-    <img v-if="url" :src="url" class="custom-image" alt="图片"/>
-    <img v-else-if="value" :src="baseUrl + value" class="custom-image" alt="图片"/>
-    <i v-else class="el-icon-plus image-uploader-icon"></i>
+      :show-file-list="false"
+      :style="{width: styleWidth,height:styleHeight}">
+    <div
+        v-show="value"
+        class="delete-mask"
+        :style="{width: styleWidth,height: styleHeight}">
+      <div
+          class="el-icon-delete"
+          :style="{marginTop: styleMargin}"
+          @click.stop="delFile"/>
+    </div>
+    <img
+        v-if="url"
+        :src="url"
+        class="uploader-image"
+        alt=""
+        :style="{width: styleWidth,height:styleHeight}"/>
+    <img
+        v-else-if="value"
+        :src="baseUrl + value"
+        class="uploader-image"
+        alt=""
+        :style="{width: styleWidth,height:styleHeight}"/>
+    <i
+        v-else
+        class="el-icon-plus"
+        :style="{width: styleWidth,lineHeight: styleHeight}"/>
   </el-upload>
 </template>
 
@@ -24,14 +48,25 @@
         type: String,
         default: ""
       },
-      typePath: {
+      typePath: { // 上传路径
         type: String,
         default: 'image'
+      },
+      width: { // 宽度
+        type: Number,
+        default: 178
+      },
+      height: { // 高度
+        type: Number,
+        default: 178
+      },
+      size: { // 大小限制(MB)
+        type: Number,
+        default: 2
       }
     },
     data() {
       return {
-        limitSize: 2,
         accept: ".jpg, .png",
         isLoading: false,
         url: ""
@@ -40,11 +75,23 @@
     computed: {
       baseUrl() {
         return process.env.VUE_APP_BASE_API
-      }
+      },
+      disabled() {
+        return !!this.value
+      },
+      styleWidth() {
+        return `${this.width}px`;
+      },
+      styleHeight() {
+        return `${this.height}px`;
+      },
+      styleMargin() {
+        return `${this.height / 2 - 15}px`;
+      },
     },
     watch: {
       value(val) {
-        if (!val) this.clearFiles()
+        if (!val) this.clearFiles();
       }
     },
     methods: {
@@ -60,8 +107,8 @@
           this.$errorMsg(`上传图片只能是 ${accept} 格式!`);
           return;
         }
-        if (size > this.limitSize) {
-          this.$errorMsg(`上传图片大小不能超过 ${this.limitSize}MB!`);
+        if (size > this.size) {
+          this.$errorMsg(`上传图片大小不能超过 ${this.size}MB!`);
           return;
         }
         this.isLoading = true;
@@ -79,49 +126,70 @@
             this.isLoading = false;
           });
       },
-      // 清理文件
+      /* 删除文件 */
+      delFile() {
+        this.clearFiles();
+        this.$emit("input", '');
+        this.$parent.$emit('el.form.change');
+      },
+      /* 清理文件 */
       clearFiles() {
         this.url = "";
         this.isLoading = false;
         this.$refs.ImageUploader.clearFiles();
-      },
+      }
     }
   };
 </script>
 
 <style lang="scss">
-  .image-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .image-uploader .el-upload:hover {
-    border-color: #409eff;
-  }
-
-  .image-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-
-  .custom-image {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
-
   .image-uploader {
-    .el-loading-mask {
-      width: 168px;
-      height: 168px;
-      margin: 5px;
+    .el-upload {
+      border: 1px dashed #d9d9d9;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .el-upload:hover {
+      border-color: #409eff;
+    }
+
+    .delete-mask {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      background-color: rgba(0, 0, 0, .5);
+      text-align: center;
+      transition: all .5s;
+    }
+
+    .delete-mask:hover {
+      opacity: 1;
+      transition: all .5s;
+    }
+
+    .delete-mask {
+      position: absolute;
+    }
+
+    .el-icon-delete {
+      color: white;
+      font-size: 28px;
+    }
+
+    .uploader-image {
+      display: block;
+      object-fit: contain;
+    }
+
+    .el-icon-plus {
+      font-size: 28px;
+      color: #8c939d;
+      background-color: #fbfdff;
+      text-align: center;
     }
   }
 </style>
