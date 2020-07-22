@@ -1,8 +1,8 @@
 <template>
   <el-upload
       ref="ImageUploaderBatch"
-      class="image-uploader"
-      action="image-upload"
+      class="image-uploader-batch"
+      action="action"
       list-type="picture-card"
       :limit="limit"
       :accept="accept"
@@ -26,15 +26,21 @@
         type: String,
         default: ""
       },
-      typePath: {
+      typePath: { // 上传路径
         type: String,
         default: 'image'
-      }
+      },
+      size: { // 大小限制(MB)
+        type: Number,
+        default: 2
+      },
+      limit: { // 数量限制
+        type: Number,
+        default: 3
+      },
     },
     data() {
       return {
-        limit: 9,
-        limitSize: 2,
         accept: ".jpg, .png",
         fileList: [],
         hasUpload: false
@@ -51,7 +57,7 @@
       }
     },
     methods: {
-      /* 自定义上传 */
+      // 自定义上传
       uploadFile(param) {
         const {file} = param;
         const type = file.name
@@ -60,12 +66,12 @@
         const size = file.size / 1024 / 1024;
         if (!this.accept.includes(type)) {
           let accept = this.accept.replace(/[.]|[,]/g, "");
-          this.$errorMsg(`上传视屏封面只能是 ${accept} 格式!`);
+          this.$errorMsg(`上传图片只能是 ${accept} 格式!`);
           param.onError();
           return;
         }
-        if (size > this.limitSize) {
-          this.$errorMsg(`上传图片大小不能超过 ${this.limitSize}MB!`);
+        if (size > this.size) {
+          this.$errorMsg(`上传图片大小不能超过 ${this.size}MB!`);
           param.onError();
           return;
         }
@@ -115,15 +121,17 @@
 </script>
 
 <style lang="scss">
-  .image-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
+  .image-uploader-batch {
+    .el-upload {
+      border: 1px dashed #d9d9d9;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
 
-  .image-uploader .el-upload:hover {
-    border-color: #409eff;
+    .el-upload:hover {
+      border-color: #409eff;
+    }
   }
 </style>
