@@ -9,8 +9,8 @@
       :file-list="fileList"
       :multiple="true"
       :on-success="uploadSuccess"
-      :on-remove="emitImage"
-      :on-exceed="exceed"
+      :on-remove="handEmit"
+      :on-exceed="handExceed"
       :http-request="uploadFile">
     <i class="el-icon-plus"></i>
   </el-upload>
@@ -36,8 +36,8 @@
       },
       limit: { // 数量限制
         type: Number,
-        default: 3
-      },
+        default: 9
+      }
     },
     data() {
       return {
@@ -51,7 +51,8 @@
         if (val && !this.hasUpload) {
           let list = val.split(',');
           let baseUrl = process.env.VUE_APP_BASE_API;
-          this.fileList = list.map(item => ({pathUrl: item, url: baseUrl + item}))
+          this.fileList = list.map(item => ({pathUrl: item, url: baseUrl + item}));
+          this.hasUpload = true;
         }
         if (!val) this.clearFiles()
       }
@@ -93,9 +94,9 @@
             return true
           }
         });
-        this.emitImage()
+        this.handEmit()
       },
-      emitImage() {
+      handEmit() {
         let pathStr = '';
         this.$refs['ImageUploaderBatch'].uploadFiles
           .forEach(item => {
@@ -105,7 +106,7 @@
         this.$emit("input", pathStr);
         this.$parent.$emit('el.form.change')
       },
-      exceed() {
+      handExceed() {
         this.$errorMsg(`至多上传${this.limit}张图片`)
       },
       // 清理文件
