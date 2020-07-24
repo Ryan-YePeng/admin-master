@@ -1,5 +1,5 @@
 <template>
-  <div class="avatar-uploader">
+  <div>
     <el-upload
         ref="AvatarUploader"
         action="avatar-upload"
@@ -8,7 +8,7 @@
         :auto-upload="false"
         :on-change="changeUpload"
     >
-      <el-avatar shape="circle" :size="120" :src="avatarUrl">
+      <el-avatar shape="circle" :size="120" :src="url">
         <img src="../../assets/notFound.png" alt="头像"/>
       </el-avatar>
     </el-upload>
@@ -59,9 +59,13 @@
     name: 'AvatarUploader',
     components: {VueCropper},
     props: {
-      avatarUrl: {
+      url: {
         type: String,
         default: ''
+      },
+      size: {
+        type: Number,
+        default: 2
       }
     },
     data() {
@@ -100,8 +104,8 @@
           this.$errorMsg(`上传头像只能是 ${accept} 格式!`);
           return;
         }
-        if (size > 2) {
-          this.$errorMsg("上传头像大小不能超过 2MB!");
+        if (this.size > 2) {
+          this.$errorMsg(`上传头像大小不能超过 ${this.size}MB!`);
           return;
         }
         this.$nextTick(() => {
@@ -144,7 +148,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   .cropper {
     width: 100%;
     height: 340px;

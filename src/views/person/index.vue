@@ -7,7 +7,7 @@
             <span>个人信息</span>
           </div>
           <div style="text-align: center; margin-bottom: 20px">
-            <avatar-uploader :avatarUrl="avatarUrl"></avatar-uploader>
+            <avatar-uploader :url="avatarUrl"></avatar-uploader>
           </div>
           <ul class="personInfo">
             <li>
