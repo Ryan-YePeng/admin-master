@@ -25,16 +25,12 @@ import qs from "qs";
  * @description get
  * */
 export const axiosG = (url, param) => {
-  return new Promise((resolve, reject) => {
-    service({
-      method: "get",
-      url: url,
-      params: param,
-      paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
-    })
-      .then(result => resolve(result))
-      .catch(error => reject(error));
-  });
+  return service({
+    method: "get",
+    url: url,
+    params: param,
+    paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
+  })
 };
 
 
@@ -44,16 +40,12 @@ export const axiosG = (url, param) => {
  * @description delete，删除数据。
  * */
 export const axiosD = (url, param) => {
-  return new Promise((resolve, reject) => {
-    service({
-      method: "delete",
-      url: url,
-      params: param,
-      paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
-    })
-      .then(result => resolve(result))
-      .catch(error => reject(error));
-  });
+  return service({
+    method: "delete",
+    url: url,
+    params: param,
+    paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
+  })
 };
 
 
@@ -63,16 +55,12 @@ export const axiosD = (url, param) => {
  * @description post，数组。
  * */
 export const axiosA = (url, param) => {
-  return new Promise((resolve, reject) => {
-    service({
-      method: "post",
-      url: url,
-      params: param,
-      paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
-    })
-      .then(result => resolve(result))
-      .catch(error => reject(error));
-  });
+  return service({
+    method: "post",
+    url: url,
+    params: param,
+    paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
+  })
 };
 
 
@@ -82,16 +70,12 @@ export const axiosA = (url, param) => {
  * @description put，数组。
  * */
 export const axiosM = (url, param) => {
-  return new Promise((resolve, reject) => {
-    service({
-      method: "put",
-      url: url,
-      params: param,
-      paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
-    })
-      .then(result => resolve(result))
-      .catch(error => reject(error));
-  });
+  return service({
+    method: "put",
+    url: url,
+    params: param,
+    paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
+  })
 };
 
 
@@ -101,17 +85,13 @@ export const axiosM = (url, param) => {
  * @description post，键值对格式。
  * */
 export const axiosK = (url, param) => {
-  return new Promise((resolve, reject) => {
-    service({
-      method: "post",
-      url: url,
-      data: param,
-      headers: {"Content-Type": "application/x-www-form-urlencoded"},
-      transformRequest: [data => qs.stringify(data)]
-    })
-      .then(result => resolve(result))
-      .catch(error => reject(error));
-  });
+  return service({
+    method: "post",
+    url: url,
+    data: param,
+    headers: {"Content-Type": "application/x-www-form-urlencoded"},
+    transformRequest: [data => qs.stringify(data)]
+  })
 };
 
 
@@ -121,17 +101,13 @@ export const axiosK = (url, param) => {
  * @description put，键值对格式。
  * */
 export const axiosP = (url, param) => {
-  return new Promise((resolve, reject) => {
-    service({
-      method: "put",
-      url: url,
-      data: param,
-      headers: {"Content-Type": "application/x-www-form-urlencoded"},
-      transformRequest: [data => qs.stringify(data)]
-    })
-      .then(result => resolve(result))
-      .catch(error => reject(error));
-  });
+  return service({
+    method: "put",
+    url: url,
+    data: param,
+    headers: {"Content-Type": "application/x-www-form-urlencoded"},
+    transformRequest: [data => qs.stringify(data)]
+  })
 };
 
 
@@ -141,17 +117,13 @@ export const axiosP = (url, param) => {
  * @description post，JSON格式。
  * */
 export const axiosJ = (url, param) => {
-  return new Promise((resolve, reject) => {
-    service({
-      method: "post",
-      url: url,
-      data: param,
-      headers: {"Content-Type": "application/json"},
-      transformRequest: [data => JSON.stringify(data)]
-    })
-      .then(result => resolve(result))
-      .catch(error => reject(error));
-  });
+  return service({
+    method: "post",
+    url: url,
+    data: param,
+    headers: {"Content-Type": "application/json"},
+    transformRequest: [data => JSON.stringify(data)]
+  })
 };
 
 
@@ -161,17 +133,13 @@ export const axiosJ = (url, param) => {
  * @description put，JSON格式。
  * */
 export const axiosU = (url, param) => {
-  return new Promise((resolve, reject) => {
-    service({
-      method: "put",
-      url: url,
-      data: param,
-      headers: {"Content-Type": "application/json"},
-      transformRequest: [data => JSON.stringify(data)]
-    })
-      .then(result => resolve(result))
-      .catch(error => reject(error));
-  });
+  return service({
+    method: "put",
+    url: url,
+    data: param,
+    headers: {"Content-Type": "application/json"},
+    transformRequest: [data => JSON.stringify(data)]
+  })
 };
 
 
@@ -181,16 +149,12 @@ export const axiosU = (url, param) => {
  * @description post，文件格式。
  * */
 export const axiosF = (url, param) => {
-  return new Promise((resolve, reject) => {
-    service({
-      method: "post",
-      url: url,
-      data: param,
-      headers: {"Content-Type": "multipart/form-data"}
-    })
-      .then(result => resolve(result))
-      .catch(error => reject(error));
-  });
+  return service({
+    method: "post",
+    url: url,
+    data: param,
+    headers: {"Content-Type": "multipart/form-data"}
+  })
 };
 
 
@@ -204,39 +168,35 @@ export const axiosF = (url, param) => {
 export const axiosFs = (url, param, callback, source) => {
   let cancelToken;
   if (source) cancelToken = source.token;
-  return new Promise((resolve, reject) => {
-    service({
-      method: "post",
-      timeout: 10 * 60 * 1000,
-      url: url,
-      data: param,
-      headers: {
-        "Content-Type": "multipart/form-data"
-      },
-      transformRequest: [
-        data => {
-          const formData = new FormData();
-          for (let key in data) {
-            if (data.hasOwnProperty(key)) {
-              if (data[key] instanceof Array)
-                for (let i = 0; i < data[key].length; i++)
-                  formData.append(key, data[key][i]);
-              else
-                formData.append(key, data[key])
-            }
+  return service({
+    method: "post",
+    timeout: 10 * 60 * 1000,
+    url: url,
+    data: param,
+    headers: {
+      "Content-Type": "multipart/form-data"
+    },
+    transformRequest: [
+      data => {
+        const formData = new FormData();
+        for (let key in data) {
+          if (data.hasOwnProperty(key)) {
+            if (data[key] instanceof Array)
+              for (let i = 0; i < data[key].length; i++)
+                formData.append(key, data[key][i]);
+            else
+              formData.append(key, data[key])
           }
-          return formData;
         }
-      ],
-      cancelToken: cancelToken,
-      onUploadProgress: progress => {
-        if (callback)
-          callback(Math.round((progress.loaded / progress.total) * 100));
+        return formData;
       }
-    })
-      .then(result => resolve(result))
-      .catch(error => reject(error));
-  });
+    ],
+    cancelToken: cancelToken,
+    onUploadProgress: progress => {
+      if (callback)
+        callback(Math.round((progress.loaded / progress.total) * 100));
+    }
+  })
 };
 
 
@@ -246,15 +206,11 @@ export const axiosFs = (url, param, callback, source) => {
  * @description 下载文件。
  * */
 export const axiosL = (url, param) => {
-  return new Promise((resolve, reject) => {
-    service({
-      method: "get",
-      url: url,
-      responseType: "blob",
-      params: param,
-      paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
-    })
-      .then(result => resolve(result))
-      .catch(error => reject(error));
-  });
+  return service({
+    method: "get",
+    url: url,
+    responseType: "blob",
+    params: param,
+    paramsSerializer: params => qs.stringify(params, {arrayFormat: 'repeat'})
+  })
 };
