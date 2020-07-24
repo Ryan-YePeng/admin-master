@@ -104,7 +104,7 @@
           this.$errorMsg(`上传头像只能是 ${accept} 格式!`);
           return;
         }
-        if (this.size > 2) {
+        if (size > this.size) {
           this.$errorMsg(`上传头像大小不能超过 ${this.size}MB!`);
           return;
         }

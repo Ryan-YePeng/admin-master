@@ -4,11 +4,11 @@ import Cookies from "js-cookie"
  * @description localStorage
  * */
 
-const setLocalStorage = (key, data) => {
+export const setLocalStorage = (key, data) => {
   localStorage.setItem(key, JSON.stringify(data))
 };
 
-const getLocalStorage = key => {
+export const getLocalStorage = key => {
   return JSON.parse(localStorage.getItem(key))
 };
 
@@ -16,7 +16,7 @@ export const removeLocalStorage = key => {
   localStorage.removeItem(key)
 };
 
-const clearLocalStorage = () => {
+export const clearLocalStorage = () => {
   localStorage.clear()
 };
 
@@ -24,11 +24,11 @@ const clearLocalStorage = () => {
  * @description sessionStorage
  * */
 
-const setSessionStorage = (key, data) => {
+export const setSessionStorage = (key, data) => {
   sessionStorage.setItem(key, JSON.stringify(data))
 };
 
-const getSessionStorage = key => {
+export const getSessionStorage = key => {
   return JSON.parse(sessionStorage.getItem(key))
 };
 
@@ -36,7 +36,7 @@ export const removeSessionStorage = key => {
   sessionStorage.removeItem(key)
 };
 
-const clearSessionStorage = () => {
+export const clearSessionStorage = () => {
   sessionStorage.clear()
 };
 

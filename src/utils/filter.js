@@ -27,7 +27,7 @@ Vue.filter("formatDateTime", function (time) {
  **/
 Vue.filter("formatObj", function (obj, key = 'name') {
   if (isEmpty(obj)) return '';
-  if (obj.hasOwnProperty(key)) {
+  if (Object.prototype.hasOwnProperty.call(obj, key)) {
     return obj[key];
   } else {
     return ''
@@ -42,7 +42,7 @@ Vue.filter("formatArray", function (array, key = 'name') {
   if (isEmpty(array)) return '';
   let str = '';
   array.forEach(item => {
-    if (!isEmpty(item) && item.hasOwnProperty(key))
+    if (!isEmpty(item) && Object.prototype.hasOwnProperty.call(item, key))
       str += `${item[key]} / `
   });
   str = str.replace(/[\s][/][\s]$/, '');

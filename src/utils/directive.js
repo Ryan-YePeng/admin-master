@@ -56,7 +56,7 @@ Vue.directive("intervalClick", (el, binding) => {
     }
     let args = [];
     for (const key in binding.value) {
-      if (binding.value.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(binding.value, key)) {
         if (key === "func" || key === "time") continue;
         args.push(binding.value[key]);
       }

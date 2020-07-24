@@ -41,14 +41,14 @@ service.interceptors.response.use(
     }
     /* 请求中断 */
     if (
-      error.hasOwnProperty("message") &&
+      Object.prototype.hasOwnProperty.call(error, "message") &&
       error.message === "Request Interruption"
     ) {
       return Promise.reject(error);
     }
     /* 网络错误 */
     if (
-      error.response.hasOwnProperty("statusText") &&
+      Object.prototype.hasOwnProperty.call(error.response, "statusText") &&
       error.response.statusText === "Internal Server Error"
     ) {
       errorMessage("网络错误，无法连接到服务器！");

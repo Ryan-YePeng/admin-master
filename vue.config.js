@@ -7,16 +7,11 @@ module.exports = {
   outputDir: "dist",
   assetsDir: "static",
   indexPath: "index.html",
-  lintOnSave: false,
   productionSourceMap: false,
   configureWebpack: config => {
     const plugins = [];
     if (isOpenAnalyzer && process.env.NODE_ENV === "development")
-      plugins.push(
-        new Analyzer({
-          analyzerPort: 9999
-        })
-      );
+      plugins.push(new Analyzer({analyzerPort: 9999}));
     config.plugins = [...config.plugins, ...plugins];
     config.name = settings.title;
   },
@@ -36,9 +31,7 @@ module.exports = {
       .end()
       .use("svg-sprite-loader")
       .loader("svg-sprite-loader")
-      .options({
-        symbolId: "icon-[name]"
-      })
+      .options({symbolId: "icon-[name]"})
       .end();
   },
   css: {

@@ -43,7 +43,7 @@ export const formatDateTime = (time, formatStr = 'YYYY-MM-DD HH:mm:ss') => {
  * */
 export const objectEvaluate = (target, object) => {
   for (let key in target) {
-    if (object.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(object, key)) {
       if (object[key] instanceof Array) {
         target[key] = [...object[key]]
       } else {
@@ -60,7 +60,7 @@ export const objectEvaluate = (target, object) => {
  * */
 export const objectExchange = (target, object) => {
   for (let key in object) {
-    if (!target.hasOwnProperty(key)) {
+    if (!Object.prototype.hasOwnProperty.call(target, key)) {
       if (object[key] instanceof Array) {
         target[key] = [...object[key]]
       } else {
@@ -81,7 +81,7 @@ export const objectExchange = (target, object) => {
 export const objectObtain = (current, original) => {
   let data = {};
   for (let key in current) {
-    if (original.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(original, key)) {
       if (current[key] instanceof Array) {
         if (JSON.stringify(current[key]) !== JSON.stringify(original[key])) {
           data[key] = current[key]

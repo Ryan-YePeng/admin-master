@@ -14,7 +14,7 @@
   export default {
     name: "Home",
     components: {
-      Example: () => import('./Example'),
+      // Example: () => import('./Example'),
       CopyCode: () => import('./CopyCode')
     },
     data() {

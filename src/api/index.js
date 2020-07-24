@@ -180,7 +180,7 @@ export const axiosFs = (url, param, callback, source) => {
       data => {
         const formData = new FormData();
         for (let key in data) {
-          if (data.hasOwnProperty(key)) {
+          if (Object.prototype.hasOwnProperty.call(data, key)) {
             if (data[key] instanceof Array)
               for (let i = 0; i < data[key].length; i++)
                 formData.append(key, data[key][i]);
