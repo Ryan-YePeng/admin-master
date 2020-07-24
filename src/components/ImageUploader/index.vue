@@ -27,7 +27,7 @@
         :style="{width: styleWidth,height:styleHeight}"/>
     <img
         v-else-if="value"
-        :src="baseUrl + value"
+        :src="this.$baseApi + value"
         class="uploader-image"
         alt=""
         :style="{width: styleWidth,height:styleHeight}"/>
@@ -73,9 +73,6 @@
       };
     },
     computed: {
-      baseUrl() {
-        return process.env.VUE_APP_BASE_API
-      },
       disabled() {
         return !!this.value
       },

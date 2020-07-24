@@ -95,7 +95,7 @@
             data.typePath = this.typePath;
             uploadPicturePlusApi(data)
               .then(result => {
-                let url = process.env.VUE_APP_BASE_API + result.resultParam.uploadFilePath;
+                let url = this.$baseApi + result.resultParam.uploadFilePath;
                 success(url)
               })
           },

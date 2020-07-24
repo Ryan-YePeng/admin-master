@@ -43,7 +43,7 @@
     },
     computed: {
       avatarUrl() {
-        return process.env.VUE_APP_BASE_API + this.$storeGet.user.avatar
+        return this.$baseApi + this.$storeGet.user.avatar
       },
       isSmall() {
         return this.$storeGet.isSmall

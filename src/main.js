@@ -11,6 +11,8 @@ import "./icons"; // svg
 import App from "./App.vue";
 
 Vue.use(EVueContextmenu);
+Vue.prototype.$nodeEnv = process.env.NODE_ENV;
+Vue.prototype.$baseApi = process.env.VUE_APP_BASE_API;
 // Vue.prototype.$fileSaver = require('file-saver'); // 下载文件
 
 Vue.config.productionTip = false;

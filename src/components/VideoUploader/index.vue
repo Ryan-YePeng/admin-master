@@ -36,7 +36,7 @@
       <video
           v-else-if="value && !isLoading"
           class="upload-video"
-          :src="baseUrl + value"
+          :src="this.$baseApi + value"
           :style="{width: styleWidth,height:styleHeight}"/>
       <i
           v-else
@@ -93,9 +93,6 @@
       };
     },
     computed: {
-      baseUrl() {
-        return process.env.VUE_APP_BASE_API
-      },
       disabled() {
         return this.isLoading || !!this.value
       },

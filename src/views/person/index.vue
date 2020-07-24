@@ -7,7 +7,7 @@
             <span>个人信息</span>
           </div>
           <div style="text-align: center; margin-bottom: 20px">
-            <avatar-uploader :url="avatarUrl"></avatar-uploader>
+            <avatar-uploader :url="this.$baseApi + user.avatar"></avatar-uploader>
           </div>
           <ul class="personInfo">
             <li>
@@ -66,9 +66,6 @@
     computed: {
       user() {
         return this.$storeGet.user
-      },
-      avatarUrl() {
-        return process.env.VUE_APP_BASE_API + this.user.avatar
       }
     },
     methods: {

@@ -112,8 +112,7 @@
     watch: {
       value(val) {
         if (val && !this.hasUpload) {
-          let baseUrl = process.env.VUE_APP_BASE_API;
-          this.fileList = val.split(',').map(item => ({pathUrl: item, url: baseUrl + item}));
+          this.fileList = val.split(',').map(item => ({pathUrl: item, url: this.$baseApi + item}));
           this.hasUpload = true;
         }
         if (!val) this.clearFiles()

@@ -50,8 +50,7 @@
       value(val) {
         if (val && !this.hasUpload) {
           let list = val.split(',');
-          let baseUrl = process.env.VUE_APP_BASE_API;
-          this.fileList = list.map(item => ({pathUrl: item, url: baseUrl + item}));
+          this.fileList = list.map(item => ({pathUrl: item, url: this.$baseApi + item}));
           this.hasUpload = true;
         }
         if (!val) this.clearFiles()
