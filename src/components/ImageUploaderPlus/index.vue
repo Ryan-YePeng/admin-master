@@ -4,6 +4,7 @@
         ref="ImageUploaderPlus"
         action="action"
         :accept="accept"
+        :disabled="disabled"
         :auto-upload="false"
         :on-change="changeUpload"
         :show-file-list="false"
