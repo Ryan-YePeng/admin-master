@@ -70,6 +70,7 @@
     },
     mounted() {
       this.$storeSet("setCache");
+      if (this.$route.meta.title === this.$storeGet.active) return;
       if (this.$route.name === 'home') {
         this.$storeSet('setBreadcrumb');
         this.$storeSet("setActive");
