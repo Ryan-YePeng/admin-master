@@ -6,6 +6,9 @@
     <div v-loading="isLoading" class="my-card__body" :style="bodyStyle">
       <slot></slot>
     </div>
+    <div class="my-card__footer clearfix" v-if="$slots.footer || footer">
+      <slot name="footer">{{ footer }}</slot>
+    </div>
   </div>
 </template>
 
@@ -14,6 +17,7 @@
     name: "Card",
     props: {
       header: {},
+      footer: {},
       bodyStyle: {}
     },
     data() {
@@ -53,11 +57,20 @@
       padding: 8px 10px;
       border-bottom: 1px solid #EBEEF5;
       -webkit-box-sizing: border-box;
-      box-sizing: border-box
+      box-sizing: border-box;
+
+      & > div > span {
+        font-size: 18px;
+      }
     }
 
-    .my-card__body {
+    .my-card__body,
+    .my-card__footer {
       padding: 10px;
+    }
+
+    .my-card__footer > div {
+      float: right;
     }
 
     .clearfix:before,

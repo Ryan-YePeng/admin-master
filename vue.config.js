@@ -7,6 +7,7 @@ module.exports = {
   outputDir: "dist",
   assetsDir: "static",
   indexPath: "index.html",
+  lintOnSave: true,
   productionSourceMap: false,
   configureWebpack: config => {
     const plugins = [];

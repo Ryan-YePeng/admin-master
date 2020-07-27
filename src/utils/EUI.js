@@ -1,12 +1,7 @@
 import Vue from "vue";
 import store from "@/store";
 import "./EUI_IN"
-import {
-  Message,
-  MessageBox,
-  Notification,
-  Loading
-} from 'element-ui';
+import {Message, MessageBox, Notification, Loading} from 'element-ui';
 
 
 /**

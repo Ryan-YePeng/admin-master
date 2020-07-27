@@ -14,7 +14,7 @@ module.exports = {
   /**
    * @description 系统设置
    * */
-  // store key的前缀
+  // store's key前缀
   prefix: "ADMIN",
   // 是否开启验证码
   hasCode: true,
