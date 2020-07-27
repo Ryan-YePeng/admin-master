@@ -70,6 +70,19 @@
     },
     mounted() {
       this.$storeSet("setCache");
+      if (this.$route.name === 'home') {
+        this.$storeSet('setBreadcrumb');
+        this.$storeSet("setActive");
+        return
+      }
+      this.$storeGet.searchMenu.some(item => {
+        if (item.name === this.$route.name) {
+          this.$storeSet('setBreadcrumb', item.indexPath);
+          this.$storeSet('addTags', {title: item.index, name: item.name, cache: item.cache, indexPath: item.indexPath});
+          this.$storeSet("setActive", item.index);
+          return true
+        }
+      })
     },
     methods: {
       // 移动到被选中的标签
