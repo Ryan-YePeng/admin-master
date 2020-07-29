@@ -12,7 +12,7 @@ export default {
       {
         id: '', name: '',
         children: [
-          {id: '', name: '', unit: '', price: , tax: ''},
+          {id: '', name: ''},
         ]
       },
     ]
@@ -218,18 +218,39 @@ export default {
    * */
   tableHeader:
     `<div slot="header">
-      <el-input v-model="searchName" placeholder="输入名称搜索" clearable class="w-200" @keyup.enter.native="getList"/>
-      <el-button type="success" class="el-icon-search ml-5" @click="getList">搜索</el-button>
+      <el-input v-model="searchName" placeholder="输入名称搜索" clearable class="w-200" @keyup.enter.native="getData"/>
+      <el-button type="success" class="el-icon-search ml-5" @click="getData">搜索</el-button>
       <el-button class="float-right" type="primary" icon="el-icon-plus" @click="add">新增</el-button>
     </div>`,
+  tableSelect:
+    `<el-select v-model="searchType" @change="getData">
+        <el-option v-for="item in options" :label="item.label" :value="item.value" :key="item.key"/>
+      </el-select>`,
   tableDate:
     `<el-table-column prop="createTime" label="创建日期">
         <template slot-scope="scope">
           <span>{{scope.row.createTime | formatDateTime}}</span>
         </template>
       </el-table-column>`,
+  tableImage:
+    `<el-table-column prop="image" label="图片">
+        <template slot-scope="scope">
+          <el-avatar
+              :size="44"
+              shape="square"
+              :src="$baseApi + scope.row.image">
+            <img src="../../assets/notFound.png" alt=""/>
+          </el-avatar>
+        </template>
+      </el-table-column>`,
+  tableSwitch:
+    `<el-table-column prop="enable" label="状态" width="160">
+        <template slot-scope="scope">
+          <el-switch v-model="scope.row.enable" @change="change(scope.row)" active-text="启用" inactive-text="停用"/>
+        </template>
+      </el-table-column>`,
   tableGet:
-    `getList() {
+    `getData() {
         this.$refs.Card.start();
         let pagination = this.$refs.Pagination;
         let param = {
@@ -237,7 +258,7 @@ export default {
           size: pagination.size,
           name: this.searchName
         };
-        getListApi(param).then(result => {
+        getDataApi(param).then(result => {
           let response = result.resultParam.list;
           this.formData = response.records;
           pagination.total = response.total;
@@ -248,8 +269,8 @@ export default {
     `<template>
   <card ref="Card">
     <div slot="header">
-      <el-input v-model="searchName" placeholder="输入名称搜索" clearable class="w-200" @keyup.enter.native="getList"/>
-      <el-button type="success" class="el-icon-search ml-5" @click="getList">搜索</el-button>
+      <el-input v-model="searchName" placeholder="输入名称搜索" clearable class="w-200" @keyup.enter.native="getData"/>
+      <el-button type="success" class="el-icon-search ml-5" @click="getData">搜索</el-button>
       <el-button class="float-right" type="primary" icon="el-icon-plus" @click="add">新增</el-button>
     </div>
     <el-table :data="formData">
@@ -271,18 +292,18 @@ export default {
           <delete-button
               :ref="scope.row.id"
               :id="scope.row.id"
-              @start="deleteData"/>
+              @start="delData"/>
         </template>
       </el-table-column>
     </el-table>
-    <pagination ref="Pagination" @update="getList"/>
-    <add ref="Add" @update="getList"></add>
-    <edit ref="Edit" @update="getList"></edit>
+    <pagination ref="Pagination" @update="getData"/>
+    <add ref="Add" @update="getData"></add>
+    <edit ref="Edit" @update="getData"></edit>
   </card>
 </template>
 
 <script>
-  import {getListApi, deleteDataApi} from '@/api/';
+  import {getDataApi, delDataApi} from '@/api/';
   import {objectEvaluate} from "@/utils/common";
   import Add from './add';
   import Edit from './edit';
@@ -297,10 +318,10 @@ export default {
       }
     },
     mounted() {
-      this.getList()
+      this.getData()
     },
     methods: {
-      getList() {
+      getData() {
         let pagination = this.$refs.Pagination;
         let param = {
           current: pagination.current,
@@ -308,7 +329,7 @@ export default {
           name: this.searchName
         };
         this.$refs.Card.start();
-        getListApi(param).then(result => {
+        getDataApi(param).then(result => {
           let response = result.resultParam.list;
           this.formData = response.records;
           pagination.total = response.total;
@@ -323,10 +344,10 @@ export default {
         objectEvaluate(_this.form, obj);
         _this.visible = true
       },
-      deleteData(id) {
-        deleteDataApi({id: id})
+      delData(id) {
+        delDataApi({id: id})
           .then(() => {
-            this.getList();
+            this.getData();
             this.$refs[id].close()
           })
           .catch(() => {
@@ -336,6 +357,35 @@ export default {
     }
   }
 </script>`,
+  tableMiddleware:
+    `<template>
+  <card>
+    <el-tabs v-model="activeName">
+      <el-tab-pane label="页面1" name="first">
+        <page1 v-if="activeName==='first'"/>
+      </el-tab-pane>
+      <el-tab-pane label="页面2" name="second">
+        <page2 v-if="activeName==='second'"/>
+      </el-tab-pane>
+    </el-tabs>
+  </card>
+</template>
+
+<script>
+  import page1 from './page1'
+  import page2 from './page2'
+
+  export default {
+    name: "ImmigrationList",
+    components: {page1, page2},
+    data() {
+      return {
+        activeName: 'first'
+      }
+    }
+  }
+</script>
+`,
 
   /**
    * @description 操作
@@ -347,7 +397,7 @@ export default {
           <delete-button
               :ref="scope.row.id"
               :id="scope.row.id"
-              @start="deleteData"/>
+              @start="delData"/>
         </template>
       </el-table-column>`,
   operateEditJs:
@@ -357,8 +407,8 @@ export default {
         _this.visible = true
       }`,
   operateDelJs:
-    `deleteData(id) {
-        deleteDataApi({id: id})
+    `delData(id) {
+        delDataApi({id: id})
           .then(() => {
             this.get();
             this.$refs[id].close()

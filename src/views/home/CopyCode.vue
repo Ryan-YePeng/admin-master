@@ -1,7 +1,7 @@
 <template>
   <card>
     <div slot="header">
-      <clipboard class="float-right"  :text="code.tree">
+      <clipboard class="float-right" :text="code.tree">
         <el-button type="warning">树形</el-button>
       </clipboard>
     </div>
@@ -55,11 +55,23 @@
         <clipboard :text="code.table">
           <el-button>index.vue</el-button>
         </clipboard>
+        <clipboard :text="code.tableMiddleware">
+          <el-button>中间件</el-button>
+        </clipboard>
         <clipboard :text="code.tableHeader">
           <el-button>头部</el-button>
         </clipboard>
+        <clipboard :text="code.tableSelect">
+          <el-button>搜索</el-button>
+        </clipboard>
         <clipboard :text="code.tableDate">
           <el-button>日期</el-button>
+        </clipboard>
+        <clipboard :text="code.tableImage">
+          <el-button>图片</el-button>
+        </clipboard>
+        <clipboard :text="code.tableSwitch">
+          <el-button>状态</el-button>
         </clipboard>
         <clipboard :text="code.tableGet">
           <el-button>获取</el-button>

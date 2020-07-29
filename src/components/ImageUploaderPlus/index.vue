@@ -26,7 +26,7 @@
           :style="{width: styleWidth,height:styleHeight}"/>
       <img
           v-else-if="value"
-          :src="this.$baseApi + value"
+          :src="$baseApi + value"
           class="upload-image"
           alt=""
           :style="{width: styleWidth,height:styleHeight}"/>

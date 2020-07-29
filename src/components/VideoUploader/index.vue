@@ -36,7 +36,7 @@
       <video
           v-else-if="value && !isLoading"
           class="upload-video"
-          :src="this.$baseApi + value"
+          :src="$baseApi + value"
           :style="{width: styleWidth,height:styleHeight}"/>
       <i
           v-else
