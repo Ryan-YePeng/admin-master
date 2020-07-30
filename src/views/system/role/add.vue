@@ -26,7 +26,7 @@
           </el-select>
         </el-form-item>
       </row-col>
-      <el-form-item label="数据权限" v-if="form.dataScope==='自定义'">
+      <el-form-item label="数据权限" v-show="form.dataScope==='自定义'">
         <tree-select
             v-model="form.deptIds"
             :keys="1"
@@ -46,13 +46,11 @@
 </template>
 
 <script>
-  import TreeSelect from '@/components/TreeSelect';
   import {addRoleApi} from '@/api/system/role';
   import {resetForm} from "@/utils/common";
 
   export default {
     name: "Add",
-    components: {TreeSelect},
     props: {
       dept: {
         type: Array,

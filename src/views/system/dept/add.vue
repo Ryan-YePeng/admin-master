@@ -39,13 +39,11 @@
 </template>
 
 <script>
-  import TreeSelect from '@/components/TreeSelect';
   import {addDeptApi} from '@/api/system/dept';
   import {resetForm} from "@/utils/common";
 
   export default {
     name: "Add",
-    components: {TreeSelect},
     props: {
       dept: {
         type: Array,

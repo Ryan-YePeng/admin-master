@@ -72,14 +72,12 @@
 </template>
 
 <script>
-  import TreeSelect from '@/components/TreeSelect';
   import {editUserApi} from '@/api/system/user';
   import {validatePhone, validEmail} from '@/utils/validate';
   import {resetForm} from "@/utils/common";
 
   export default {
     name: "Edit",
-    components: {TreeSelect},
     props: {
       dept: {
         type: Array,

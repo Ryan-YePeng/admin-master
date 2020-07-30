@@ -39,9 +39,17 @@ export const formatDateTime = (time, formatStr = 'YYYY-MM-DD HH:mm:ss') => {
 /**
  * @param {Object} target
  * @param {Object} object
+ * @param {Object=} _this
  * @description target从object中取值 target <= object
  * */
-export const objectEvaluate = (target, object) => {
+export const objectEvaluate = async (target, object, _this) => {
+  if (_this) {
+    await new Promise(resolve => {
+      _this.$nextTick(() => {
+        resolve()
+      })
+    })
+  }
   for (let key in target) {
     if (Object.prototype.hasOwnProperty.call(object, key)) {
       if (object[key] instanceof Array) {

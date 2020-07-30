@@ -73,14 +73,14 @@
       },
       add(obj) {
         let _this = this.$refs.Add;
-        if (obj) _this.form.pid = obj.id;
-        _this.visible = true
+        _this.visible = true;
+        if (obj) objectEvaluate(_this.form, {pid: obj.id}, this);
       },
       edit(obj) {
         let _this = this.$refs.Edit;
+        _this.visible = true;
         if (obj.pid === 0) obj.pid = null;
-        objectEvaluate(_this.form, obj);
-        _this.visible = true
+        objectEvaluate(_this.form, obj, this);
       },
       delData(id) {
         deleteDeptApi({deptId: id})

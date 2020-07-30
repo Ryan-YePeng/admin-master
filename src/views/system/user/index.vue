@@ -141,16 +141,10 @@
       },
       edit(obj) {
         let _this = this.$refs.Edit;
-        objectEvaluate(_this.form, obj);
-        _this.form.rolesId = [];
-        obj.roles.forEach(item => {
-          if (item) _this.form.rolesId.push(item.id)
-        })
-        _this.form.jobsId = [];
-        obj.jobs.forEach(item => {
-          if (item) _this.form.jobsId.push(item.id)
-        })
-        _this.visible = true
+        _this.visible = true;
+        obj.rolesId = obj.roles.map(item => item.id);
+        obj.jobsId = obj.jobs.map(item => item.id);
+        objectEvaluate(_this.form, obj, this);
       },
       delData(id) {
         deleteUserApi({ids: id})

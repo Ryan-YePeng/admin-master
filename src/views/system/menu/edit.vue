@@ -84,13 +84,12 @@
 
 <script>
   import IconSelect from '@/components/IconSelect';
-  import TreeSelect from '@/components/TreeSelect';
   import {editMenuApi} from '@/api/system/menu';
   import {resetForm} from "@/utils/common";
 
   export default {
     name: "Edit",
-    components: {IconSelect, TreeSelect},
+    components: {IconSelect},
     props: {
       menu: {
         type: Array,

@@ -68,6 +68,7 @@ Vue.use(Loading.directive);
  * */
 import Card from "@/components/Card";
 import RowCol from "@/components/RowCol";
+import TreeSelect from "@/components/TreeSelect";
 import ExpandTable from "@/components/ExpandTable";
 import SelectionTable from "@/components/SelectionTable";
 import DeleteButton from "@/components/DeleteButton";
@@ -76,6 +77,7 @@ import CustomizedPagination from "@/components/Pagination";
 
 Vue.component("Card", Card);
 Vue.component("RowCol", RowCol);
+Vue.component("TreeSelect", TreeSelect);
 Vue.component("ExpandTable", ExpandTable);
 Vue.component("SelectionTable", SelectionTable);
 Vue.component("DeleteButton", DeleteButton);

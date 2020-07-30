@@ -19,6 +19,7 @@
 <script>
   import VueTreeSelect from '@riophae/vue-treeselect';
   import '@riophae/vue-treeselect/dist/vue-treeselect.css';
+  import {isEmpty} from "@/utils/common";
 
   export default {
     name: "TreeSelect",
@@ -85,10 +86,10 @@
     },
     watch: {
       value(val, old) {
-        if (val && !old) { // 第一次输入执行
+        if (!isEmpty(val) && isEmpty(old)) { // 第一次输入执行
           this.val = val
         }
-        if (!val && this.val) { // 只有外边清空才执行
+        if (isEmpty(val) && !isEmpty(this.val)) { // 只有外边清空才执行
           this.val = null
         }
       }

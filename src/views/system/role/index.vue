@@ -144,12 +144,9 @@
       // 编辑
       edit(obj) {
         let _this = this.$refs.Edit;
-        objectEvaluate(_this.form, obj);
-        _this.form.deptIds = [];
-        obj.depts.forEach(item => {
-          if (item) _this.form.deptIds.push(item.id)
-        })
-        _this.visible = true
+        _this.visible = true;
+        obj.deptIds = obj.depts.map(item => item.id);
+        objectEvaluate(_this.form, obj, this);
       },
       // 删除
       delData(id) {
