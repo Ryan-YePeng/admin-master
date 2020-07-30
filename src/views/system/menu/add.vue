@@ -50,12 +50,12 @@
           <el-input v-model="form.title"></el-input>
         </el-form-item>
         <el-form-item slot="r" label="权限标识">
-          <el-input v-model="form.permission"></el-input>
+          <el-input v-model.trim="form.permission"></el-input>
         </el-form-item>
       </row-col>
       <row-col>
         <el-form-item label="路由名称">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model.trim="form.name"></el-input>
         </el-form-item>
         <el-form-item slot="r" label="菜单排序" prop="sort">
           <el-input-number
@@ -131,7 +131,6 @@
           if (!valid) return false;
           let data = {...this.form};
           if (!data.pid) data.pid = 0;
-          data.name = data.name.trim();
           this.$refs.Submit.start();
           addMenuApi(data).then(() => {
             this.$refs.Submit.stop();

@@ -62,7 +62,7 @@
           <el-button>头部</el-button>
         </clipboard>
         <clipboard :text="code.tableSelect">
-          <el-button>搜索</el-button>
+          <el-button>选择</el-button>
         </clipboard>
         <clipboard :text="code.tableDate">
           <el-button>日期</el-button>
