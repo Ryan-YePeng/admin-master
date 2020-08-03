@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '@/store'
 import {isHistory} from "@/settings";
 
 Vue.use(Router);
@@ -33,7 +34,8 @@ const createRouter = () => new Router({
 const router = createRouter()
 
 export const resetRouter = () => {
-  router.matcher = createRouter().matcher
+  if (store.getters.hasGenerateRouter)
+    router.matcher = createRouter().matcher
 }
 
 export default router

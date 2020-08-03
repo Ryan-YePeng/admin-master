@@ -15,6 +15,7 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
   modules[moduleName] = value.default;
   return modules;
 }, {});
+const cloneModules = deepClone(modules);
 
 // vuex持久化
 const plugins = [
@@ -52,9 +53,8 @@ const store = new Vuex.Store({
 
 // 重置vuex
 export const resetStore = () => {
-  const cloneModules = deepClone(modules);
   for (let module in store.state) {
-    if (module === 'info' || module === 'settings') continue
+    if (['info', 'settings'].includes(module)) continue
     for (let key in store.state[module])
       store.state[module][key] = deepClone(cloneModules[module].state[key])
   }
