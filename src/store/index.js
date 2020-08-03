@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import Cookies from "js-cookie";
 import {tokenCookieExpires, prefix} from '@/settings'
+import {deepClone} from "@/utils/common";
 
 Vue.use(Vuex);
 
@@ -48,6 +49,16 @@ const store = new Vuex.Store({
   modules,
   plugins
 });
+
+// 重置vuex
+export const resetStore = () => {
+  const cloneModules = deepClone(modules);
+  for (let module in store.state) {
+    if (module === 'info' || module === 'settings') continue
+    for (let key in store.state[module])
+      store.state[module][key] = deepClone(cloneModules[module].state[key])
+  }
+}
 
 Vue.prototype.$storeGet = store.getters;
 Vue.prototype.$storeSet = store.dispatch;

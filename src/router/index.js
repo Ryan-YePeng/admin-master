@@ -2,6 +2,7 @@ import router from './routers';
 import store from '@/store';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import {deepClone} from "@/utils/common";
 import {getMenuApi} from '@/api/system/menu';
 import {getUserInfoApi} from '@/api/person';
 import {startLoading, stopLoading} from '@/utils/EUI';
@@ -55,7 +56,7 @@ export function generateRouter() {
     getMenuApi()
       .then(result => {
         const menu = result.resultParam.content;
-        let tree = new TraverseTree(menu, layout)
+        let tree = new TraverseTree(menu, deepClone(layout))
         store.dispatch('setMenu', menu);
         store.dispatch('setSearchMenu', tree.getList());
         store.dispatch('setHasGenerateRouter');

@@ -145,3 +145,46 @@ export const resetForm = (_this, key = null, ref = 'Form') => {
     })
   })
 };
+
+/**
+ * @description 深拷贝函数
+ **/
+export function deepClone(data) {
+  const type = (obj) => {
+    let toString = Object.prototype.toString;
+    let map = {
+      '[object Boolean]': 'boolean',
+      '[object Number]': 'number',
+      '[object String]': 'string',
+      '[object Function]': 'function',
+      '[object Array]': 'array',
+      '[object Date]': 'date',
+      '[object RegExp]': 'regExp',
+      '[object Undefined]': 'undefined',
+      '[object Null]': 'null',
+      '[object Object]': 'object'
+    };
+    return map[toString.call(obj)];
+  }
+  let t = type(data), o, i, ni;
+  if (t === 'array') {
+    o = [];
+  } else if (t === 'object') {
+    o = {};
+  } else {
+    return data;
+  }
+  if (t === 'array') {
+    for (i = 0, ni = data.length; i < ni; i++) {
+      o.push(deepClone(data[i]));
+    }
+    return o;
+  } else if (t === 'object') {
+    for (i in data) {
+      if (Object.prototype.hasOwnProperty.call(data, i)) {
+        o[i] = deepClone(data[i]);
+      }
+    }
+    return o;
+  }
+}

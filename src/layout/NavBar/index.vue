@@ -62,7 +62,7 @@
       logout() {
         this.$msgBox('确定注销并退出系统吗？').then(() => {
           logoutApi().then(() => {
-            this.$storeSet('quitLogin');
+            this.$router.push({name: 'login'})
           })
         })
       }

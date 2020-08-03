@@ -65,7 +65,7 @@
           updatePassApi(data).then(result => {
             this.$refs.Submit.stop();
             if (result.status === 200)
-              this.$storeSet('quitLogin')
+              this.$router.push({name: 'login'})
           }).catch(() => {
             this.$refs.Submit.stop();
           })

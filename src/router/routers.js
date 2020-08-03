@@ -25,7 +25,15 @@ const constantRouterMap = [
   }
 ];
 
-export default new Router({
+const createRouter = () => new Router({
   mode: isHistory ? "history" : "hash",
   routes: constantRouterMap
 })
+
+const router = createRouter()
+
+export const resetRouter = () => {
+  router.matcher = createRouter().matcher
+}
+
+export default router

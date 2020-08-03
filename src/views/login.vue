@@ -41,7 +41,10 @@
   import {loginApi, getCodeApi} from '@/api/login';
   import {encrypt} from '@/utils/encrypt';
   import {generateRouter} from "@/router";
-  import {title, footerTxt, caseNumber, hasCode} from '@/settings';
+  import {resetStore} from '@/store';
+  import {resetRouter} from "@/router/routers";
+  import {removeCookiesStorage, removeSessionStorage} from "@/utils/storage";
+  import {title, footerTxt, caseNumber, hasCode, prefix} from '@/settings';
 
   export default {
     name: "Login",
@@ -60,7 +63,7 @@
         rules: {
           username: {required: true, message: '请输入用户名', trigger: 'blur'},
           password: {required: true, message: '请输入密码', trigger: 'blur'},
-          code: {required: true, message: '请输入验证码', trigger: 'blur'},
+          code: {required: true, message: '请输入验证码', trigger: 'blur'}
         }
       }
     },
@@ -85,8 +88,15 @@
       this.getCode();
       this.form.username = this.$storeGet.username;
       this.isRememberMe = this.$storeGet.rememberMe
+      this.init();
     },
     methods: {
+      init() {
+        removeSessionStorage(`${prefix}-LAYOUT`);
+        removeCookiesStorage(`${prefix}-TOKEN`);
+        resetRouter();
+        resetStore();
+      },
       getCode() {
         if (!this.hasCode) return;
         this.isImgLoading = true;

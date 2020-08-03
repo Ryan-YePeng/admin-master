@@ -61,7 +61,7 @@ service.interceptors.response.use(
       errorStatus = status;
       msgBox("登录状态已过期，您可以继续留在该页面，或者重新登录", "重新登录", "系统提示")
         .then(() => {
-          store.dispatch('quitLogin')
+          router.push({name: 'login'})
         })
         .catch(() => (errorStatus = null))
     } else if (status === 403) {
