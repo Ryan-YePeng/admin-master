@@ -410,7 +410,7 @@ export default {
     `delData(id) {
         delDataApi({id: id})
           .then(() => {
-            this.get();
+            this.getData();
             this.$refs[id].close()
           })
           .catch(() => {

@@ -111,7 +111,7 @@
           name: '',
           icon: '',
           iframe: false,
-          hidden: true,
+          hidden: false,
           cache: false,
           sort: 999,
           pid: null
