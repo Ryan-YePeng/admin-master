@@ -9,13 +9,21 @@
         row-key="id"
         :data="formData"
         :tree-props="{children: 'children'}">
-      <el-table-column prop="title" label="菜单名称"/>
+      <el-table-column prop="title" label="菜单名称">
+        <template slot-scope="scope">
+          <span @dblclick.stop="add(scope.row)">{{scope.row.title}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="icon" label="图标">
         <template slot-scope="scope">
           <svg-icon slot="prefix" :icon-class="scope.row.icon"/>
         </template>
       </el-table-column>
-      <el-table-column prop="sort" label="排序"/>
+      <el-table-column prop="sort" label="排序">
+        <template slot-scope="scope">
+          <span @dblclick.stop="edit(scope.row)">{{scope.row.sort}}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="路径名称">
         <template slot-scope="scope">
           <clipboard :text="scope.row.name">{{scope.row.name}}</clipboard>

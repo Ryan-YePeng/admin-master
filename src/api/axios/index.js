@@ -30,7 +30,12 @@ service.interceptors.response.use(
   response => {
     const {message, status} = response.data;
     if (message && status === 200) successMsg(message);
-    if (message && status !== 200) errorMsg(message);
+    if (message && status !== 200) {
+      if (message.includes('Data too long'))
+        errorMsg('内容过长，请求失败')
+      else
+        errorMsg(message)
+    }
     return response.data;
   },
   error => {

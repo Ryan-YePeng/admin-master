@@ -13,6 +13,8 @@ import App from "./App.vue";
 Vue.use(EVueContextmenu);
 Vue.prototype.$nodeEnv = process.env.NODE_ENV;
 Vue.prototype.$baseApi = process.env.VUE_APP_BASE_API;
+Vue.prototype.$isDev = process.env.NODE_ENV === 'development';
+Vue.prototype.$isProd = process.env.NODE_ENV === 'production';
 // Vue.prototype.$fileSaver = require('file-saver'); // 下载文件
 
 Vue.config.productionTip = false;

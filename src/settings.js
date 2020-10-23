@@ -21,7 +21,7 @@ module.exports = {
   // 记住密码时token的存储时间(天)
   tokenCookieExpires: 7,
   // 请求超时时间(s)
-  timeout: 20 * 1000,
+  timeout: 60 * 1000,
   // 是否启用history
   isHistory: true,
   // 分页条数设置

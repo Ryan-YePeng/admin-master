@@ -5,9 +5,9 @@
     </div>
     <div v-loading="isLoading" class="my-card__body" :style="bodyStyle">
       <slot></slot>
-    </div>
-    <div class="my-card__footer clearfix" v-if="$slots.footer || footer">
-      <slot name="footer">{{ footer }}</slot>
+      <div class="my-card__footer clearfix" v-if="$slots.footer || footer">
+        <slot name="footer">{{ footer }}</slot>
+      </div>
     </div>
   </div>
 </template>
