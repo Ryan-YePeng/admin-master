@@ -24,7 +24,7 @@
     "nprogress": "^0.2.0",
     "screenfull": "^5.0.2",
     "silly-datetime": "^0.1.2",
-    "tinymce": "^5.4.0",
+    "tinymce": "^5.10.0",
     "vue": "^2.6.11",
     "vue-cropper": "^0.5.2",
     "vue-router": "^3.3.2",
